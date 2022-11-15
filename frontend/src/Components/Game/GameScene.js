@@ -149,6 +149,7 @@ class GameScene extends Phaser.Scene {
   createScoreLabel(x, y, score) {
     const style = { fontSize: '32px', fill: '#000' };
     const label = new ScoreLabel(this, x, y, score, style);
+    // eslint-disable-next-line no-console
     console.log('score:', label);
     this.add.existing(label);
 
