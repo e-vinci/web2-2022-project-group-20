@@ -14,15 +14,15 @@ const ProductPage = () => {
 
     const html = `
     <div class="container">
+
     <div class="row">
 
         
-        <div class="col-4">
-            <img src="${gameboyimg}" alt="gameboy" class="img-fluid">
+        <div class="col-md-4 mb-2">
+            <img src="${gameboyimg}" alt="gameboy" class="img-fluid center-block" >
         </div>
 
-        
-        <div class="col-8" style="background-color: #a4c4d4;">
+        <div class="col-md-8" style="background-color: #a4c4d4;">
 
             <h1>${title}</h1>
             <button type="button" class="btn btn-primary btn-round mr-md-3 mb-md-0 mb-2" style="float: right;"><3</button>
