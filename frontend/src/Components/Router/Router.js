@@ -1,14 +1,15 @@
 
 import GamePage from '../Pages/GamePage';
 import HomePage from '../Pages/HomePage';
-import NewPage from '../Pages/NewPage';
 import ProductPage from '../Pages/ProductPage';
+import RegisterPage from '../Pages/RegisterPage';
+
  
 const routes = {
   '/': HomePage,
   '/game': GamePage,
-  '/new': NewPage,
   '/product': ProductPage,
+  '/register' : RegisterPage,
 };
 
 const Router = () => {
