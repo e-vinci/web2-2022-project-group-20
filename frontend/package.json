@@ -29,6 +29,7 @@
   "dependencies": {
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.1",
+    "boxicons": "^2.1.4",
     "clean-webpack-plugin": "^4.0.0",
     "phaser": "^3.55.2",
     "terser-webpack-plugin": "^5.3.6",
