@@ -43,8 +43,8 @@ function renderNavbar() {
     </li>
 
     <ul class="menu-links">
-        <li class="nav-link">
-            <a href="#">
+        <li class="">
+            <a href="/">
                 <i class='bx bx-home-alt icon' ></i>
                 <span class="text nav-text">Dashboard</span>
             </a>
@@ -65,14 +65,14 @@ function renderNavbar() {
             </a>
         </li>
 
-        <li class="nav-link">
+        <li class="">
             <a href="#">
                 <i class='bx bx-wallet icon' ></i>
                 <span class="text nav-text">Wallet</span>
             </a>
         </li>
 
-        <li class="nav-link">
+        <li class="">
             <a href="/contactpage">
                 <i class='bx bx-mail-send icon'></i>
                 <span class="text nav-text">CONTACT US </span>
@@ -83,6 +83,7 @@ function renderNavbar() {
 </div>
 
 <div class="bottom-content">
+
     <li class="">
         <a href="/register">
             <i class='bx bx-log-in icon' ></i>

@@ -1,6 +1,6 @@
 
 
-const Contactpage = ()=>{
+const ContactPage = ()=>{
     rendercontactusPage();
 
 };
@@ -42,4 +42,4 @@ Enter text here...
 
 }
 
-export default Contactpage;
+export default ContactPage;
