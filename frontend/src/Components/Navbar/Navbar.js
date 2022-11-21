@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
+import 'boxicons';
+import logo from '../../img/logo.png';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -11,35 +13,87 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
   const navbar = `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Add your brand here</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#" data-uri="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/game">Game</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/new">New Page</a>
-              </li>                        
-            </ul>
-          </div>
-        </div>
-      </nav>
+  <nav class = "sidebar">
+  <header>
+  <div class ="image-text">
+  <span class ="image">
+  <img src="${logo}" alt = "logo">
+  </span>
+
+  <div class = "text header-text">
+  <span class="name"> VINCID </span>
+  <span class = "profession"> BUY SELL EASILY </span>
+    </div>
+  </div
+  <i class='bx bxs-left-down-arrow-circle toggle' ></i>
+  <i class='bx bx-chevron-right toggle'></i>
+  
+  
+  </header>
+
+  <div class="menu-bar">
+    <div class ="menu">
+    <li class="search-box">
+          <i class='bx bx-search-alt icon' ></i>
+           <input type="search" placeholder="Search...">
+        </li>
+
+      <ul class="menu-links">
+        <li class="nav-link">
+            <a href="#"> 
+              <i class='bx bx-home icon' ></i> 
+              <span class="text nav-text">HOMEPAGE</span> 
+            </a>
+        </li>
+
+        <li class="nav-link">
+        <a href="#"> 
+          <i class='bx bx-home icon' ></i> 
+          <span class="text nav-text">HOMEPAGE</span> 
+        </a>
+    </li>
+
+    <li class="nav-link">
+    <a href="#"> 
+      <i class='bx bx-home icon' ></i> 
+      <span class="text nav-text">HOMEPAGE</span> 
+    </a>
+</li>
+
+<li class="nav-link">
+<a href="#"> 
+  <i class='bx bx-home icon' ></i> 
+  <span class="text nav-text">HOMEPAGE</span> 
+</a>
+</li>
+
+<li class="nav-link">
+<a href="#"> 
+  <i class='bx bx-home icon' ></i> 
+  <span class="text nav-text">HOMEPAGE</span> 
+</a>
+</li>
+        </ul>
+    </div>
+
+  <div class="bottom-content">
+      <li class="">
+        <a href="#"> 
+          <i class='bx bx-log-out icon'></i>
+          <span class="text nav-text">LOGOUT</span> 
+        </a>
+      </li>
+
+    <li class="">
+      <a href="#"> 
+      <i class='bx bx-at icon'></i>
+        <span class="text nav-text">about us</span> 
+      </a>
+    </li>
+
+</div>
+  </div>
+  </nav>
   `;
   navbarWrapper.innerHTML = navbar;
 };
