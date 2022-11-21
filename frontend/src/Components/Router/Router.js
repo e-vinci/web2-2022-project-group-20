@@ -3,6 +3,7 @@ import GamePage from '../Pages/GamePage';
 import HomePage from '../Pages/HomePage';
 import ProductPage from '../Pages/ProductPage';
 import RegisterPage from '../Pages/RegisterPage';
+import Contactpage from '../Pages/ContactPage';
 
  
 const routes = {
@@ -10,6 +11,7 @@ const routes = {
   '/game': GamePage,
   '/product': ProductPage,
   '/register' : RegisterPage,
+  '/contactpage' : Contactpage
 };
 
 const Router = () => {

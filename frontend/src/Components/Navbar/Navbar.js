@@ -13,8 +13,6 @@ import logo from '../../img/logo.png';
 const Navbar = () => {
   renderNavbar();
   darkmode();
-
-
 };
 
 
@@ -59,10 +57,7 @@ function renderNavbar() {
             </a>
         </li>
 
-        
-
-        
-
+    
         <li class="nav-link">
             <a href="#">
                 <i class='bx bx-heart icon' ></i>
@@ -74,6 +69,13 @@ function renderNavbar() {
             <a href="#">
                 <i class='bx bx-wallet icon' ></i>
                 <span class="text nav-text">Wallet</span>
+            </a>
+        </li>
+
+        <li class="nav-link">
+            <a href="/contactpage">
+                <i class='bx bx-mail-send icon'></i>
+                <span class="text nav-text">CONTACT US </span>
             </a>
         </li>
 
