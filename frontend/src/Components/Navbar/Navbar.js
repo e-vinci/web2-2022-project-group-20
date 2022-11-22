@@ -10,8 +10,121 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
-  const navbar = ``;
+  const navbar = `
+  <nav class = "sidebar">
+  <header>
+  <div class ="image-text">
+  <span class ="image">
+  <img src="${logo}" alt = "logo">
+  </span>
+
+  <div class = "text header-text">
+  <span class="name"> VINCID </span>
+  <span class = "profession"> BUY SELL EASILY </span>
+    </div>
+  </div
+  <i class='bx bxs-left-down-arrow-circle toggle' ></i>
+  <i class='bx bx-chevron-right toggle'></i>
+  
+  
+  </header>
+
+  <div class="menu-bar">
+    <div class ="menu">
+    <li class="search-box">
+          <i class='bx bx-search-alt icon' ></i>
+           <input type="search" placeholder="Search...">
+        </li>
+
+      <ul class="menu-links">
+        <li class="nav-link">
+            <a href="#"> 
+              <i class='bx bx-home icon' ></i> 
+              <span class="text nav-text">HOMEPAGE</span> 
+            </a>
+        </li>
+
+        <li class="nav-link">
+        <a href="#"> 
+          <i class='bx bx-home icon' ></i> 
+          <span class="text nav-text">HOMEPAGE</span> 
+        </a>
+    </li>
+
+    <li class="nav-link">
+    <a href="#"> 
+      <i class='bx bx-home icon' ></i> 
+      <span class="text nav-text">HOMEPAGE</span> 
+    </a>
+</li>
+
+<li class="nav-link">
+<a href="#"> 
+  <i class='bx bx-home icon' ></i> 
+  <span class="text nav-text">HOMEPAGE</span> 
+</a>
+</li>
+
+<li class="nav-link">
+<a href="#"> 
+  <i class='bx bx-home icon' ></i> 
+  <span class="text nav-text">HOMEPAGE</span> 
+</a>
+</li>
+        </ul>
+    </div>
+
+  <div class="bottom-content">
+      <li class="">
+        <a href="#"> 
+          <i class='bx bx-log-out icon'></i>
+          <span class="text nav-text">LOGOUT</span> 
+        </a>
+      </li>
+
+    <li class="">
+      <a href="#"> 
+      <i class='bx bx-at icon'></i>
+        <span class="text nav-text">about us</span> 
+      </a>
+    </li>
+
+</div>
+  </div>
+  </nav>
+  `;
   navbarWrapper.innerHTML = navbar;
 };
 
+ /* function navbarclick(){
+  const body = document.querySelector("body");
+  const sidebar = body.querySelector(".sidebar");
+  const toggle = body.querySelector(".toggle");
+
+  toggle.addEventListener("click", () =>{
+    sidebar.classList.toggle("close");
+  });
+} */
+
+
+function darkmode(){
+  const body = document.querySelector('body');
+  const modeSwitch = body.querySelector(".toggle-switch");
+  const modeText = body.querySelector(".mode-text");
+
+  modeSwitch.addEventListener("click" , () =>{
+    body.classList.toggle("dark");
+    if(body.classList.contains("dark")){
+      modeText.innerText = "Light mode";
+  }else{
+      modeText.innerText = "Dark mode";
+      
+  }
+
+  });
+    
+
+
+
+}
 export default Navbar;
