@@ -1,5 +1,5 @@
 
-import { clearPage, renderPageTitle } from '../../utils/render';
+/* import { clearPage, renderPageTitle } from '../../utils/render';
 
 const RegisterPage = () => {
     clearPage();
@@ -72,4 +72,4 @@ function renderregisterPage() {
     main.innerHTML = registration;
 }
 
-export default RegisterPage;
+export default RegisterPage; */

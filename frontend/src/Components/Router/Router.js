@@ -4,6 +4,7 @@ import HomePage from '../Pages/HomePage';
 import ProductPage from '../Pages/ProductPage';
 import RegisterPage from '../Pages/RegisterPage';
 import ContactPage from '../Pages/ContactPage';
+import loginpage from '../Pages/LoginPage';
 
  
 const routes = {
@@ -11,7 +12,8 @@ const routes = {
   '/game': GamePage,
   '/product': ProductPage,
   '/register' : RegisterPage,
-  '/contactpage' : ContactPage
+  '/contactpage' : ContactPage,
+  '/loginpage' : loginpage,
 };
 
 const Router = () => {

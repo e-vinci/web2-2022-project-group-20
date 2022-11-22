@@ -84,8 +84,10 @@ function renderNavbar() {
 
 <div class="bottom-content">
 
+    
+    
     <li class="">
-        <a href="/register">
+        <a href="/loginpage">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG IN </span>
         </a>
