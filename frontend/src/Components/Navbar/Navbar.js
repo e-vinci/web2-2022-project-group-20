@@ -15,7 +15,7 @@ const Navbar = () => {
   <header>
   <div class ="image-text">
   <span class ="image">
-  <img src="${logo}" alt = "logo">
+  <img src="" alt = "logo">
   </span>
 
   <div class = "text header-text">
@@ -107,6 +107,7 @@ const Navbar = () => {
 } */
 
 
+// eslint-disable-next-line no-unused-vars
 function darkmode(){
   const body = document.querySelector('body');
   const modeSwitch = body.querySelector(".toggle-switch");
