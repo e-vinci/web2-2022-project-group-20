@@ -986,6 +986,8 @@ form.sign-in-form {
   width: 100;
   align-items: center;
   position: relative;
+  padding-left: 300px;
+
 }
 .card{
   width: 100;
@@ -997,6 +999,7 @@ form.sign-in-form {
 
 /* CSS FOR PRODUCT PAGE */
 .map-responsive{
+  padding-left: 300px;
 
     overflow:hidden;
 
