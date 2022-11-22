@@ -1,2 +1,2 @@
 ### GET all articles
-GET {{host}}/articles/
+GET http://localhost:3000//articles/
