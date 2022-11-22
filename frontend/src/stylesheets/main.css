@@ -457,7 +457,6 @@ form .user-details .input-box{
 /* CSS FOR LOGIN REGISTER PAGE */
 .container {
   position: relative;
-  
   width: 100%;
   background-color: #fff;
   min-height: 100vh;
@@ -989,27 +988,20 @@ form.sign-in-form {
   padding-left: 300px;
 
 }
-.card{
+
+.containerproduct{
   width: 100;
+  align-items: center;
   position: relative;
+  padding-left: 250px;
 }
+
 
 
 
 
 /* CSS FOR PRODUCT PAGE */
-.map-responsive{
-  padding-left: 300px;
 
-    overflow:hidden;
-
-    padding-bottom:56.25%;
-
-    position:relative;
-
-    height:0;
-
-}
 .map-responsive iframe{
 
     left:0;
