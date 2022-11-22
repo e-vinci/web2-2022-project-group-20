@@ -33,7 +33,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+
   background-color: var(--body-color);
   transition: var(--tran-05);
 }
@@ -454,13 +454,15 @@ form .user-details .input-box{
   }
 } */
 
-/* CSS FOR CONTACTUS PAGE */
+/* CSS FOR LOGIN REGISTER PAGE */
 
 .container {
   position: relative;
+  
   width: 100%;
   background-color: #fff;
   min-height: 100vh;
+
   overflow: hidden;
 }
 

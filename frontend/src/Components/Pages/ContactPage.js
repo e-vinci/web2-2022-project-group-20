@@ -7,7 +7,7 @@ const ContactPage = ()=>{
 
 function rendercontactusPage(){
     const render = `
-    <div class="container">
+    <div class="containercontact">
     <div class="title"> CONTACT US</div>
     <div class="content">
       <form action="#">
