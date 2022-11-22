@@ -18,14 +18,20 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.11",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pg": "^8.8.0"
   },
   "devDependencies": {
     "eslint": "^8.19.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
-    "nodemon": "^2.0.19",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.20",
     "prettier-airbnb-config": "^1.0.0"
   },
   "author": "e-Baron"
