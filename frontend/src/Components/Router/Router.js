@@ -1,5 +1,3 @@
-
-import GamePage from '../Pages/GamePage';
 import HomePage from '../Pages/HomePage';
 import ProductPage from '../Pages/ProductPage';
 import RegisterPage from '../Pages/RegisterPage';
@@ -9,7 +7,6 @@ import loginpage from '../Pages/LoginPage';
  
 const routes = {
   '/': HomePage,
-  '/game': GamePage,
   '/product': ProductPage,
   '/register' : RegisterPage,
   '/contactpage' : ContactPage,

@@ -15,8 +15,6 @@ const Navbar = () => {
   darkmode();
 };
 
-
-
 function renderNavbar() {
   const anonymousUserNavbar= `
   <nav class = "sidebar close">
@@ -50,8 +48,8 @@ function renderNavbar() {
             </a>
         </li>
 
-        <li class="nav-link">
-            <a href="#">
+        <li class="">
+            <a href="/product">
                 <i class='bx bx-bar-chart-alt-2 icon' ></i>
                 <span class="text nav-text">PRODUCTS</span>
             </a>
@@ -126,6 +124,7 @@ function renderNavbar() {
 } */
 
 
+// eslint-disable-next-line no-unused-vars
 function darkmode(){
   const body = document.querySelector('body');
   const modeSwitch = body.querySelector(".toggle-switch");

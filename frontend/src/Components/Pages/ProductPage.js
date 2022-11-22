@@ -25,7 +25,7 @@ const ProductPage = async () => {
     const main = document.querySelector('main');
 
     const html = `
-<div class="container">
+<div class="containerproduct">
 
     <div class="row">
 
