@@ -124,6 +124,7 @@ function renderNavbar() {
 } */
 
 
+// eslint-disable-next-line no-unused-vars
 function darkmode(){
   const body = document.querySelector('body');
   const modeSwitch = body.querySelector(".toggle-switch");
