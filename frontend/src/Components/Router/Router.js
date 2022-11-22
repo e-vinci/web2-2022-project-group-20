@@ -3,6 +3,7 @@ import ProductPage from '../Pages/ProductPage';
 import RegisterPage from '../Pages/RegisterPage';
 import ContactPage from '../Pages/ContactPage';
 import loginpage from '../Pages/LoginPage';
+import panier from '../Pages/panier';
 
  
 const routes = {
@@ -11,6 +12,7 @@ const routes = {
   '/register' : RegisterPage,
   '/contactpage' : ContactPage,
   '/loginpage' : loginpage,
+  '/panier' : panier,
 };
 
 const Router = () => {

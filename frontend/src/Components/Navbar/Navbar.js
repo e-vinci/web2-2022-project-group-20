@@ -63,6 +63,13 @@ function renderNavbar() {
         </li>
 
         <li class="">
+            <a href="/panier">
+            <i class='bx bx-basket icon'></i>
+                <span class="text nav-text">basket</span>
+            </a>
+        </li>
+
+        <li class="">
             <a href="#">
                 <i class='bx bx-wallet icon' ></i>
                 <span class="text nav-text">Wallet</span>
