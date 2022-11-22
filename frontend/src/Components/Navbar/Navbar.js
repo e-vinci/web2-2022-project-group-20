@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import 'boxicons';
 import logo from '../../img/logo.png';
 
 /**
