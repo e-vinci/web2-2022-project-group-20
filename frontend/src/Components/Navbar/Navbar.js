@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
+import 'boxicons';
+import logo from '../../img/logo.png';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -9,91 +11,106 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
  */
 
 const Navbar = () => {
-  const navbarWrapper = document.querySelector('#navbarWrapper');
-  const navbar = `
-  <nav class = "sidebar">
+  renderNavbar();
+  darkmode();
+};
+
+function renderNavbar() {
+  const anonymousUserNavbar= `
+  <nav class = "sidebar close">
   <header>
-  <div class ="image-text">
-  <span class ="image">
-  <img src="${logo}" alt = "logo">
-  </span>
-
-  <div class = "text header-text">
-  <span class="name"> VINCID </span>
-  <span class = "profession"> BUY SELL EASILY </span>
+    <div class ="image-text">
+        <span class ="image">
+          <img src="${logo}" alt = "logo">
+        </span>
+        <div class="text logo-text">
+        <span class="name">VINCID</span>
+        <span class="profession">SELL, BUY EASILY</span>
     </div>
-  </div
-  <i class='bx bxs-left-down-arrow-circle toggle' ></i>
-  <i class='bx bx-chevron-right toggle'></i>
-  
-  
-  </header>
+</div>
 
-  <div class="menu-bar">
-    <div class ="menu">
+<i class='bx bx-chevron-right toggle'></i>
+</header>
+
+<div class="menu-bar">
+<div class="menu">
+
     <li class="search-box">
-          <i class='bx bx-search-alt icon' ></i>
-           <input type="search" placeholder="Search...">
-        </li>
+        <i class='bx bx-search icon'></i>
+        <input type="text" placeholder="Search...">
+    </li>
 
-      <ul class="menu-links">
-        <li class="nav-link">
-            <a href="#"> 
-              <i class='bx bx-home icon' ></i> 
-              <span class="text nav-text">HOMEPAGE</span> 
+    <ul class="menu-links">
+        <li class="">
+            <a href="/">
+                <i class='bx bx-home-alt icon' ></i>
+                <span class="text nav-text">Dashboard</span>
             </a>
         </li>
 
+        <li class="">
+            <a href="/product">
+                <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                <span class="text nav-text">PRODUCTS</span>
+            </a>
+        </li>
+
+    
         <li class="nav-link">
-        <a href="#"> 
-          <i class='bx bx-home icon' ></i> 
-          <span class="text nav-text">HOMEPAGE</span> 
-        </a>
-    </li>
+            <a href="#">
+                <i class='bx bx-heart icon' ></i>
+                <span class="text nav-text">Likes ITEMS</span>
+            </a>
+        </li>
 
-    <li class="nav-link">
-    <a href="#"> 
-      <i class='bx bx-home icon' ></i> 
-      <span class="text nav-text">HOMEPAGE</span> 
-    </a>
-</li>
+        <li class="">
+            <a href="#">
+                <i class='bx bx-wallet icon' ></i>
+                <span class="text nav-text">Wallet</span>
+            </a>
+        </li>
 
-<li class="nav-link">
-<a href="#"> 
-  <i class='bx bx-home icon' ></i> 
-  <span class="text nav-text">HOMEPAGE</span> 
-</a>
-</li>
+        <li class="">
+            <a href="/contactpage">
+                <i class='bx bx-mail-send icon'></i>
+                <span class="text nav-text">CONTACT US </span>
+            </a>
+        </li>
 
-<li class="nav-link">
-<a href="#"> 
-  <i class='bx bx-home icon' ></i> 
-  <span class="text nav-text">HOMEPAGE</span> 
-</a>
-</li>
-        </ul>
-    </div>
-
-  <div class="bottom-content">
-      <li class="">
-        <a href="#"> 
-          <i class='bx bx-log-out icon'></i>
-          <span class="text nav-text">LOGOUT</span> 
-        </a>
-      </li>
-
-    <li class="">
-      <a href="#"> 
-      <i class='bx bx-at icon'></i>
-        <span class="text nav-text">about us</span> 
-      </a>
-    </li>
-
+    </ul>
 </div>
-  </div>
-  </nav>
-  `;
-  navbarWrapper.innerHTML = navbar;
+
+<div class="bottom-content">
+
+    
+    
+    <li class="">
+        <a href="/loginpage">
+            <i class='bx bx-log-in icon' ></i>
+            <span class="text nav-text">LOG IN </span>
+        </a>
+    </li>
+
+    <li class="mode">
+        <div class="sun-moon">
+            <i class='bx bx-moon icon moon'></i>
+            <i class='bx bx-sun icon sun'></i>
+        </div>
+        <span class="mode-text text">Dark mode</span>
+
+        <div class="toggle-switch">
+            <span class="switch"></span>
+        </div>
+    </li>
+    
+</div>
+</div>
+
+</nav>`;
+
+
+  const navbar = document.querySelector('#navbarWrapper')
+  navbar.innerHTML = anonymousUserNavbar;
 };
 
  /* function navbarclick(){

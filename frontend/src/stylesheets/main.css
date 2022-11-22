@@ -982,6 +982,16 @@ form.sign-in-form {
  }
 }
 
+.containerhomepage{
+  width: 100;
+  align-items: center;
+  position: relative;
+}
+.card{
+  width: 100;
+  position: relative;
+}
+
 
 
 

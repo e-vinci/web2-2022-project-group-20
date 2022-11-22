@@ -7,7 +7,7 @@ import loginpage from '../Pages/LoginPage';
  
 const routes = {
   '/': HomePage,
-  '/game': GamePage,
+  
   '/product': ProductPage,
   '/register' : RegisterPage,
   '/contactpage' : ContactPage,
