@@ -15,8 +15,6 @@ const Navbar = () => {
   darkmode();
 };
 
-
-
 function renderNavbar() {
   const anonymousUserNavbar= `
   <nav class = "sidebar close">
