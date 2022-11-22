@@ -319,7 +319,7 @@ body.dark .home .text{
 
 
 /* CSS FOR REGISTRATION PAGE 
-.container{
+.containercontainercontact{
   max-width: 1000px;
   width: 100%;
   background-color: #fff;
@@ -327,12 +327,12 @@ body.dark .home .text{
   border-radius: 25px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
-.container .title{
+.contentContact .title{
   font-size: 50px;
   font-weight: 5000;
   position: relative;
 }
-.container .title::before{
+.contentContact .title::before{
   content: "";
   position: absolute;
   left: 0;
@@ -342,7 +342,7 @@ body.dark .home .text{
   border-radius: 5px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
-.content form .user-details{
+.contentContact form .user-details{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -455,7 +455,6 @@ form .user-details .input-box{
 } */
 
 /* CSS FOR LOGIN REGISTER PAGE */
-
 .container {
   position: relative;
   
@@ -846,8 +845,147 @@ form.sign-in-form {
   }
 }
 
+/* CSS FOR CONTACTUS PAGE */
+
+.containercontact{
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  padding: 20px 60px 30px 40px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.containercontact .contentcontact{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.containercontact .contentcontact .left-side{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  position: relative;
+}
+.contentcontact .left-side::before{
+  content: '';
+  position: absolute;
+  height: 70%;
+  width: 2px;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #afafb6;
+}
+.contentcontact .left-side .details{
+  margin: 14px;
+  text-align: center;
+}
+.contentcontact .left-side .details i{
+  font-size: 30px;
+  color: #3e2093;
+  margin-bottom: 10px;
+}
+.contentcontact .left-side .details .topic{
+  font-size: 18px;
+  font-weight: 500;
+}
+.contentcontact .left-side .details .text-one,
+.contentcontact .left-side .details .text-two{
+  font-size: 14px;
+  color: #afafb6;
+}
+.containercontact .contentcontact .right-side{
+  width: 75%;
+  margin-left: 75px;
+}
+.contentcontact .right-side .topic-text{
+  font-size: 23px;
+  font-weight: 600;
+  color: #3e2093;
+}
+.right-side .input-box{
+  height: 50px;
+  width: 100%;
+  margin: 12px 0;
+}
+.right-side .input-box input,
+.right-side .input-box textarea{
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: #F0F1F8;
+  border-radius: 6px;
+  padding: 0 15px;
+  resize: none;
+}
+.right-side .message-box{
+  min-height: 110px;
+}
+.right-side .input-box textarea{
+  padding-top: 6px;
+}
+.right-side .button{
+  display: inline-block;
+  margin-top: 12px;
+}
+.right-side .button input[type="button"]{
+  color: #fff;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: #3e2093;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.button input[type="button"]:hover{
+  background: #5029bc;
+}
+
+@media (max-width: 950px) {
+  .containercontact{
+    width: 90%;
+    padding: 30px 40px 40px 35px ;
+  }
+  .containercontact .content .right-side{
+   width: 75%;
+   margin-left: 55px;
+}
+}
+@media (max-width: 820px) {
+  .containercontact{
+    margin: 40px 0;
+    height: 100%;
+  }
+  .containercontact .contentcontact{
+    flex-direction: column-reverse;
+  }
+ .containercontact .contentcontact .left-side{
+   width: 100%;
+   flex-direction: row;
+   margin-top: 40px;
+   justify-content: center;
+   flex-wrap: wrap;
+ }
+ .containercontact .contentcontact .left-side::before{
+   display: none;
+ }
+ .containercontact .contentcontact .right-side{
+   width: 100%;
+   margin-left: 0;
+ }
+}
 
 
+
+
+/* CSS FOR PRODUCT PAGE */
 .map-responsive{
 
     overflow:hidden;
@@ -859,7 +997,6 @@ form.sign-in-form {
     height:0;
 
 }
-
 .map-responsive iframe{
 
     left:0;

@@ -50,8 +50,8 @@ function renderNavbar() {
             </a>
         </li>
 
-        <li class="nav-link">
-            <a href="#">
+        <li class="">
+            <a href="/product">
                 <i class='bx bx-bar-chart-alt-2 icon' ></i>
                 <span class="text nav-text">PRODUCTS</span>
             </a>
