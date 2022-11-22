@@ -8,7 +8,8 @@ CREATE TABLE vinced.membres (
 	nom VARCHAR(50) NOT NULL CHECK (nom<>''),
 	prenom VARCHAR(50) NOT NULL CHECK (prenom<>''),
 	mdp VARCHAR(50) NOT NULL CHECK ( mdp <> '' ),
-	image_profil VARCHAR(100) -- TODO: Mettre le path pour l'image par défaut
+	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
+    is_admin BOOLEAN DEFAULT false
 );
 
 CREATE TABLE vinced.adresses (
