@@ -42,6 +42,19 @@ router.get("/user/:id", async (req, res) => {
 });
 
 /**
+ * GET all articles by favorite user id
+ */
+router.get("/favorite/:id", async (req, res) => {
+    try {
+        const articles = await articlesModel.getFavoriteArticles(req.params.id);
+        return res.json(articles);
+    } catch (e) {
+        return res.sendStatus(502);
+    }
+});
+
+
+/**
  * GET all articles by category id
  */
 router.get("/category/:id", async (req, res) => {
