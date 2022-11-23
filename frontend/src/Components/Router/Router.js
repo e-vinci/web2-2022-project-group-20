@@ -1,6 +1,5 @@
 import HomePage from '../Pages/HomePage';
 import ProductPage from '../Pages/ProductPage';
-import RegisterPage from '../Pages/RegisterPage';
 import ContactPage from '../Pages/ContactPage';
 import loginpage from '../Pages/LoginPage';
 import panier from '../Pages/panier';
@@ -9,7 +8,6 @@ import panier from '../Pages/panier';
 const routes = {
   '/': HomePage,
   '/product': ProductPage,
-  '/register' : RegisterPage,
   '/contactpage' : ContactPage,
   '/loginpage' : loginpage,
   '/panier' : panier,
