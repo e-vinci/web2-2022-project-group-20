@@ -72,14 +72,14 @@ function renderNavbar() {
         <li class="">
             <a href="#">
                 <i class='bx bx-wallet icon' ></i>
-                <span class="text nav-text">Wallet</span>
+                <span class="text nav-text">Wallets</span>
             </a>
         </li>
 
         <li class="">
             <a href="/contactpage">
                 <i class='bx bx-mail-send icon'></i>
-                <span class="text nav-text">CONTACT US </span>
+                <span class="text nav-text">CONTACT MOI</span>
             </a>
         </li>
 
