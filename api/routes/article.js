@@ -1,9 +1,9 @@
 const express = require("express");
-const {Articles} = require("../models/articles");
+const {Articles: Article} = require("../models/articles");
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
 const router = express.Router();
-const articlesModel = new Articles();
+const articlesModel = new Article();
 
 /**
  * GET all articles
@@ -46,7 +46,7 @@ router.get("/user/:id", async (req, res) => {
  */
 router.get("/favorite/:id", async (req, res) => {
     try {
-        const articles = await articlesModel.getFavoriteArticles(req.params.id);
+        const articles = await articlesModel.getUsersFavoriteArticles(req.params.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);

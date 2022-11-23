@@ -23,9 +23,9 @@ class Articles{
         }
     }
 
-
-    async getArticle(id){
-        const query = `SELECT id_annonce,
+    async getArticleById(id){
+        const query = {
+            text: `SELECT id_annonce,
                               nom,
                               description,
                               id_acheteur,
@@ -34,7 +34,9 @@ class Articles{
                               prix,
                               status
                        FROM vinced.posts
-                       WHERE id_annonce = ${id}`;
+                       WHERE id_annonce = $1`,
+            values: [id]
+        };
         try {
             const {rows} = await db.query(query);
             return rows;
@@ -44,8 +46,9 @@ class Articles{
     }
 
 
-    async getArticlesByUser(id){
-        const query = `SELECT id_annonce,
+    async getArticlesByUserId(id){
+        const query = {
+            text: `SELECT id_annonce,
                                 nom,
                                 description,
                                 id_acheteur,
@@ -54,8 +57,10 @@ class Articles{
                                 prix,
                                 status
                         FROM vinced.posts
-                        WHERE id_vendeur = ${id}
-                        ORDER BY id_annonce DESC`;
+                        WHERE id_vendeur = $1
+                        ORDER BY id_annonce DESC`,
+            values: [id]
+        };
         try {
             const {rows} = await db.query(query);
             return rows;
@@ -64,8 +69,9 @@ class Articles{
         }
     }
 
-    async getFavoriteArticles(id){
-        const query = `SELECT id_annonce,
+    async getUsersFavoriteArticles(id){
+        const query = {
+            text: `SELECT id_annonce,
                                 nom,
                                 description,
                                 id_acheteur,
@@ -76,9 +82,10 @@ class Articles{
                         FROM vinced.posts
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
-                                                WHERE id_user = ${id})
-                        ORDER BY id_annonce DESC`;
-
+                                                WHERE id_user = $1)
+                        ORDER BY id_annonce DESC`,
+            values: [id]
+        };
         try {
             const {rows} = await db.query(query);
             return rows;
@@ -87,8 +94,9 @@ class Articles{
         }
     }
 
-    async getArticlesByCategory(id){
-        const query = `SELECT id_annonce,
+    async getArticlesByCategoryId(id){
+        const query = {
+            text: `SELECT id_annonce,
                                 nom,
                                 description,
                                 id_acheteur,
@@ -97,8 +105,10 @@ class Articles{
                                 prix,
                                 status
                         FROM vinced.posts
-                        WHERE id_categorie = ${id}
-                        ORDER BY id_annonce DESC`;
+                        WHERE id_categorie = $1
+                        ORDER BY id_annonce DESC`,
+            values: [id]
+        };
         try {
             const {rows} = await db.query(query);
             return rows;
@@ -108,7 +118,8 @@ class Articles{
     }
 
     async getArticlesBySearch(search){
-        const query = `SELECT id_annonce,
+        const query = {
+            text: `SELECT id_annonce,
                                 nom,
                                 description,
                                 id_acheteur,
@@ -117,8 +128,10 @@ class Articles{
                                 prix,
                                 status
                         FROM vinced.posts
-                        WHERE nom ILIKE '%${search}%'
-                        ORDER BY id_annonce DESC`;
+                        WHERE nom ILIKE '%$1%'
+                        ORDER BY id_annonce DESC`,
+            values: [search]
+         };
         try {
             const {rows} = await db.query(query);
             return rows;
@@ -126,9 +139,6 @@ class Articles{
             throw new Error("Error while getting all posts from the database.");
         }
     }
-
-    
-
 }
 module.exports = {Articles};
 
