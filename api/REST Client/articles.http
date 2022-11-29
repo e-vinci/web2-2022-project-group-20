@@ -2,7 +2,7 @@
 GET http://localhost:3000/articles/
 
 ### GET one article
-GET http://localhost:3000/articles/?id=5
+GET http://localhost:3000/articles/?id=7
 
 ### POST one article
 POST http://localhost:3000/articles/
@@ -13,7 +13,7 @@ Content-Type: application/json
     "description": "This is my first article",
     "prix": 10,
     "id_vendeur": 1,
-    "photo": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+    "photo": "https://imgur.com/gallery/lUlHRYS"
 
 }
 
