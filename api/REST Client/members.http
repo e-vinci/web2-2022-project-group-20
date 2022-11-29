@@ -1,0 +1,2 @@
+### GET member by id
+GET http://localhost:3000/members/1
