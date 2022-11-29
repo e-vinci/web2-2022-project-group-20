@@ -4,12 +4,13 @@ const {Articles: Article} = require("../models/articles");
 
 const router = express.Router();
 const articlesModel = new Article();
-
 /**
  * GET all articles
  */
 router.get("/", async (req, res) => {
     try {
+        // eslint-disable-next-line no-console
+        console.log("articlesModel: ", articlesModel.getAllArticles());
         const articles = await articlesModel.getAllArticles();
         return res.json(articles);
     } catch (e) {

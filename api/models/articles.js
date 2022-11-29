@@ -14,15 +14,12 @@ class Articles{
                               status
                         FROM vinced.annonces
                         ORDER BY id_annonce DESC`;
-        try {
             const {rows} = await db.query(query);
             return rows;
-        } catch (e) {
-            e.print();
-            throw new Error("Error while getting all posts from the database.");
-        }
+        
     }
 
+    // eslint-disable-next-line class-methods-use-this
     async getArticleById(id){
         const query = {
             text: `SELECT id_annonce,
@@ -46,6 +43,7 @@ class Articles{
     }
 
 
+    // eslint-disable-next-line class-methods-use-this
     async getArticlesByUserId(id){
         const query = {
             text: `SELECT id_annonce,
@@ -69,6 +67,7 @@ class Articles{
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     async getUsersFavoriteArticles(id){
         const query = {
             text: `SELECT id_annonce,
@@ -94,6 +93,7 @@ class Articles{
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     async getArticlesByCategoryId(id){
         const query = {
             text: `SELECT id_annonce,
@@ -117,6 +117,7 @@ class Articles{
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     async getArticlesBySearch(search){
         const query = {
             text: `SELECT id_annonce,

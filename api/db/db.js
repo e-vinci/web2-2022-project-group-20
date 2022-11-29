@@ -1,21 +1,20 @@
+/* eslint-disable no-unused-vars */
 const {Pool} = require("pg");
 
-
-/* const dbConfig = {
+const dbConfig = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB_DATABASE,
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    ssl: {rejectUnauthorized: false}
-}; */
+    password:process.env.DB_PASSWORD,
+};
 
-// const pool = new Pool(dbConfig);
+const pool = new Pool(dbConfig);
 
-const pool = new Pool({
-    connectionString: process.env.DB_URL,
-    ssl: !!process.env.DATABASE_URL
-})
+// const pool = new Pool({
+//     connectionString: process.env.DB_URL,
+//     ssl: !!process.env.DATABASE_URL
+// })
 
 module.exports = {
     query: (text, params) =>  pool.query(text, params)
