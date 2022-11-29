@@ -30,7 +30,7 @@ class Articles{
                               date_pub,
                               prix,
                               status
-                       FROM vinced.posts
+                       FROM vinced.annonces
                        WHERE id_annonce = $1`,
             values: [id]
         };
@@ -54,7 +54,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE id_vendeur = $1
                         ORDER BY id_annonce DESC`,
             values: [id]
@@ -78,7 +78,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
                                                 WHERE id_user = $1)
@@ -104,7 +104,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE id_categorie = $1
                         ORDER BY id_annonce DESC`,
             values: [id]
@@ -128,7 +128,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE nom ILIKE '%$1%'
                         ORDER BY id_annonce DESC`,
             values: [search]
@@ -140,7 +140,24 @@ class Articles{
             throw new Error("Error while getting all posts from the database.");
         }
     }
+
+
+    // eslint-disable-next-line class-methods-use-this
+    async createArticle(article){
+        const query = {
+            text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub)
+                    VALUES ($1, $2, $3, $4, $5)
+                    RETURNING id_annonce`,
+            values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,Date.now()]
+        };
+            const {rows} = await db.query(query);
+            return rows;
+
+
+    }
 }
+
+
 module.exports = {Articles};
 
 

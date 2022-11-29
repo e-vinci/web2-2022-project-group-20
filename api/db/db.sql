@@ -35,7 +35,8 @@ CREATE TABLE vinced.annonces (
     date_pub DATE NOT NULL,
     prix DOUBLE PRECISION NOT NULL CHECK ( prix > 0 ),
     status vinced.STATUS NOT NULL DEFAULT 'Postée',
-    photo VARCHAR(50) CHECK ( photo <> '' )
+    photo VARCHAR(50) CHECK ( photo <> '' ),
+    id_adresse INTEGER REFERENCES vinced.adresses
 );
 
 CREATE TABLE vinced.favoris (
