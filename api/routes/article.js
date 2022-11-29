@@ -8,10 +8,12 @@ const articlesModel = new Article();
  * GET all articles or articles by id
  */
 router.get("/", async (req, res) => {
-    if(req.query.id){
+
+    if (req.query.id) {
         const articles = await articlesModel.getArticleById(req.query.id);
         return res.json(articles);
     }
+
     try {
         // eslint-disable-next-line no-console
         console.log("articlesModel: ", articlesModel.getAllArticles());
@@ -75,7 +77,7 @@ router.get("/search/:search", async (req, res) => {
  * POST a new article
     */
 router.post("/", async (req, res) => {
-
+    try {
         const article = {
             nom: req.body.nom,
             description: req.body.description,
@@ -84,7 +86,10 @@ router.post("/", async (req, res) => {
             photo: req.body.photo
         };
         const newArticle = await articlesModel.createArticle(article);
-        return res.json(newArticle);
+        return res.json(newArticle);}
+    catch (e) {
+        return res.sendStatus(502);
+    }
 
 });
 

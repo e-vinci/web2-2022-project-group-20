@@ -144,6 +144,7 @@ class Articles{
 
     // eslint-disable-next-line class-methods-use-this
     async createArticle(article){
+        try{
         const query = {
             text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub)
                     VALUES ($1, $2, $3, $4, $5,$6)
@@ -151,7 +152,10 @@ class Articles{
             values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0]]
         };
             const {rows} = await db.query(query);
-            return rows;
+            return rows;}
+        catch (e) {
+            throw new Error("Error while creating this post in the database.");
+        }
 
 
     }
