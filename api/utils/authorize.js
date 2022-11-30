@@ -13,9 +13,8 @@ const authorizeAdmin = async (req, res, next) => {
         if (!memberFound) return res.status(403).end();
         if (!memberFound.is_admin) return res.status(403).end();
         req.user = memberFound;
-        next();
+        return next();
     } catch (err) {
-        console.error("authorize: ", err);
         return res.status(403).end();
     }
 };
@@ -29,9 +28,8 @@ const authorizeUser = async (req, res, next) => {
         const memberFound = await memberModel.getMemberById(decoded.idUser);
         if (!memberFound) return res.status(403).end();
         req.user = memberFound;
-        next();
+        return next();
     } catch (err) {
-        console.error("authorize: ", err);
         return res.status(403).end();
     }
 };

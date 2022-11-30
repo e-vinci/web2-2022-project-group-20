@@ -1,9 +1,8 @@
 const db = require("../db/db");
 
-class Articles{
+const articlesDB = {
 
-    // eslint-disable-next-line class-methods-use-this
-    async getAllArticles(){
+     getAllArticles : async () => {
         const query = `SELECT id_annonce,
                               nom,
                               description,
@@ -14,16 +13,13 @@ class Articles{
                               status
                         FROM vinced.annonces
                         ORDER BY id_annonce DESC`;
-        try {
             const {rows} = await db.query(query);
             return rows;
-        } catch (e) {
-            e.print();
-            throw new Error("Error while getting all posts from the database.");
-        }
-    }
+        
+    },
 
-    async getArticleById(id){
+
+    getArticleById : async (id) => {
         const query = {
             text: `SELECT id_annonce,
                               nom,
@@ -33,7 +29,7 @@ class Articles{
                               date_pub,
                               prix,
                               status
-                       FROM vinced.posts
+                       FROM vinced.annonces
                        WHERE id_annonce = $1`,
             values: [id]
         };
@@ -43,10 +39,10 @@ class Articles{
         } catch (e) {
             throw new Error("Error while getting this post from the database.");
         }
-    }
+    },
 
 
-    async getArticlesByUserId(id){
+    getArticlesByUserId: async (id) => {
         const query = {
             text: `SELECT id_annonce,
                                 nom,
@@ -56,7 +52,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE id_vendeur = $1
                         ORDER BY id_annonce DESC`,
             values: [id]
@@ -67,9 +63,10 @@ class Articles{
         } catch (e) {
             throw new Error("Error while getting all posts from the database.");
         }
-    }
+    },
 
-    async getUsersFavoriteArticles(id){
+
+    getUsersFavoriteArticles : async (id) =>{
         const query = {
             text: `SELECT id_annonce,
                                 nom,
@@ -79,7 +76,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
                                                 WHERE id_user = $1)
@@ -92,9 +89,10 @@ class Articles{
         } catch (e) {
             throw new Error("Error while getting all posts from the database.");
         }
-    }
+    },
 
-    async getArticlesByCategoryId(id){
+
+    getArticlesByCategoryId : async (id) =>{
         const query = {
             text: `SELECT id_annonce,
                                 nom,
@@ -104,7 +102,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE id_categorie = $1
                         ORDER BY id_annonce DESC`,
             values: [id]
@@ -115,9 +113,10 @@ class Articles{
         } catch (e) {
             throw new Error("Error while getting all posts from the database.");
         }
-    }
+    },
 
-    async getArticlesBySearch(search){
+
+    getArticlesBySearch : async (search) => {
         const query = {
             text: `SELECT id_annonce,
                                 nom,
@@ -127,7 +126,7 @@ class Articles{
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.posts
+                        FROM vinced.annonces
                         WHERE nom ILIKE '%$1%'
                         ORDER BY id_annonce DESC`,
             values: [search]
@@ -138,9 +137,30 @@ class Articles{
         } catch (e) {
             throw new Error("Error while getting all posts from the database.");
         }
+    },
+
+    // POST REQUESTS
+
+    createArticle : async (article) => {
+        try{
+        const query = {
+            text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub)
+                    VALUES ($1, $2, $3, $4, $5,$6)
+                    RETURNING id_annonce`,
+            values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0]]
+        };
+            const {rows} = await db.query(query);
+            return rows;}
+        catch (e) {
+            throw new Error("Error while creating this post in the database.");
+        }
+
+
     }
 }
-module.exports = {Articles};
+
+
+module.exports = articlesDB;
 
 
 
