@@ -29,7 +29,7 @@ router.get("/article/:id", async (req, res) => {
     }
 });
 
-router.post("/register", async function (req, res) {
+router.post("/register", async (req, res) => {
     if (!req.body ||
         (req.body.hasOwnProperty("nom") && req.body.nom === "") ||
         (req.body.hasOwnProperty("prenom") && req.body.prenom === "") ||
@@ -47,7 +47,7 @@ router.post("/register", async function (req, res) {
     return res.json(authenticatedUser);
 });
 
-router.post("/login", async function (req, res, next) {
+router.post("/login", async (req, res, next) => {
     if (!req.body ||
         (req.body.hasOwnProperty("email") && req.body.email === "") ||
         (req.body.hasOwnProperty("mdp") && req.body.mdp === ""))
