@@ -49,13 +49,11 @@ router.post("/register", async (req, res) => {
   return res.json(authenticatedUser);
 });
 
-router.post('/login', async (req, res) => {
-  if (
-    !req.body ||
-    (req.body.email && req.body.email === '') ||
-    (req.body.mdp && req.body.mdp === '')
-  )
-    return res.status(400).end();
+router.post("/login", async function (req, res, next) {
+    if (!req.body ||
+        (req.body.hasOwnProperty("email") && req.body.email === "") ||
+        (req.body.hasOwnProperty("mdp") && req.body.mdp === ""))
+        return res.status(400).end();
 
   const authenticatedUser = await memberModel.login(req.body);
   if (authenticatedUser === 0) return res.sendStatus(404).end();
