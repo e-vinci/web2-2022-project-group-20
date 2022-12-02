@@ -1,4 +1,5 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import gameboyimg from '../../img/gameboy.png';
 
 const PageProfile = () => {
     clearPage();
@@ -110,6 +111,7 @@ const PageProfile = () => {
                   </p>
                   <div class="progress rounded mb-2" style="height: 5px;">
                   </div>
+                  <img src="${gameboyimg}" id="id_img" class="d-block w-100" alt="...">
                 </div>
               </div>
             </div>
@@ -122,6 +124,7 @@ const PageProfile = () => {
                   </p>
                   <div class="progress rounded mb-2" style="height: 5px;">
                 </div>
+                <img src="${gameboyimg}" class="image" alt="" />
               </div>
             </div>
           </div>
