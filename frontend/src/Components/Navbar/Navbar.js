@@ -82,6 +82,12 @@ function renderNavbar() {
                 <span class="text nav-text">CONTACT MOI</span>
             </a>
         </li>
+        <li class="">
+            <a href="/profilpage">
+            <i class='bx bx-male-female icon'></i>
+                <span class="text nav-text">ProfilePage</span>
+            </a>
+        </li>
 
     </ul>
 </div>

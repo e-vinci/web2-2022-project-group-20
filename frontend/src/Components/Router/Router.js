@@ -3,6 +3,8 @@ import ProductPage from '../Pages/ProductPage';
 import ContactPage from '../Pages/ContactPage';
 import loginpage from '../Pages/LoginPage';
 import panier from '../Pages/panier';
+import PageProfile from '../Pages/Profilepage';
+
 
  
 const routes = {
@@ -11,6 +13,8 @@ const routes = {
   '/contactpage' : ContactPage,
   '/loginpage' : loginpage,
   '/panier' : panier,
+  '/profilpage' : PageProfile
+  
 };
 
 const Router = () => {
