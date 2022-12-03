@@ -103,7 +103,9 @@ const PageProfile = () => {
             </div>
           </div>
 
-          <div class="row">
+          
+
+            <div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
@@ -116,7 +118,6 @@ const PageProfile = () => {
               </div>
             </div>
 
-
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
@@ -128,6 +129,20 @@ const PageProfile = () => {
               </div>
             </div>
           </div>
+
+          <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1"></span> PUBLICATION
+                  </p>
+                  <div class="progress rounded mb-2" style="height: 5px;">
+                </div>
+                <img src="${gameboyimg}" class="image" alt="" />
+              </div>
+            </div>
+          </div>
+
+          
         </div>
       </div>
     </div>
