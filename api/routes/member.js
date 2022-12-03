@@ -49,10 +49,10 @@ router.post("/register", async (req, res) => {
   return res.json(authenticatedUser);
 });
 
-router.post("/login", async function (req, res, next) {
+router.post("/login", async (req, res) => {
     if (!req.body ||
-        (req.body.hasOwnProperty("email") && req.body.email === "") ||
-        (req.body.hasOwnProperty("mdp") && req.body.mdp === ""))
+        (req.body("email") && req.body.email === "") ||
+        (req.body("mdp") && req.body.mdp === ""))
         return res.status(400).end();
 
   const authenticatedUser = await memberModel.login(req.body);
@@ -64,5 +64,7 @@ router.post("/login", async function (req, res, next) {
 
   return res.json(authenticatedUser);
 });
+
+
 
 module.exports = router;
