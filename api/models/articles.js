@@ -18,7 +18,6 @@ const articlesDB = {
         
     },
 
-
     getArticleById : async (id) => {
         const query = {
             text: `SELECT id_annonce,
@@ -40,7 +39,6 @@ const articlesDB = {
             throw new Error("Error while getting this post from the database.");
         }
     },
-
 
     getArticlesByUserId: async (id) => {
         const query = {
@@ -64,7 +62,6 @@ const articlesDB = {
             throw new Error("Error while getting all posts from the database.");
         }
     },
-
 
     getUsersFavoriteArticles : async (id) =>{
         const query = {
@@ -91,7 +88,6 @@ const articlesDB = {
         }
     },
 
-
     getArticlesByCategoryId : async (id) =>{
         const query = {
             text: `SELECT id_annonce,
@@ -114,7 +110,6 @@ const articlesDB = {
             throw new Error("Error while getting all posts from the database.");
         }
     },
-
 
     getArticlesBySearch : async (search) => {
         const query = {
@@ -142,23 +137,22 @@ const articlesDB = {
     // POST REQUESTS
 
     createArticle : async (article) => {
-        try{
+
         const query = {
             text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub)
                     VALUES ($1, $2, $3, $4, $5,$6)
                     RETURNING id_annonce`,
             values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0]]
         };
+        try{
             const {rows} = await db.query(query);
-            return rows;}
+            return rows;
+        }
         catch (e) {
             throw new Error("Error while creating this post in the database.");
         }
-
-
     }
 }
-
 
 module.exports = articlesDB;
 
