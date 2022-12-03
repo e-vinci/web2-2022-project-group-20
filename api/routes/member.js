@@ -3,7 +3,6 @@ const memberModel = require('../models/members');
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
 const router = express.Router();
-// const membersModel = new Member();
 
 /**
  * GET member by its id
@@ -51,8 +50,8 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     if (!req.body ||
-        (req.body("email") && req.body.email === "") ||
-        (req.body("mdp") && req.body.mdp === ""))
+        (req.body.email && req.body.email === "") ||
+        (req.body.mdp && req.body.mdp === ""))
         return res.status(400).end();
 
   const authenticatedUser = await memberModel.login(req.body);

@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
-const { Members } = require("../models/members");
+const memberModel = require("../models/members");
 
-const memberModel = new Members();
-const {jwtSecret} = process.env;
+const jwtSecret = process.env;
 
 const authorizeAdmin = async (req, res, next) => {
     const token = req.get("Authorization");

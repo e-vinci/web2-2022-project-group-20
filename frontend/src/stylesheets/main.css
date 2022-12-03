@@ -862,6 +862,18 @@ form.sign-in-form {
   padding-left: 250px;
 }
 
+/* CSS FOR ARTICLES CARDS */
+.card-img-top{
+  height: 9em;
+  width: 100%; 
+  object-fit: cover;
+}
+
+.cardHomePage{
+  margin: 0.5rem;
+  height: 250px;
+  width: 18rem;
+}
 
 /* CSS FOR PANIER PAGE */ 
 
