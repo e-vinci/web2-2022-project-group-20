@@ -15,7 +15,8 @@ const Navbar = () => {
 };
 
 function renderNavbar() {
-  const anonymousUserNavbar= `
+    
+  let anonymousUserNavbar= `
   <nav class = "sidebar close">
   <header>
     <div class ="image-text">
@@ -39,7 +40,10 @@ function renderNavbar() {
         <input type="text" placeholder="Search...">
     </li>
 
+
     <ul class="menu-links">
+
+
         <li class="">
             <a href="/">
                 <i class='bx bx-home-alt icon' ></i>
@@ -55,17 +59,34 @@ function renderNavbar() {
         </li>
 
     
-        <li class="nav-link">
-            <a href="#">
-                <i class='bx bx-heart icon' ></i>
-                <span class="text nav-text">Likes ITEMS</span>
-            </a>
-        </li>
+
 
         <li class="">
             <a href="/panier">
             <i class='bx bx-basket icon'></i>
                 <span class="text nav-text">basket</span>
+            </a>
+        </li>
+
+
+
+        <li class="">
+            <a href="/contactpage">
+                <i class='bx bx-mail-send icon'></i>
+                <span class="text nav-text">CONTACT MOI</span>
+            </a>
+        </li>
+
+
+`
+
+    if (window.localStorage.getItem("user") !== null) {
+        anonymousUserNavbar += `
+
+        <li class="nav-link">
+            <a href="#">
+                <i class='bx bx-heart icon' ></i>
+                <span class="text nav-text">Likes ITEMS</span>
             </a>
         </li>
 
@@ -77,25 +98,25 @@ function renderNavbar() {
         </li>
 
         <li class="">
-            <a href="/contactpage">
-                <i class='bx bx-mail-send icon'></i>
-                <span class="text nav-text">CONTACT MOI</span>
-            </a>
-        </li>
-        <li class="">
             <a href="/profilpage">
-            <i class='bx bx-male-female icon'></i>
+                <i class='bx bx-male-female icon'></i>
                 <span class="text nav-text">ProfilePage</span>
             </a>
         </li>
 
-    </ul>
+</ul>
 </div>
-
-<div class="bottom-content">
-
+    `;
     
-    
+    } else {
+        anonymousUserNavbar += ` </ul></div>`;
+        }   
+
+
+
+    anonymousUserNavbar += `
+    <div class="bottom-content">
+
     <li class="">
         <a href="/loginpage">
             <i class='bx bx-log-in icon' ></i>
@@ -118,7 +139,8 @@ function renderNavbar() {
 </div>
 </div>
 
-</nav>`;
+</nav>
+`;
 
 
   const navbar = document.querySelector('#navbarWrapper')
