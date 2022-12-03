@@ -3,7 +3,6 @@ const memberModel = require('../models/members');
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
 const router = express.Router();
-// const membersModel = new Member();
 
 /**
  * GET member by its id
