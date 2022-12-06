@@ -3,19 +3,37 @@ const SellProductPage = ()=>{
 
 };
 
-function renderSellProductPage(){
+function categorieshtml(categories){
+    let html = "";
+    categories.forEach((category)=>{
+        html += `<option value="${category.id}">${category.name}</option>`;
+    });
+    return html;
+}
+
+async function renderSellProductPage(){
+    const categories = await fetch("http://localhost:3000/categories").then((response)=>response.json());
+    
+
     const render = `
-    <form action="http://localhost:3000/api/product" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
 
         <label for="name">Titre (min 4 chars):</label>
         <input type="text" id="name" name="name" required minlength="4" size="30">
 
-        <p><label for="w3review">Description :</label></p>
+        <p><label for="description">Description :</label></p>
         <textarea id="description" name="description" required minlength="4" rows="5" cols="60"></textarea>
 
-        <label for="name">Prix :</label>
+        <label for="prix">Prix :</label>
         <input type="text" id="prix" name="prix" required size="5">
         
+        <br>
+
+        <label for="category">Choisie une catégorie:</label>
+        <select name="category" id="category">
+        ${categorieshtml(categories)}
+        </select>
+
         <br>
 
         <label for="name">Photo :</label>

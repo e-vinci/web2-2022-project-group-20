@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
+
+
 
 const articlesRouter = require('./routes/article');
 const membersRouter = require('./routes/member');
@@ -20,6 +23,6 @@ app.use('/articles', articlesRouter);
 app.use('/members', membersRouter);
 app.use('/favorites', favoritesRouter);
 app.use('/profil', profilRouter);
-app.use('/categories', categoriesRouter);
+app.use('/categories', categoriesRouter,cors({origin: 'http://localhost:8080', credentials: true}));
 
 module.exports = app;
