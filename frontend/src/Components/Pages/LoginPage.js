@@ -25,7 +25,7 @@ const loginpage = () => {
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Password" />
             </div>
-            <input type="submit" value="Login" class="btn solid" />
+            <input type="submit" id="loginButton" value="Login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -42,10 +42,6 @@ const loginpage = () => {
               </a>
             </div>
           </form>
-
-
-          
-          
           <form action="#" class="sign-up-form">
             <h2 class="title">Sign up</h2>
             <div class="input-field">
@@ -114,19 +110,21 @@ const loginpage = () => {
   }
 
 function ad(){
-// eslint-disable-next-line camelcase
-const sign_in_btn = document.querySelector("#sign-in-btn");
-// eslint-disable-next-line camelcase
-const sign_up_btn = document.querySelector("#sign-up-btn");
+const signInBtn = document.querySelector("#sign-in-btn");
+const signUpBtn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
+const loginBtn = document.querySelector("#loginButton");
 
-// eslint-disable-next-line camelcase
-sign_up_btn.addEventListener("click", () => {
+loginBtn.addEventListener("click", () => {
+  alert("test");
+});
+
+
+signUpBtn.addEventListener("click", () => {
   container.classList.add("sign-up-mode");
 });
 
-// eslint-disable-next-line camelcase
-sign_in_btn.addEventListener("click", () => {
+signInBtn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
 }
