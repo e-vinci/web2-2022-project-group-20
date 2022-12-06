@@ -12,12 +12,10 @@ router.get("/", async (req, res) => {
         const categories = await categoryModel.getCategoryById(req.query.id);
         return res.json(categories);
     }
-    try {
         const categories = await categoryModel.getAllCategories();
         return res.json(categories);
-    } catch (e) {
-        return res.sendStatus(502);
-    }}
+   
+}
 );
 
 
