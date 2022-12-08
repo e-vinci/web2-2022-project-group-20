@@ -16,7 +16,7 @@ const HomePageRender = async () => {
                   <div class="row">`;
     articles.forEach(article => {
       html += `<div class="col-12 col-md-6 col-lg-4">
-                <div class="cardHomePage">
+                <div class="cardHomePageHomePage">
                   <a href="" > <img src="${img}" class="card-img-top" alt="..." > </a>
                   <div class="card-body">
                     <a href=""> <h5 class="card-title">${article.nom}</h5> </a>
