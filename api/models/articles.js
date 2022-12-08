@@ -144,13 +144,9 @@ const articlesDB = {
                     RETURNING id_annonce`,
             values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0]]
         };
-        try{
             const {rows} = await db.query(query);
             return rows;
-        }
-        catch (e) {
-            throw new Error("Error while creating this post in the database.");
-        }
+
     }
 }
 

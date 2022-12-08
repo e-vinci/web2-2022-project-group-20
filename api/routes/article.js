@@ -73,7 +73,7 @@ router.get("/search/:search", async (req, res) => {
  * POST a new article
     */
 router.post("/", async (req, res) => {
-    try {
+    
         const article = {
             nom: req.body.nom,
             description: req.body.description,
@@ -81,13 +81,12 @@ router.post("/", async (req, res) => {
             prix: req.body.prix,
             photo: req.body.photo
         };
+        // eslint-disable-next-line no-console
+        console.log(article);
         const newArticle = await articleModel.createArticle(article);
         return res.json(newArticle);}
-    catch (e) {
-        return res.sendStatus(502);
-    }
 
-});
+);
 
         
 
