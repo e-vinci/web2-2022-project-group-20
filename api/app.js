@@ -19,10 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/articles', articlesRouter);
-app.use('/members', membersRouter);
-app.use('/favorites', favoritesRouter);
-app.use('/profil', profilRouter);
-app.use('/categories', categoriesRouter,cors({origin: 'http://localhost:8080', credentials: true}));
+app.use('/articles',cors({origin: 'http://localhost:8080'}), articlesRouter);
+app.use('/members',cors({origin: 'http://localhost:8080'}), membersRouter);
+app.use('/favorites',cors({origin: 'http://localhost:8080'}), favoritesRouter);
+app.use('/profil',cors({origin: 'http://localhost:8080'}), profilRouter);
+app.use('/categories',cors({origin: 'http://localhost:8080'}), categoriesRouter);
 
 module.exports = app;
