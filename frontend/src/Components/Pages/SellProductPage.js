@@ -4,9 +4,10 @@ const SellProductPage = ()=>{
 };
 
 function categorieshtml(categories){
+    
     let html = "";
     categories.forEach((category)=>{
-        html += `<option value="${category.id}">${category.name}</option>`;
+        html += `<option value="${category.id_categorie}">${category.nom}</option>`;
     });
     return html;
 }
