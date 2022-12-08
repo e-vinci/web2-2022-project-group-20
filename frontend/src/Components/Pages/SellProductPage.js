@@ -41,7 +41,7 @@ async function renderSellProductPage(){
         <label for="name">Photo :</label>
         <input type="file" id="photo" name="photo" accept="image/*">
 
-        <input type="hidden" id="id_vendeur" name="id_vendeur" value="1" />
+        <input type="hidden" id="id_vendeur" name="id_vendeur" value="10" />
 
 
         <br>
@@ -63,8 +63,10 @@ async function renderSellProductPage(){
   file.addEventListener("change", (e) => {
     const fileElement = e.target.files[0];
     const url = uploadImage(fileElement);
+
     file.value = url;
     });
+
   
     const form = document.querySelector("form");
     form.addEventListener("submit", async (e) => {

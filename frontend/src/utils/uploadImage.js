@@ -1,29 +1,32 @@
-import { Cloudinary } from 'cloudinary-core';
+const request = require('request');
 
-// Configure the Cloudinary API with your account ID, API key, and API secret
-const cloudinary = new Cloudinary({
-    cloud_name: 'dcsbg95nb', 
-    api_key: '788837633726548', 
-    api_secret: 'qXKWu7_Jinw9nIHLdLgLMjF7lb4'
+// Your Imgur API key
+const API_KEY = '206166e3b5bf3c3';
+
+// Make an HTTP request to the Imgur API to upload the image
+function uploadImage(filePath) {
+request.post({
+  url: 'https://api.imgur.com/3/upload',
+  headers: {
+    Authorization: `Client-ID ${API_KEY}`,
+  },
+  formData: {
+    image: filePath,
+  },
+}, (error, response, body) => {
+  if (error) {
+    return error;
+  }
+
+  // Parse the JSON response from the Imgur API
+  const result = JSON.parse(body);
+
+  // The URL for the uploaded image is in the "data" property of the response
+  const url = result.data.link;
+
+  return url;
+
 });
-
-function uploadImage(file) {
-  // Upload the image to Cloudinary
-  cloudinary.uploader.upload(file, (error, result) => {
-    if (error) {
-      return "Error";
-    }
-
-    // Generate the URL for the uploaded image
-    const url = cloudinary.url(result.public_id, {
-      width: 371,
-      height: 463,
-      crop: 'fill',
-    });
-
-    // Return the generated URL
-    return url;
-  });
 }
 
 export default {uploadImage};
