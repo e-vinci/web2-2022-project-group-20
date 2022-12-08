@@ -1,11 +1,10 @@
-const request = require('request');
 
 // Your Imgur API key
 const API_KEY = '206166e3b5bf3c3';
 
 // Make an HTTP request to the Imgur API to upload the image
 function uploadImage(filePath) {
-request.post({
+NaN.post({
   url: 'https://api.imgur.com/3/upload',
   headers: {
     Authorization: `Client-ID ${API_KEY}`,
