@@ -862,6 +862,20 @@ form.sign-in-form {
   padding-left: 250px;
 }
 
+/* CSS FOR WALLET PAGE */ 
+
+.containerwallet{
+  width: 100;
+  align-items: center;
+  position: relative;
+  padding-left: 300px;
+
+}
+
+.transaction_date{
+  text-align: right;
+}
+
 /* CSS FOR ARTICLES CARDS */
 .card-img-top{
   height: 9em;
