@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { Navbar as BootstrapNavbar } from 'bootstrap';
+import {Navbar as BootstrapNavbar} from 'bootstrap';
 import logo from '../../img/logo.png';
 
 /**
@@ -11,118 +11,96 @@ import logo from '../../img/logo.png';
 
 const Navbar = () => {
   renderNavbar();
+  const navbarElements = document.querySelector("#navbarWrapper").getElementsByTagName("a");
+
+  // eslint-disable-next-line no-restricted-syntax
+  for(const element of navbarElements){
+    console.log(element);
+    element.addEventListener("click", (e) => {
+      console.log(e.target.dataset.uri);
+      if (e.target.dataset.uri === window.location.pathname) {
+        element.setAttribute("class", "active");
+      }
+    });
+  }
   darkmode();
 };
 
 function renderNavbar() {
-    
-  let anonymousUserNavbar= `
+  let anonymousUserNavbar = `
   <nav class = "sidebar close">
-  <header>
-    <div class ="image-text">
+    <header>
+      <div class ="image-text">
         <span class ="image">
           <img src="${logo}" alt = "logo">
         </span>
         <div class="text logo-text">
-        <span class="name">VINCID</span>
-        <span class="profession">SELL, BUY EASILY</span>
-    </div>
-</div>
-
-<i class='bx bx-chevron-right toggle'></i>
-</header>
-
-<div class="menu-bar">
-<div class="menu">
-
-    <li class="search-box">
-        <i class='bx bx-search icon'></i>
-        <input type="text" placeholder="Search...">
-    </li>
-
-
-    <ul class="menu-links">
-
-
+          <span class="name">VINCID</span>
+          <span class="profession">SELL, BUY EASILY</span>
+        </div>
+      </div>
+      <i class='bx bx-chevron-right toggle'></i>
+    </header>
+  <div class="menu-bar">
+    <div class="menu">
+      <li class="search-box">
+          <i class='bx bx-search icon'></i>
+          <input type="text" placeholder="Search...">
+      </li>
+      <ul class="menu-links">
         <li class="">
-            <a href="/">
-                <i class='bx bx-home-alt icon' ></i>
-                <span class="text nav-text">Dashboard</span>
-            </a>
+          <a data-uri="/">
+            <i class='bx bx-home-alt icon' ></i>
+            <span class="text nav-text">Dashboard</span>
+          </a>
         </li>
-
         <li class="">
-            <a href="/product">
-                <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                <span class="text nav-text">PRODUCTS</span>
-            </a>
+          <a href="/product">
+            <i class='bx bx-bar-chart-alt-2 icon' ></i>
+            <span class="text nav-text">PRODUCTS</span>
+          </a>
         </li>
-
-    
-
-
         <li class="">
-            <a href="/panier">
+          <a href="/panier">
             <i class='bx bx-basket icon'></i>
-                <span class="text nav-text">basket</span>
-            </a>
+            <span class="text nav-text">basket</span>
+          </a>
         </li>
-
-
-
         <li class="">
-            <a href="/contactpage">
-                <i class='bx bx-mail-send icon'></i>
-                <span class="text nav-text">CONTACT MOI</span>
-            </a>
+          <a href="/contactpage">
+            <i class='bx bx-mail-send icon'></i>
+            <span class="text nav-text">CONTACT MOI</span>
+          </a>
         </li>
-
-
-        <li class="">//to delete</li><li class="">
-        <a href="/wallet">
+`;
+  if (window.localStorage.getItem('member') !== null) {
+    anonymousUserNavbar += `
+        <li class="nav-link">
+          <a href="#">
+            <i class='bx bx-heart icon' ></i>
+            <span class="text nav-text">Likes ITEMS</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="/wallet">
             <i class='bx bx-wallet icon' ></i>
             <span class="text nav-text">Wallets</span>
-        </a>
-    </li>
-
-
-`
-
-    if (window.localStorage.getItem("user") !== null) {
-        anonymousUserNavbar += `
-
-        <li class="nav-link">
-            <a href="#">
-                <i class='bx bx-heart icon' ></i>
-                <span class="text nav-text">Likes ITEMS</span>
-            </a>
+          </a>
         </li>
-
         <li class="">
-            <a href="/wallet">
-                <i class='bx bx-wallet icon' ></i>
-                <span class="text nav-text">Wallets</span>
-            </a>
+          <a href="/profilpage">
+            <i class='bx bx-male-female icon'></i>
+            <span class="text nav-text">ProfilePage</span>
+          </a>
         </li>
-
-        <li class="">
-            <a href="/profilpage">
-                <i class='bx bx-male-female icon'></i>
-                <span class="text nav-text">ProfilePage</span>
-            </a>
-        </li>
-
-</ul>
-</div>
+    </ul>
+    </div>
     `;
-    
-    } else {
-        anonymousUserNavbar += ` </ul></div>`;
-        }   
+  } else {
+    anonymousUserNavbar += ` </ul></div>`;
+  }
 
-
-
-    anonymousUserNavbar += `
+  anonymousUserNavbar += `
     <div class="bottom-content">
 
     <li class="">
@@ -150,12 +128,11 @@ function renderNavbar() {
 </nav>
 `;
 
-
-  const navbar = document.querySelector('#navbarWrapper')
+  const navbar = document.querySelector('#navbarWrapper');
   navbar.innerHTML = anonymousUserNavbar;
-};
+}
 
- /* function navbarclick(){
+/* function navbarclick(){
   const body = document.querySelector("body");
   const sidebar = body.querySelector(".sidebar");
   const toggle = body.querySelector(".toggle");
@@ -165,26 +142,19 @@ function renderNavbar() {
   });
 } */
 
-
-// eslint-disable-next-line no-unused-vars
-function darkmode(){
+function darkmode() {
   const body = document.querySelector('body');
-  const modeSwitch = body.querySelector(".toggle-switch");
-  const modeText = body.querySelector(".mode-text");
+  const modeSwitch = body.querySelector('.toggle-switch');
+  const modeText = body.querySelector('.mode-text');
 
-  modeSwitch.addEventListener("click" , () =>{
-    body.classList.toggle("dark");
-    if(body.classList.contains("dark")){
-      modeText.innerText = "Light mode";
-  }else{
-      modeText.innerText = "Dark mode";
-      
-  }
-
+  modeSwitch.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if (body.classList.contains('dark')) {
+      modeText.innerText = 'Light mode';
+    } else {
+      modeText.innerText = 'Dark mode';
+    }
   });
-    
-
-
-
 }
+
 export default Navbar;

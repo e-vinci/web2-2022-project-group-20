@@ -184,7 +184,7 @@ function ad() {
         alertDiv.innerHTML= 'Utilisateur inconnu';
       }
       if(response.status === 200){
-        alertDiv.className ="alert alert-danger";
+        alertDiv.className ="alert alert-success";
         alertDiv.innerHTML= 'You are now connected';
       }
 
