@@ -12,7 +12,8 @@ const membersDB = {
                           email,
                           nom,
                           prenom,
-                          image_profil
+                          image_profil,
+                          balance
                     FROM vinced.membres 
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
@@ -33,7 +34,8 @@ const membersDB = {
                           email,
                           nom,
                           prenom,
-                          image_profil
+                          image_profil,
+                          balance
                     FROM vinced.membres 
                     WHERE email = $1
                     ORDER BY id_membre;`,
@@ -54,7 +56,8 @@ const membersDB = {
                                m.email,
                                m.nom,
                                m.prenom,
-                               m.image_profil
+                               m.image_profil,
+                               balance
                         FROM vinced.annonces a, vinced.favoris f,vinced.membres m
                         WHERE a.id_annonce = f.id_annonce AND
                               f.id_membre = m.id_membre AND
@@ -75,7 +78,7 @@ const membersDB = {
     register: async (body) => {
         const hashedPassword = await bcrypt.hash(body.mdp, saltRounds);
         const query = {
-            text: `INSERT INTO vinced.membres VALUES (DEFAULT, $1, $2, $3, $4, $5)`,
+            text: `INSERT INTO vinced.membres VALUES (DEFAULT, $1, $2, $3, $4, $5, DEFAULT)`,
             values: [body.email, body.nom, body.prenom, hashedPassword]
         };
 
@@ -109,10 +112,34 @@ const membersDB = {
 
         authenticatedMember.token = token;
         return authenticatedMember;
-    }
+    },
+    async addCredits(email, credits, pool){  
+        try {
+          const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *', [credits, email]);
+    
+          if (! rows[0]) return;
+    
+          return rows[0];
+        } catch (error){
+          throw new Error(error);
+        }
+      },
+      async removeCredits(email, credits, pool){  
+          try {
+            const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance - $1 WHERE email = $2 RETURNING *', [credits, email]);
+      
+            if (! rows[0]) return;
+      
+            return rows[0];
+          } catch (error){
+            throw new Error(error);
+          }
+        }
 };
 
 module.exports = membersDB;
+
+
 
 
 // class Favorites{
