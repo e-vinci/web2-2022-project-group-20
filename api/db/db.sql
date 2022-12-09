@@ -9,7 +9,9 @@ CREATE TABLE vinced.membres (
 	prenom VARCHAR(50) NOT NULL CHECK (prenom<>''),
 	mdp VARCHAR(50) NOT NULL CHECK ( mdp <> '' ),
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
-    is_admin BOOLEAN DEFAULT false
+    is_admin BOOLEAN DEFAULT false,
+    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( prix >= 0 )
+
 );
 
 CREATE TABLE vinced.adresses (

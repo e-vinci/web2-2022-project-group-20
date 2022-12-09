@@ -85,6 +85,14 @@ function renderNavbar() {
         </li>
 
 
+        <li class="">//to delete</li><li class="">
+        <a href="/wallet">
+            <i class='bx bx-wallet icon' ></i>
+            <span class="text nav-text">Wallets</span>
+        </a>
+    </li>
+
+
 `
 
     if (window.localStorage.getItem("user") !== null) {
@@ -98,7 +106,7 @@ function renderNavbar() {
         </li>
 
         <li class="">
-            <a href="#">
+            <a href="/wallet">
                 <i class='bx bx-wallet icon' ></i>
                 <span class="text nav-text">Wallets</span>
             </a>
