@@ -1,13 +1,15 @@
 
-import { getSessionObject } from "../../utils/session";
-import { clearPage, renderPageTitle } from '../../utils/render';
+// import {Redirect} from "../Router/Router";
+// import Navbar from "../Navbar/Navbar";
+
+// import { loadUser } from "../../utils/loadUser"; 
 
 const walletpage= `
     <section class="h-100 gradient-custom">
 	<div class="containerwallet">
 		<!--  Money row  -->
 		<div class="row d-flex justify-content-center my-4">
-			<div class="col-md-8" border+"col-md-8" >
+			<div class="col-md-7" border+"col-md-8" >
 				<!-- left  -->
 				<div class="card mb-4" >
 					<div class="card-header py-3">
@@ -34,15 +36,16 @@ const walletpage= `
 					</div>
 					<div class="card-body">
 						<div class="input-group mb-3">
-							<inputclass="form-control"  id="money-to-add-input" type="text" placeholder="Montant à ajouter" aria-describedby="basic-addon2">
+							<input class="form-control"  id="money-to-add-input" type="text" placeholder="Montant à ajouter" aria-describedby="basic-addon2">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" id="add-money-btn" type="button">Ajouter</button>
 							</div>
 						</div>
+
 						<div class="input-group mb-3">
 							<input class="form-control"  id="money-to-remove-input" type="text" placeholder="Montant à retirer" aria-describedby="basic-addon2">
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" id="ermove-money-btn" type="button">Retirer</button>
+								<button class="btn btn-outline-secondary" id="remove-money-btn" type="button">Retirer</button>
 							</div>
 						</div>
 					</div>
@@ -54,7 +57,7 @@ const walletpage= `
 
 		<!-- history -->
 		<div class="row d-flex justify-content-center my-4">
-			<div class="col-md-8" border+"col-md-8" >
+			<div class="col-md-7" border+"col-md-8" >
 				<!-- left  -->
 				<div class="card mb-4" >
 					<!-- Trasactions  -->
@@ -178,27 +181,36 @@ function WalletPage() {
 	const addMoney  = document.querySelector("#add-money-btn");
 	const removeMoney = document.querySelector("#remove-money-btn");
 	
-	let user = getSessionObject("user");
+	/*
+	const user = loadUser("user");
 	if (!user) {
-		addMoney.addEventListener("click", addOnClick, user);
+		*/
+		addMoney.addEventListener("click", addOnClick); // ("click", addOnClick, user);
 		removeMoney.addEventListener("click", removeOnClick);
+	/*
 	} else {
-		Navbar();
-		Redirect("/");
+		
+			Navbar();
+			Redirect("/");
+		
 	}
+	*/
+	
 }
 
 
 
 async function addOnClick(e) {
-	
+	e.preventDefault();
 }
 
 
 
 async function removeOnClick(e){
-	
+	e.preventDefault();
 }	
+
+
 
 
 export default WalletPage;
