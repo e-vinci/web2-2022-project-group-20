@@ -107,17 +107,17 @@ function ad() {
       const alertDiv = document.querySelector("#alertL");
 
       if(!passwordField.value && !emailField.value){
-        alertDiv.classList.add("alert-danger");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= "The e-mail adress & the password can't be empty";
         return;
       }
       if(!emailField.value){
-        alertDiv.classList.add("alert-danger");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= "The e-mail adress can't be empty";
         return;
       }
       if(!passwordField.value){
-        alertDiv.classList.add("alert-danger");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= "The password can't be empty";
         return;
       }
@@ -135,11 +135,11 @@ function ad() {
       const response = await fetch(`api/members/login`, request);
 
       if(response.status !== 200){
-        alertDiv.classList.add("alert-danger");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= 'Utilisateur inconnu';
       }
       if(response.status === 200){
-        alertDiv.classList.add("alert-success");
+        alertDiv.className ="alert alert-success";
         alertDiv.innerHTML= 'You are now connected';
       }
       const member = await response.json();
@@ -160,7 +160,7 @@ function ad() {
 
       if(!passwordField.value || !emailField.value ||
          !firstnameField.value || !lastnameField.value){
-        alertDiv.classList.add("alert-danger");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= "Check that you've filled all the necessary informations";
         return;
       }
@@ -180,11 +180,11 @@ function ad() {
       const response = await fetch(`api/members/register`, request);
 
       if(response.status !== 200){
-        alertDiv.classList.add("alert-danger");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= 'Utilisateur inconnu';
       }
       if(response.status === 200){
-        alertDiv.classList.add("alert-success");
+        alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= 'You are now connected';
       }
 

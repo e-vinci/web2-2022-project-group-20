@@ -24,7 +24,6 @@ const membersDB = {
             const {rows} = await db.query(query);
             return rows;
         } catch (e) {
-            e.print();
             throw new Error("Error while getting all posts from the database.");
         }
     },
@@ -46,9 +45,9 @@ const membersDB = {
 
         try {
             const {rows} = await db.query(query);
-            return rows[0];
+            const result = rows[0] ?  rows[0] : null;
+            return result;
         } catch (e) {
-            e.print();
             throw new Error("Error while getting all posts from the database.");
         }
     },
@@ -71,7 +70,6 @@ const membersDB = {
             const {rows} = await db.query(query);
             return rows;
         } catch (e) {
-            e.print();
             throw new Error("Error while getting all posts from the database.");
         }
     },
@@ -88,7 +86,6 @@ const membersDB = {
     },
     login: async (body) => {
         const memberFound = await membersDB.getMemberByEmail(body.email);
-        console.log(memberFound);
         if (!memberFound) return 0;
         const match = await bcrypt.compare(body.password, memberFound.mdp);
         if (!match) return 1;
@@ -110,9 +107,8 @@ const membersDB = {
         try {
           const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *', [credits, email]);
 
-          if (! rows[0]) return;
-
-          return rows[0];
+         const result = rows[0] ?  rows[0] : null;
+         return result;
         } catch (error){
           throw new Error(error);
         }
@@ -121,9 +117,8 @@ const membersDB = {
           try {
             const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance - $1 WHERE email = $2 RETURNING *', [credits, email]);
 
-            if (! rows[0]) return;
-
-            return rows[0];
+            const result = rows[0] ?  rows[0] : null;
+            return result;
           } catch (error){
             throw new Error(error);
           }

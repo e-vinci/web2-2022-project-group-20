@@ -1,5 +1,6 @@
 const express = require('express');
 const memberModel = require('../models/members');
+
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
 const router = express.Router();
@@ -73,18 +74,17 @@ router.post("/login", async (req, res) => {
   return res.json(authenticatedMember);
 });
 
-//New todo Estelle
-router.put('/:email/addCredits', async function(req, res){
+router.put('/:email/addCredits', async (req, res) => {
   if(
     !req.body ||
-    (req.body.hasOwnProperty("credits") && req.body.credits.length === 0)
+    (req.body.credits && req.body.credits.length === 0)
   )
     return res.status(400).end;
 
   try {
-    let user = await userModel.addCredits(req.params.email, req.body.credits, req.app.pool);
-    if (!user) return res.status(304).end();
-    return res.json(user);
+    const member = await memberModel.addCredits(req.params.email, req.body.credits, req.app.pool);
+    if (!member) return res.status(304).end();
+    return res.json(member);
   }catch (error){
     return res.status(420).end();
   }
@@ -92,17 +92,17 @@ router.put('/:email/addCredits', async function(req, res){
 
 
 
-router.put('/:email/removeCredits', async function(req, res){
+router.put('/:email/removeCredits', async (req, res) => {
   if(
     !req.body ||
-    (req.body.hasOwnProperty("credits") && req.body.credits.length === 0)
+    (req.body.credits && req.body.credits.length === 0)
   )
     return res.status(400).end;
 
   try {
-    let user = await userModel.removeCredits(req.params.email, req.body.credits, req.app.pool);
-    if (!user) return res.status(304).end();
-    return res.json(user);
+    const member = await memberModel.removeCredits(req.params.email, req.body.credits, req.app.pool);
+    if (!member) return res.status(304).end();
+    return res.json(member);
   }catch (error){
     return res.status(420).end();
   }
