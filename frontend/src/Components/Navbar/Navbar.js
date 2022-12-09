@@ -68,6 +68,13 @@ function renderNavbar() {
             </a>
         </li>
 
+        <li class="">
+            <a href="/sell">
+                <i class='bx bx-home-alt icon' ></i>
+                <span class="text nav-text">SELL PAGE</span>
+            </a>
+        </li>
+
 
 
         <li class="">
