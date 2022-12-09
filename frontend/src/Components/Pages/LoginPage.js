@@ -72,6 +72,7 @@ function loginpagefuntion() {
           </div>
           <img src="${logo1}" class="image" alt="" />
         </div>
+        
         <div class="panel right-panel">
           <div class="content">
             <h3>One of us ?</h3>

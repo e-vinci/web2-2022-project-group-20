@@ -1,10 +1,11 @@
 import uploadImage from '../../utils/uploadImage';
 
+
 const SellProductPage = ()=>{
     renderSellProductPage();
 };
 
-function categorieshtml(categories){
+ function categorieshtml(categories){
     
     let html = "";
     categories.forEach((category)=>{
@@ -13,13 +14,15 @@ function categorieshtml(categories){
     return html;
 }
 
+
 async function renderSellProductPage(){
-    const categories = await fetch("http://localhost:3000/categories").then((response)=>response.json());
+    const categories = await fetch("http://localhost:3000/categories").then((response)=>response.json()); 
     
 
     const render = `
     <form action="http://localhost:3000/articles" method="POST">
-
+    
+        
         <label for="nom">Titre (min 4 chars):</label>
         <input type="text" id="nom" name="nom" required minlength="4" size="30">
 
@@ -43,14 +46,12 @@ async function renderSellProductPage(){
 
         <input type="hidden" id="id_vendeur" name="id_vendeur" value="10" />
 
-
         <br>
         <br>
         <button type="submit" class="btn btn-primary btn-lg">En vente !</button>
-
-
     </form>
-        
+   
+
           `;
           // <input type="hidden" id="id_vendeur" name="id_vendeur" value="${window.localStorage.getItem("user")}" />
 

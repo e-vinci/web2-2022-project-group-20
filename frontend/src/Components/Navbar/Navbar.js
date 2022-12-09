@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import {Navbar as BootstrapNavbar} from 'bootstrap';
+import { Navbar as BootstrapNavbar } from 'bootstrap';
 import logo from '../../img/logo.png';
 
 /**
@@ -65,6 +65,12 @@ function renderNavbar() {
             <i class='bx bx-basket icon'></i>
             <span class="text nav-text">basket</span>
           </a>
+        </li>
+        <li class="">
+            <a href="/sell">
+                <i class='bx bx-home-alt icon' ></i>
+                <span class="text nav-text">SELL PAGE</span>
+            </a>
         </li>
         <li class="">
           <a href="/contactpage">
