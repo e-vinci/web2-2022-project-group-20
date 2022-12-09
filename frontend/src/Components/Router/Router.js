@@ -5,6 +5,7 @@ import loginpage from '../Pages/LoginPage';
 import panier from '../Pages/panier';
 import PageProfile from '../Pages/Profilepage';
 import SellPage from '../Pages/SellProductPage';
+import WalletPage from '../Pages/WalletPage';
 
 
  
@@ -15,7 +16,8 @@ const routes = {
   '/loginpage' : loginpage,
   '/panier' : panier,
   '/profilpage' : PageProfile,
-  '/sell' : SellPage
+  '/sell' : SellPage,
+  '/wallet' : WalletPage
   
 };
 
