@@ -31,39 +31,46 @@ router.get('/article/:id', async (req, res) => {
 router.post("/register", async (req, res) => {
   if (
     !req.body ||
-    (req.body.nom && req.body.nom === '') ||
-    (req.body.prenom && req.body.prenom === '') ||
+    (req.body.lastname && req.body.lastname === '') ||
+    (req.body.firstname && req.body.firstname === '') ||
     (req.body.email && req.body.email === '') ||
-    (req.body.mdp && req.body.mdp === '')
+    (req.body.password && req.body.password === '')
   )
     return res.status(400).end();
 
-  const authenticatedUser = await memberModel.register(req.body);
-  if (!authenticatedUser) return res.status(409).end();
+  const authenticatedMember = await memberModel.register(req.body);
+  if (!authenticatedMember) return res.status(409).end();
 
-  // Pour mettre l'user en session :
-  req.session.idUser = authenticatedUser.idUser;
-  req.session.token = authenticatedUser.token;
-
-  return res.json(authenticatedUser);
+  try{
+    req.session.idMember = authenticatedMember.idMember;
+    req.session.token = authenticatedMember.token;
+    }catch(e){
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
+  
+  return res.json(authenticatedMember);
 });
 
 router.post("/login", async (req, res) => {
     if (!req.body ||
-        (req.body.email && req.body.email === "") ||
-        (req.body.mdp && req.body.mdp === ""))
+      (req.body.email && req.body.email === "") ||
+      (req.body.password && req.body.password === "")){
         return res.status(400).end();
+    }
+  const authenticatedMember = await memberModel.login(req.body);
+  if (authenticatedMember === 0) return res.sendStatus(404).end();
+  if (authenticatedMember === 1) return res.sendStatus(403).end();
 
-  const authenticatedUser = await memberModel.login(req.body);
-  if (authenticatedUser === 0) return res.sendStatus(404).end();
-  if (authenticatedUser === 1) return res.sendStatus(403).end();
+  try{
+  req.session.idMember = authenticatedMember.idMember;
+  req.session.token = authenticatedMember.token;
+  }catch(e){
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
 
-  req.session.idUser = authenticatedUser.id_user;
-  req.session.token = authenticatedUser.token;
-
-  return res.json(authenticatedUser);
+  return res.json(authenticatedMember);
 });
-
-
 
 module.exports = router;
