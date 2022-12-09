@@ -12,7 +12,8 @@ const membersDB = {
                           email,
                           nom,
                           prenom,
-                          image_profil
+                          image_profil,
+                          balance
                     FROM vinced.membres 
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
@@ -27,7 +28,6 @@ const membersDB = {
             throw new Error("Error while getting all posts from the database.");
         }
     },
-
     getMemberByEmail: async (email) => {
         const query = {
             text: `SELECT id_membre,
@@ -36,13 +36,14 @@ const membersDB = {
                           prenom,
                           mdp, 
                           image_profil,
-                          is_admin
+                          is_admin,
+                          balance
                     FROM vinced.membres 
                     WHERE email = $1
                     ORDER BY id_membre;`,
             values: [email]
         };
-    
+
         try {
             const {rows} = await db.query(query);
             return rows[0];
@@ -57,7 +58,8 @@ const membersDB = {
                                m.email,
                                m.nom,
                                m.prenom,
-                               m.image_profil
+                               m.image_profil,
+                               balance
                         FROM vinced.annonces a, vinced.favoris f,vinced.membres m
                         WHERE a.id_annonce = f.id_annonce AND
                               f.id_membre = m.id_membre AND
@@ -82,7 +84,7 @@ const membersDB = {
             values: [body.email, body.lastname, body.firstname, hashedPassword, '../images/default.jpg', false]
         };
         await db.query(query);
-        return membersDB.login(body);    
+        return membersDB.login(body);
     },
     login: async (body) => {
         const memberFound = await membersDB.getMemberByEmail(body.email);
@@ -103,7 +105,29 @@ const membersDB = {
         );
         authenticatedMember.token = token;
         return authenticatedMember;
-    }
+    },
+    async addCredits(email, credits, pool){
+        try {
+          const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *', [credits, email]);
+
+          if (! rows[0]) return;
+
+          return rows[0];
+        } catch (error){
+          throw new Error(error);
+        }
+      },
+      async removeCredits(email, credits, pool){
+          try {
+            const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance - $1 WHERE email = $2 RETURNING *', [credits, email]);
+
+            if (! rows[0]) return;
+
+            return rows[0];
+          } catch (error){
+            throw new Error(error);
+          }
+        }
 };
 
 module.exports = membersDB;

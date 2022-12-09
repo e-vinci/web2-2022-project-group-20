@@ -48,7 +48,7 @@ router.post("/register", async (req, res) => {
       // eslint-disable-next-line no-console
       console.error(e);
     }
-  
+
   return res.json(authenticatedMember);
 });
 
@@ -72,5 +72,41 @@ router.post("/login", async (req, res) => {
 
   return res.json(authenticatedMember);
 });
+
+//New todo Estelle
+router.put('/:email/addCredits', async function(req, res){
+  if(
+    !req.body ||
+    (req.body.hasOwnProperty("credits") && req.body.credits.length === 0)
+  )
+    return res.status(400).end;
+
+  try {
+    let user = await userModel.addCredits(req.params.email, req.body.credits, req.app.pool);
+    if (!user) return res.status(304).end();
+    return res.json(user);
+  }catch (error){
+    return res.status(420).end();
+  }
+})
+
+
+
+router.put('/:email/removeCredits', async function(req, res){
+  if(
+    !req.body ||
+    (req.body.hasOwnProperty("credits") && req.body.credits.length === 0)
+  )
+    return res.status(400).end;
+
+  try {
+    let user = await userModel.removeCredits(req.params.email, req.body.credits, req.app.pool);
+    if (!user) return res.status(304).end();
+    return res.json(user);
+  }catch (error){
+    return res.status(420).end();
+  }
+})
+
 
 module.exports = router;

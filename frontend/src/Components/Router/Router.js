@@ -61,4 +61,31 @@ function onFrontendLoad() {
   });
 }
 
+
 export default Router;
+
+/* todo : to add 
+
+const Redirect = uri => {
+	// use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
+	window.history.pushState({}, uri, window.location.origin + uri);
+	// render the requested component
+	redirection(uri);
+};
+
+function redirection(URLPath){
+	const parsedURL = URLPath.split('?');
+	const uri = parsedURL[0];
+	const params = parsedURL[1];
+	const componentToRender = routes[uri];
+	if (routes[uri]) {
+		componentToRender(params);
+	} else {
+		throw Error("The " + uri + " ressource does not exist");
+	}
+}
+
+export { Router, Redirect };
+*/
+
+

@@ -1,34 +1,15 @@
-/*  Todo delete
 
-.containerwallet{
-  width: 100;
-  align-items: center;
-  position: relative;
-  padding-left: 300px;
+// import {Redirect} from "../Router/Router";
+// import Navbar from "../Navbar/Navbar";
 
-}
+// import { loadUser } from "../../utils/loadUser"; 
 
-*/
-
-       
-
-
-import { clearPage, renderPageTitle } from '../../utils/render';
-
-const WalletPage = () => {
-    clearPage();
-    renderPageTitle("PANIER");
-    renderWallet();
-    
-  };
-
-function renderWallet() {
-    const walletpage= `
+const walletpage= `
     <section class="h-100 gradient-custom">
 	<div class="containerwallet">
 		<!--  Money row  -->
 		<div class="row d-flex justify-content-center my-4">
-			<div class="col-md-8" border+"col-md-8" >
+			<div class="col-md-7" border+"col-md-8" >
 				<!-- left  -->
 				<div class="card mb-4" >
 					<div class="card-header py-3">
@@ -55,15 +36,16 @@ function renderWallet() {
 					</div>
 					<div class="card-body">
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Montant à ajouter" aria-describedby="basic-addon2">
+							<input class="form-control"  id="money-to-add-input" type="text" placeholder="Montant à ajouter" aria-describedby="basic-addon2">
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button">Ajouter</button>
+								<button class="btn btn-outline-secondary" id="add-money-btn" type="button">Ajouter</button>
 							</div>
 						</div>
+
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Montant à retirer" aria-describedby="basic-addon2">
+							<input class="form-control"  id="money-to-remove-input" type="text" placeholder="Montant à retirer" aria-describedby="basic-addon2">
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button">Retirer</button>
+								<button class="btn btn-outline-secondary" id="remove-money-btn" type="button">Retirer</button>
 							</div>
 						</div>
 					</div>
@@ -75,7 +57,7 @@ function renderWallet() {
 
 		<!-- history -->
 		<div class="row d-flex justify-content-center my-4">
-			<div class="col-md-8" border+"col-md-8" >
+			<div class="col-md-7" border+"col-md-8" >
 				<!-- left  -->
 				<div class="card mb-4" >
 					<!-- Trasactions  -->
@@ -191,8 +173,45 @@ function renderWallet() {
 </section>
     `;
 
+	
+function WalletPage() {
     const main = document.querySelector('main');
     main.innerHTML = walletpage;
+
+	const addMoney  = document.querySelector("#add-money-btn");
+	const removeMoney = document.querySelector("#remove-money-btn");
+	
+	/*
+	const user = loadUser("user");
+	if (!user) {
+		*/
+		addMoney.addEventListener("click", addOnClick); // ("click", addOnClick, user);
+		removeMoney.addEventListener("click", removeOnClick);
+	/*
+	} else {
+		
+			Navbar();
+			Redirect("/");
+		
+	}
+	*/
+	
 }
 
+
+
+async function addOnClick(e) {
+	e.preventDefault();
+}
+
+
+
+async function removeOnClick(e){
+	e.preventDefault();
+}	
+
+
+
+
 export default WalletPage;
+
