@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
+import Navigate from '../Router/Navigate';
 import logo from '../../img/logo.png';
 
 /**
@@ -11,18 +12,6 @@ import logo from '../../img/logo.png';
 
 const Navbar = () => {
   renderNavbar();
-  const navbarElements = document.querySelector("#navbarWrapper").getElementsByTagName("a");
-
-  // eslint-disable-next-line no-restricted-syntax
-  for(const element of navbarElements){
-    console.log(element);
-    element.addEventListener("click", (e) => {
-      console.log(e.target.dataset.uri);
-      if (e.target.dataset.uri === window.location.pathname) {
-        element.setAttribute("class", "active");
-      }
-    });
-  }
   darkmode();
 };
 
@@ -49,33 +38,33 @@ function renderNavbar() {
       </li>
       <ul class="menu-links">
         <li class="">
-          <a data-uri="/">
+          <a  href="/" data-uri="/">
             <i class='bx bx-home-alt icon' ></i>
-            <span class="text nav-text">Dashboard</span>
+            <span class="text nav-text">Home page</span>
           </a>
         </li>
         <li class="">
-          <a href="/product">
+          <a href="/product" data-uri="/product">
             <i class='bx bx-bar-chart-alt-2 icon' ></i>
-            <span class="text nav-text">PRODUCTS</span>
+            <span class="text nav-text">Products</span>
           </a>
         </li>
         <li class="">
           <a href="/panier">
             <i class='bx bx-basket icon'></i>
-            <span class="text nav-text">basket</span>
+            <span class="text nav-text">Basket</span>
           </a>
         </li>
         <li class="">
             <a href="/sell">
                 <i class='bx bx-home-alt icon' ></i>
-                <span class="text nav-text">SELL PAGE</span>
+                <span class="text nav-text">Sell page</span>
             </a>
         </li>
         <li class="">
           <a href="/contactpage">
             <i class='bx bx-mail-send icon'></i>
-            <span class="text nav-text">CONTACT MOI</span>
+            <span class="text nav-text">Contact</span>
           </a>
         </li>
 `;
@@ -84,37 +73,47 @@ function renderNavbar() {
         <li class="nav-link">
           <a href="#">
             <i class='bx bx-heart icon' ></i>
-            <span class="text nav-text">Likes ITEMS</span>
+            <span class="text nav-text">Items I like</span>
           </a>
         </li>
         <li class="">
           <a href="/wallet">
             <i class='bx bx-wallet icon' ></i>
-            <span class="text nav-text">Wallets</span>
+            <span class="text nav-text">My wallets</span>
           </a>
         </li>
         <li class="">
           <a href="/profilpage">
             <i class='bx bx-male-female icon'></i>
-            <span class="text nav-text">ProfilePage</span>
+            <span class="text nav-text">Profile page</span>
           </a>
         </li>
     </ul>
     </div>
-    `;
-  } else {
-    anonymousUserNavbar += ` </ul></div>`;
-  }
-
-  anonymousUserNavbar += `
     <div class="bottom-content">
 
-    <li class="">
-        <a href="/loginpage">
+    <li  >
+        <a href="/" class="logBtn" id="logout" onclick="endSession()">
+            <i class='bx bx-log-in icon' ></i>
+            <span class="text nav-text">LOG OUT </span>
+        </a>
+    </li>
+
+    `;
+  } else {
+    anonymousUserNavbar += ` </ul></div>
+    <div class="bottom-content">
+
+    <li >
+        <a href="/loginPage" class="logBtn" id="login">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG IN </span>
         </a>
     </li>
+`;
+  }
+
+  anonymousUserNavbar += `
 
     <li class="mode">
         <div class="sun-moon">
@@ -136,6 +135,17 @@ function renderNavbar() {
 
   const navbar = document.querySelector('#navbarWrapper');
   navbar.innerHTML = anonymousUserNavbar;
+  
+  const logBtn = document.querySelector(".logBtn");
+    logBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if(logBtn.id === "logout"){
+        localStorage.clear(); 
+      }
+      Navigate('/login');
+      Navbar();
+      });
+  
 }
 
 /* function navbarclick(){

@@ -1,4 +1,6 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import Navigate from '../Router/Navigate'
+import Navbar from '../Navbar/Navbar';
 import logo1 from '../../img/log.svg';
 import logo2 from '../../img/register.svg';
 
@@ -142,9 +144,12 @@ function ad() {
       if(response.status === 200){
         alertDiv.className ="alert alert-success";
         alertDiv.innerHTML= 'You are now connected';
+        
       }
       const member = await response.json();
       window.localStorage.setItem('member', JSON.stringify(member));
+      Navigate('/');
+      Navbar();
     } catch (err) {
       console.error('LoginPage::error ', err);
     }
@@ -191,6 +196,8 @@ function ad() {
 
       const member = await response.json();
       window.localStorage.setItem('member', JSON.stringify(member));
+      Navigate('/');
+      Navbar();
     } catch (err) {
       /* eslint no-console: ["error", { allow: ["error"] }] */
       console.error('LoginPage::error ', err);

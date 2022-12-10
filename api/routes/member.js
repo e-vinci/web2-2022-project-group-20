@@ -64,8 +64,8 @@ router.post("/login", async (req, res) => {
   if (authenticatedMember === 1) return res.sendStatus(403).end();
 
   try{
-  req.session.idMember = authenticatedMember.idMember;
-  req.session.token = authenticatedMember.token;
+    req.session.idMember = authenticatedMember.idMember;
+    req.sssion.token = authenticatedMember.token;
   }catch(e){
     // eslint-disable-next-line no-console
     console.error(e);
