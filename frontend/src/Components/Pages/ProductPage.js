@@ -1,118 +1,128 @@
-import gameboyimg from '../../img/gameboy.png';
+import { clearPage, renderPageTitle } from '../../utils/render';
 
 
-const title = 'Gameboy';
-const price = 100;
-const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate ex gravida nibh elementum, vel luctus tortor volutpat. In fringilla viverra sem a faucibus. Phasellus imperdiet commodo enim sed gravida. Nullam lacinia mollis mauris quis posuere. Donec placerat auctor odio, non porttitor eros bibendum nec. Nullam fermentum odio at dictum.";
 const adresse = "rue ernest laude 32";
-const googlemaplink = `<div class="mapouter"><div class="gmap_canvas"><iframe width="895" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${adresse}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org">123 movies</a><br><style>.mapouter{position:relative;text-align:right;height:482px;width:895px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:482px;width:895px;}</style></div></div>`
-const auteur = "John Doe";
+const googlemaplink = `<div class="mapouter"><div class="gmap_canvas"><iframe width="895" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${adresse}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><br><style>.mapouter{position:relative;text-align:right;height:482px;width:895px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:482px;width:895px;}</style></div></div>`
+
+/* 
 const images = [gameboyimg,"https://i.imgur.com/p9HrhjR.jpeg","https://i.imgur.com/8n4pFVE.jpeg"];
-const categorie = "Console";
 
 let i = 0;
 let imgrender = images[i];
 
-
-
+*/
 const ProductPage = async () => {
-    // const idArticle = window.location.search.split('=')[1];
-    // const response = await fetch(`/api/article/${idArticle}`);
-    // // eslint-disable-next-line no-unused-vars
-    // const articleJson = await response.json();
+    clearPage();
+    renderPageTitle("PRODUCT PAGE");
+    renderhomepage();
+}
 
+    
+    
 
-    const main = document.querySelector('main');
-
-    const html = `
-<div class="containerproduct">
-
-    <div class="row">
-
-        <div class="col-md-4 mb-2">    
-
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-            <div class="carousel-inner">
-            <div class="carousel-item active">
-            <img src="${imgrender}" id="id_img" class="d-block w-100" alt="...">
-            </div>
-            </div>
-
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-            </button>
-            </div>
+function renderhomepage() {
+    const html = 
+    ` 
+    <section style="background-color: #eee;">
+  <div class="containerproduct py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card" style="border-radius: 15px;">
+          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+            data-mdb-ripple-color="light">
+          
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+            alt="Laptop" />
+        
             
-        </div>
+            <a href="#!">
+              <div class="mask"></div>
+            </a>
+          </div>
+          <div class="card-body pb-0">
+            <div class="d-flex justify-content-between">
+              <div>
+                <p><a href="#!" class="text-dark">PRODUCT NAME : LAPTOP  </a></p>
+                <p>PRICE :   </p>
+                <p>STATUS :   </p>
 
-
-
-        <div class="col-md-8 mb-auto" style="background-color: #a4c4d4;">
-
-            <h1>${title}</h1>
-            <button type="button" class="btn btn-primary btn-round mr-md-3 mb-md-0 mb-2" style="float: right;"><3</button>
-            <h2>${price}€</h2>
-            <h5>Par <a href="https://www.google.com">${auteur}</a></h5>
-
-
-            <div class="row">
-                <div class="col-10">
-                    <p>${description}</p>
+              
+                <p class="small text-muted">CATEGORY : ELECTRONICS</p>
+              </div>
+              <div>
+                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
                 </div>
-
-                <div class="col">
-                <button type="button" class="btn btn-primary btn-block btn-round mr-md-3 mt-3 mb-2 " style="float: right;
-                                                                                                 background-color: #44b1c6;">Ajouter au Panier</button>
-                <br>
-                <button type="button" class="btn btn-primary btn-block btn-round mr-md-3 mt-2 mb-2" style="float: right;
-                                                                                                 background-color: #2891ad;">Acheter maintenant ! </button>
-                </div>
+                <p class="small text-muted">Rated 4.0/5</p>
+              </div>
             </div>
-
-
-            <p>Etat : </p>
-            <p>Livraison : </p>
-            <p>Date de mise en vente : </p>
-            <p>Catégorie : ${categorie}</p>
-
+          </div>
+          <hr class="my-0" />
+          <div class="card-body pb-0">
+            <div class="d-flex justify-content-between">
+            </div>
             <div class="map-responsive mb-3">${googlemaplink}</div>
+          </div>
+          <hr class="my-0" />
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+              <a href="#!" class="text-dark fw-bold">ADD TO WISHLIST</a>
+              <button type="button" class="btn btn-primary">Buy now</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
+
+            
 `;
+    const main = document.querySelector('main');
     main.innerHTML = html;
 
-    const img = document.querySelector('#id_img');
+/* 
+const img = document.querySelector('#id_img');
 
-    function prev () {
-        if(i <= 0) i = images.length;
-        // eslint-disable-next-line no-plusplus
-        i -=1;
-        imgrender = images[i];
-        // eslint-disable-next-line no-return-assign
-        return img.src = imgrender;
+function prev () {
+    if(i <= 0) i = images.length;
+    // eslint-disable-next-line no-plusplus
+    i -=1;
+    imgrender = images[i];
+    // eslint-disable-next-line no-return-assign
+    return img.src = imgrender;
+}
+function next () {
+    if(i >= images.length - 1) i = -1;
+    //  eslint-disable-next-line no-plusplus
+    i +=1;
+    imgrender = images[i];
+    // eslint-disable-next-line no-return-assign
+    return img.src = imgrender;
 }
 
-    function next () {
-        if(i >= images.length - 1) i = -1;
-        //  eslint-disable-next-line no-plusplus
-        i +=1;
-        imgrender = images[i];
-        // eslint-disable-next-line no-return-assign
-        return img.src = imgrender;
-}
+document.querySelector('.carousel-control-prev').addEventListener('click', prev);
+document.querySelector('.carousel-control-next').addEventListener('click', next);
 
-    document.querySelector('.carousel-control-prev').addEventListener('click', prev);
-    document.querySelector('.carousel-control-next').addEventListener('click', next);
+};
+  */
 };
 
-
 export default ProductPage;
-  
+
+
+  /*
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+<span class="visually-hidden">Previous</span>
+</button>
+
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+<span class="carousel-control-next-icon" aria-hidden="true"></span>
+<span class="">Next</span>
+</button>
+*/

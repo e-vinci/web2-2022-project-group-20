@@ -854,14 +854,14 @@ form.sign-in-form {
 }
 
 /* CSS FOR PRODUCT PAGE */ 
-
+/*
 .containerproduct{
   width: 100;
   align-items: center;
   position: relative;
   padding-left: 250px;
 }
-
+*/
 /* CSS FOR WALLET PAGE */ 
 
 .containerwallet{
@@ -899,19 +899,16 @@ form.sign-in-form {
 
 };
 
+.containerproduct{
+  width: 100;
+  padding-left: 300px;
+
+}
 
 
 
-.gradient-custom {
-  /* fallback for old browsers */
-  background: #6a11cb;
-  
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-  
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
-  }
+
+
 
 /* CSS FOR PRODUCT PAGE */
 
@@ -922,8 +919,8 @@ form.sign-in-form {
     top:0;
 
     height:100%;
-
-    width:100%;
+    padding-right:200px;
+    width:75%;
 
     position:absolute;
 
@@ -931,8 +928,5 @@ form.sign-in-form {
 
 
 /* CSS FOR FOOTER */ 
-
-
-
 
 
