@@ -15,8 +15,10 @@ const Navbar = () => {
 
   // eslint-disable-next-line no-restricted-syntax
   for(const element of navbarElements){
+    // eslint-disable-next-line no-console
     console.log(element);
     element.addEventListener("click", (e) => {
+      // eslint-disable-next-line no-console
       console.log(e.target.dataset.uri);
       if (e.target.dataset.uri === window.location.pathname) {
         element.setAttribute("class", "active");

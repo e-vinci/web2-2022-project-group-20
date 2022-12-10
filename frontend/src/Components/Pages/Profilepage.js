@@ -13,7 +13,6 @@ const PageProfile = () => {
     <section style="background-color: #eee;">
     <div class="containerpanier">
       
-
       <div class="row">
         <div class="col-lg-4">
           <div class="card mb-4">
