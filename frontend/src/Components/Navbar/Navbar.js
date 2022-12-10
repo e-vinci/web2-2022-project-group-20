@@ -38,31 +38,31 @@ function renderNavbar() {
       </li>
       <ul class="menu-links">
         <li class="">
-          <a  href="/" data-uri="/">
+          <a data-uri="/">
             <i class='bx bx-home-alt icon' ></i>
             <span class="text nav-text">Home page</span>
           </a>
         </li>
         <li class="">
-          <a href="/product" data-uri="/product">
+          <a data-uri="/product">
             <i class='bx bx-bar-chart-alt-2 icon' ></i>
             <span class="text nav-text">Products</span>
           </a>
         </li>
         <li class="">
-          <a href="/panier">
+          <a data-uri="/panier">
             <i class='bx bx-basket icon'></i>
             <span class="text nav-text">Basket</span>
           </a>
         </li>
         <li class="">
-            <a href="/sell">
+            <a data-uri="sell">
                 <i class='bx bx-home-alt icon' ></i>
                 <span class="text nav-text">Sell page</span>
             </a>
         </li>
         <li class="">
-          <a href="/contactpage">
+          <a data-uri="contact">
             <i class='bx bx-mail-send icon'></i>
             <span class="text nav-text">Contact</span>
           </a>
@@ -77,13 +77,13 @@ function renderNavbar() {
           </a>
         </li>
         <li class="">
-          <a href="/wallet">
+          <a data-uri="wallet">
             <i class='bx bx-wallet icon' ></i>
             <span class="text nav-text">My wallets</span>
           </a>
         </li>
         <li class="">
-          <a href="/profilpage">
+          <a data-uri="/profile">
             <i class='bx bx-male-female icon'></i>
             <span class="text nav-text">Profile page</span>
           </a>
@@ -93,7 +93,7 @@ function renderNavbar() {
     <div class="bottom-content">
 
     <li  >
-        <a href="/" class="logBtn" id="logout" onclick="endSession()">
+        <a class="logBtn" id="logout">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG OUT </span>
         </a>
@@ -136,6 +136,17 @@ function renderNavbar() {
   const navbar = document.querySelector('#navbarWrapper');
   navbar.innerHTML = anonymousUserNavbar;
   
+
+  const navbarElements = document.querySelector("#navbarWrapper").getElementsByTagName("a");
+
+  // eslint-disable-next-line no-restricted-syntax
+  for(const element of navbarElements){
+    element.addEventListener("click", (e) => {
+      e.preventDefault();
+      Navigate(element.getAttribute("data-uri"));
+    });
+  }
+
   const logBtn = document.querySelector(".logBtn");
 
     logBtn.addEventListener("click", (e) => {

@@ -13,10 +13,10 @@ import Itemlikepage from '../Pages/ItemlikePage';
 const routes = {
   '/': HomePage,
   '/product': ProductPage,
-  '/contactpage' : ContactPage,
+  '/contact' : ContactPage,
   '/login' : loginpage,
   '/panier' : panier,
-  '/profilpage' : PageProfile,
+  '/profile' : PageProfile,
   '/sell' : SellPage,
   '/wallet' : WalletPage,
   '/myitem' : Itemlikepage,
