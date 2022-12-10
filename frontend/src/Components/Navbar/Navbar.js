@@ -70,8 +70,8 @@ function renderNavbar() {
 `;
   if (window.localStorage.getItem('member') !== null) {
     anonymousUserNavbar += `
-        <li class="nav-link">
-          <a href="#">
+        <li class="">
+          <a href="/myitem">
             <i class='bx bx-heart icon' ></i>
             <span class="text nav-text">Items I like</span>
           </a>
