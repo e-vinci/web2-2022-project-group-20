@@ -1,14 +1,14 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import gameboyimg from '../../img/gameboy.png';
 
-const PageProfile = () => {
-    clearPage();
-    renderPageTitle("ProfilPage");
-    renderpanier();
-    
-  };
 
-  function renderpanier() {
+
+  const renderpanier = async () => {
+    const request = {
+      method: "GET"
+    };
+    let information = await fetch(`api/profil/`, request);
+    information = await information.json();
     const profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
@@ -18,9 +18,9 @@ const PageProfile = () => {
             <div class="card-body text-center">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3" >HAZIQ MUAHMMAD</h5>
+              <h5 class="my-3" >${information.nom}</h5>
               <p class="text-muted mb-1">STUDENT</p>
-              <p class="text-muted mb-4">BX ZONE</p>
+              <p class="text-muted mb-4">BRUXELLES</p>
 
             </div>
           </div>
@@ -68,7 +68,7 @@ const PageProfile = () => {
                   <p class="mb-0">Email</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">muhammad.haziq@student.vinci.be</p>
+                  <p class="text-muted mb-0">${information.mail}</p>
                 </div>
               </div>
               <hr>
@@ -146,8 +146,14 @@ const PageProfile = () => {
     </div>
   </section>
     `;
+
     const main = document.querySelector('main');
     main.innerHTML = profilepage;
 }
 
+const PageProfile = () => {
+  clearPage();
+  renderPageTitle('HOMEPAGE');
+  renderpanier();
+};
 export default PageProfile;
