@@ -43,13 +43,9 @@ const membersDB = {
             values: [email]
         };
 
-        try {
             const {rows} = await db.query(query);
             const result = rows[0] ?  rows[0] : null;
             return result;
-        } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
-        }
     },
     getFavotiteOfAnArticle: async (idArticle) => {
         const query = {

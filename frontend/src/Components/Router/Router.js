@@ -13,7 +13,7 @@ const routes = {
   '/': HomePage,
   '/product': ProductPage,
   '/contactpage' : ContactPage,
-  '/loginpage' : loginpage,
+  '/login' : loginpage,
   '/panier' : panier,
   '/profilpage' : PageProfile,
   '/sell' : SellPage,
@@ -87,5 +87,4 @@ function redirection(URLPath){
 
 export { Router, Redirect };
 */
-
 
