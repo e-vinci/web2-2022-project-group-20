@@ -1,14 +1,16 @@
 const express = require("express");
+const memberModel = require('../models/members');
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
 const router = express.Router();
 /**
- * GET all articles or articles by id
+ * GET INFORMATION or membre by id
  */
-router.get("/", async (req, res) => {
+router.get("/:email", async (req, res) => {
 
     try {
-        return res.json("Hello World!");
+        const information  = await memberModel.getMemberById(req.params.email);
+        return res.json(information);
     } catch (e) {
         return res.sendStatus(502);
     }}
