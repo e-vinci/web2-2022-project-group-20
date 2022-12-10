@@ -137,6 +137,7 @@ function renderNavbar() {
   navbar.innerHTML = anonymousUserNavbar;
   
   const logBtn = document.querySelector(".logBtn");
+
     logBtn.addEventListener("click", (e) => {
       e.preventDefault();
       if(logBtn.id === "logout"){
