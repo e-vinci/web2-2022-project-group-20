@@ -55,12 +55,7 @@ function renderNavbar() {
             <span class="text nav-text">Basket</span>
           </a>
         </li>
-        <li class="">
-            <a data-uri="sell">
-                <i class='bx bx-home-alt icon' ></i>
-                <span class="text nav-text">Sell page</span>
-            </a>
-        </li>
+    
         <li class="">
           <a data-uri="contact">
             <i class='bx bx-mail-send icon'></i>
@@ -70,12 +65,19 @@ function renderNavbar() {
 `;
   if (window.localStorage.getItem('member') !== null) {
     anonymousUserNavbar += `
+      <li class="">
+            <a data-uri="sell">
+                <i class='bx bx-purchase-tag-alt icon'></i>
+                <span class="text nav-text">Sell page</span>
+            </a>
+        </li>
         <li class="">
           <a href="/myitem">
             <i class='bx bx-heart icon' ></i>
             <span class="text nav-text">Items I like</span>
           </a>
         </li>
+
         <li class="">
           <a data-uri="wallet">
             <i class='bx bx-wallet icon' ></i>
