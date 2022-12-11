@@ -1,6 +1,4 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
-// eslint-disable-next-line no-unused-vars
-import Navigate from '../Router/Navigate';
 // import loadUser from '../../utils/loadUser';
 
  const img = 'https://picsum.photos/200/300'; 
@@ -31,7 +29,7 @@ const HomePageRender = async () => {
               </div>
 
               <div class="d-flex justify-content-between mb-3">
-                <a class="nomArticle" data-uri="/product"> <h5 class="mb-0">${carte.nom_article}</h5> </a>
+                <a class="nomArticle" href="/product?idProduct=${carte.id_annonce}"> <h5 class="mb-0">${carte.nom_article}</h5> </a>
               
                 <h5 class="text-dark mb-0">${carte.prix}€</h5>
               </div>
@@ -40,14 +38,6 @@ const HomePageRender = async () => {
             </div>
           </div>
         </div>
-        <script>
-        
-        const article = document.querySelector(".nomArticle");
-        article.addEventListener("click", (e) => {
-          e.preventDefault();
-          Navigate(article.getAttribute("data-uri"));
-        });
-        </script>
         `
     });
     

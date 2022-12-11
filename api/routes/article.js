@@ -22,18 +22,40 @@ router.get("/", async (req, res) => {
     }}
 );
 
-
 /**
- * GET all articles with all infos for cards
+ * GET one articleby its id
  */
-router.get('/cartes', async (req, res) => {
-    try {
-      const cartes = await articleModel.getInfosForArticleCard();
-      return res.json(cartes);
-    } catch (e) {
-      return res.sendStatus(502);
+router.get("/:id", async (req, res) => {
+    if(req.params.id > 0){
+        try {
+            const articles = await articleModel.getAllInfosForArticleById(req.params.id);
+            return res.json(articles);
+        } catch (e) {
+            return res.sendStatus(502);
+        }
+    }else{
+        try {
+            const cartes = await articleModel.getAllInfosForAllArticles();
+            return res.json(cartes);
+        } catch (e) {
+        
+            return res.sendStatus(502);
+        }
     }
-  });
+});
+
+// /**
+//  * GET all articles with all infos for cards
+//  */
+// router.get('/cartes', async (req, res) => {
+//     try {
+//       const cartes = await articleModel.getAllInfosForAllArticles();
+//       return res.json(cartes);
+//     } catch (e) {
+      
+//       return res.sendStatus(502);
+//     }
+//   });
   
 
 /**
