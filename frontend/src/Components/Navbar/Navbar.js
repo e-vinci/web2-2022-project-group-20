@@ -43,11 +43,6 @@ function renderNavbar() {
             <span class="text nav-text">Home page</span>
           </a>
         </li>
-        <li class="">
-          <a data-uri="/product">
-            <i class='bx bx-bar-chart-alt-2 icon' ></i>
-            <span class="text nav-text">Products</span>
-          </a>
         </li>
         <li class="">
           <a data-uri="/panier">
