@@ -72,13 +72,33 @@ CREATE TABLE vinced.annonce_photos (
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN ARTICLE
 CREATE OR REPLACE VIEW vinced.cartes_articles AS
-    SELECT a.id_annonce, a.nom AS "nom_article", a.description,a.prix, a.date_pub, a.photo, a.status,
+    SELECT a.id_annonce, a.nom AS "nom_article",
+           a.description,a.prix,
+            a.date_pub,
+            a.photo,
+            a.status,
            c.nom AS "categorie",
-           ma.id_membre AS "id_acheteur", ma.nom AS "nom_acheteur", ma.prenom AS "prenom_acheteur",
-           mv.id_membre AS "id_vendeur", mv.nom AS "nom_vendeur", mv.prenom AS "prenom_vendeur"
+           ma.id_membre AS "id_acheteur", 
+           ma.nom AS "nom_acheteur", 
+           ma.prenom AS "prenom_acheteur",
+           mv.id_membre AS "id_vendeur", 
+           mv.nom AS "nom_vendeur", 
+           mv.prenom AS "prenom_vendeur"
     FROM ( (vinced.annonces a LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur)
         JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre )
         JOIN vinced.categories c on a.categorie = c.id_categorie;
+
+-- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
+CREATE OR REPLACE VIEW vinced.users_infos AS
+    SELECT m.id_membre,
+           m.nom,
+           m.prenom,
+           m.is_admin,
+           m.balance,
+           count(a.id_annonce) AS "annonces_postee",
+           count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "annonces_vendues"
+    FROM vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur
+    GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance;
 
 -- INSERT INTO MEMBRES
 INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', 'azerty', '../images/default.jpg');
