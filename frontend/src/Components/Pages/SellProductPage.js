@@ -1,7 +1,6 @@
-import uploadImage from '../../utils/uploadImage';
-
-
-const SellProductPage = ()=>{
+// First, you will need to import the `FileSaver.js` library to save the image file on the client-side
+// Then, you can use the fetch API to send a request to the Imgur API to upload the image.
+const SellProductPage = ()=>{    
     renderSellProductPage();
 };
 
@@ -20,7 +19,7 @@ async function renderSellProductPage(){
     
 
     const render = `
-    <form action="http://localhost:3000/articles" method="POST">
+    <form action="http://localhost:3000/articles" method="POST" onsubmit="DoSubmit();">
     
         
         <label for="nom">Titre (min 4 chars):</label>
@@ -35,14 +34,14 @@ async function renderSellProductPage(){
         <br>
 
         <label for="category">Choisie une catégorie:</label>
-        <select name="category" id="category">
+        <select name="id_categorie" id="id_categorie">
         ${categorieshtml(categories)}
         </select>
 
         <br>
 
         <label for="name">Photo :</label>
-        <input type="file" id="photo" name="photo" accept="image/*">
+        <input type="file" id="fileInput" name="photo" accept="image/*">
 
         <input type="hidden" id="id_vendeur" name="id_vendeur" value="10" />
 
@@ -58,27 +57,41 @@ async function renderSellProductPage(){
   const main = document.querySelector("main");
   main.innerHTML = render;
 
+  const form = document.querySelector("form");
+
+form.addEventListener("submit", ()=>{
+    const fileInput = document.querySelector("#fileInput")
+    const file = fileInput.files[0];
+
+    const formdata = new FormData();
+    formdata.append('image', file);
+    // eslint-disable-next-line no-console
+    console.log(formdata);
+
+    form.photo.value = "afou";
+
+    fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {Authorization: `Client-ID a7f3a8a833acad6`},
+        body: formdata
+      }).then(response => response.json()).then(responseJson => {
+        // eslint-disable-next-line no-unused-vars
+        const imageUrl = responseJson.data.link;
+        form.photo.value = "afou";
+
+      });
+});
+
+
+  /* Client ID:
+a7f3a8a833acad6
+Client secret:
+7d34a4d46d2c72ab773e381f98252325cbf32e31
+*/
+
+
+  // Get the file input element
   
-
-  const file = document.getElementById("file");
-  file.addEventListener("change", (e) => {
-    const fileElement = e.target.files[0];
-    const url = uploadImage(fileElement);
-
-    file.value = url;
-    });
-
-  
-    const form = document.querySelector("form");
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        // eslint-disable-next-line no-console
-        console.log(form);
-    });
-
-  main.innerHTML = render;
-
-
 }
 
 export default SellProductPage;

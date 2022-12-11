@@ -153,7 +153,7 @@ import gameboyimg from '../../img/gameboy.png';
 
 const PageProfile = () => {
   clearPage();
-  renderPageTitle('HOMEPAGE');
+  renderPageTitle('profilpage');
   renderpanier();
 };
 export default PageProfile;
