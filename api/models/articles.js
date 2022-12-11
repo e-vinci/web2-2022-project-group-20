@@ -24,7 +24,8 @@ const articlesDB = {
                         description,
                         prix,
                         date_pub,
-                        photo
+                        categorie,
+                        photo,
                         id_vendeur,
                         nom_vendeur,
                         prenom_vendeur
@@ -45,6 +46,7 @@ const articlesDB = {
                         date_pub,
                         status,
                         photo,
+                        categorie,
                         id_acheteur,
                         nom_acheteur,
                         prenom_acheteur,

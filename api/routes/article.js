@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     if(req.params.id > 0){
         try {
-            console.log("TESTT")
             const articles = await articleModel.getAllInfosForArticleById(req.params.id);
             return res.json(articles);
         } catch (e) {
