@@ -25,6 +25,10 @@ CREATE TABLE vinced.adresses (
     pays VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE vinced.categories (
+    id_categorie SERIAL PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL
+);
 
 CREATE TYPE vinced.STATUS AS ENUM ('En cours', 'Postée','Resrvée','Vendue');
 
@@ -38,7 +42,8 @@ CREATE TABLE vinced.annonces (
     prix DOUBLE PRECISION NOT NULL CHECK ( prix > 0 ),
     status vinced.STATUS NOT NULL DEFAULT 'Postée',
     photo VARCHAR(50) CHECK ( photo <> '' ),
-    id_adresse INTEGER REFERENCES vinced.adresses
+    id_adresse INTEGER REFERENCES vinced.adresses,
+    categorie  integer references vinced.categories
 );
 
 CREATE TABLE vinced.favoris (
@@ -52,10 +57,6 @@ CREATE TABLE vinced.photos (
     id_annonce INTEGER NOT NULL  REFERENCES vinced.annonces
 );
 
-CREATE TABLE vinced.categories (
-    id_categorie SERIAL PRIMARY KEY,
-    nom VARCHAR(50) NOT NULL
-);
 
 CREATE TABLE vinced.categories_choisis (
     PRIMARY KEY (id_annonce, id_categorie),
