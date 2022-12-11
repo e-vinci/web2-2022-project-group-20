@@ -8,10 +8,12 @@ const router = express.Router();
 /**
  * GET member by its id
  */
-router.get('/:email', async (req, res) => {
+router.get('/:id', async (req, res) => {
+  // eslint-disable-next-line no-console
+  console.log("TEST");
   try {
-    const articles = await memberModel.getMemberById(req.params.email);
-    return res.json(articles);
+    const member = await memberModel.getMemberById(req.params.id);
+    return res.json(member);
   } catch (e) {
     return res.sendStatus(502);
   }

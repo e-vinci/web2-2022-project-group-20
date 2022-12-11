@@ -20,6 +20,20 @@ router.get("/", async (req, res) => {
     }}
 );
 
+
+/**
+ * GET all articles with all infos for cards
+ */
+router.get('/cartes', async (req, res) => {
+    try {
+      const cartes = await articleModel.getInfosForArticleCard();
+      return res.json(cartes);
+    } catch (e) {
+      return res.sendStatus(502);
+    }
+  });
+  
+
 /**
  * GET all articles by user id
  */

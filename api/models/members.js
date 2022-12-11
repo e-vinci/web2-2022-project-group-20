@@ -6,7 +6,7 @@ const saltRounds = 10;
 const LIFETIME_JWT = 24 * 60 * 60 * 1000;
 
 const membersDB = {
-    getMemberById: async (idMember) => {
+    getMemberById: async (id) => {
         const query = {
             text: `SELECT id_membre,
                           email,
@@ -17,14 +17,14 @@ const membersDB = {
                     FROM vinced.membres 
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
-            values: [idMember]
+            values: [id]
         };
 
         try {
             const {rows} = await db.query(query);
             return rows;
         } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
+            throw new Error("Error while getting this member from the database.");
         }
     },
     getMemberByEmail: async (email) => {

@@ -18,6 +18,21 @@ const articlesDB = {
         
     },
 
+    getInfosForArticleCard : async () => {
+        const query = `SELECT id_annonce,
+                        nom_article,
+                        description,
+                        prix,
+                        date_pub,
+                        photo
+                        id_vendeur,
+                        nom_vendeur,
+                        prenom_vendeur
+                FROM vinced.cartes_articles`;
+                const {rows} = await db.query(query);
+                return rows;
+    },
+
     getArticleById : async (id) => {
         const query = {
             text: `SELECT id_annonce,
