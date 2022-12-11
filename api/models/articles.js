@@ -18,7 +18,7 @@ const articlesDB = {
         
     },
 
-    getInfosForArticleCard : async () => {
+    getAllInfosForAllArticles : async () => {
         const query = `SELECT id_annonce,
                         nom_article,
                         description,
@@ -29,10 +29,39 @@ const articlesDB = {
                         nom_vendeur,
                         prenom_vendeur
                 FROM vinced.cartes_articles`;
+            try {
                 const {rows} = await db.query(query);
                 return rows;
+            } catch (e) {
+                throw new Error("Error while getting this article from the database.");
+            }
     },
-
+    getAllInfosForArticleById : async (id) => {
+        const query = {
+            text: `SELECT id_annonce,
+                        nom_article,
+                        description,
+                        prix,
+                        date_pub,
+                        status,
+                        photo,
+                        id_acheteur,
+                        nom_acheteur,
+                        prenom_acheteur,
+                        id_vendeur,
+                        nom_vendeur,
+                        prenom_vendeur
+                FROM vinced.cartes_articles
+                WHERE id_annonce = $1`,
+            values: [id]
+        }
+        try {
+            const {rows} = await db.query(query);
+            return rows;
+        } catch (e) {
+            throw new Error("Error while getting this article from the database.");
+        }
+    },
     getArticleById : async (id) => {
         const query = {
             text: `SELECT id_annonce,
@@ -51,7 +80,7 @@ const articlesDB = {
             const {rows} = await db.query(query);
             return rows;
         } catch (e) {
-            throw new Error("Error while getting this post from the database.");
+            throw new Error("Error while getting this article from the database.");
         }
     },
 

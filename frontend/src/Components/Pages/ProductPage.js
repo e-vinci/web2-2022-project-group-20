@@ -20,10 +20,20 @@ const ProductPage = async () => {
     
     
 
-function renderhomepage() {
-    const html = 
+async function renderhomepage() {
+  const idProduct = new URLSearchParams(window.location.search).get("idProduct")
+  const request = {
+    method: "GET"
+  };
+  let response = await fetch(`api/articles/${idProduct}`, request);
+  response = await response.json();
+  
+  const productInfo = response[0];
+  // eslint-disable-next-line no-console
+  console.log(productInfo);
+  const html = 
     ` 
-    <section style="background-color: #eee;">
+  <section style="background-color: #eee;">
   <div class="containerproduct py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
@@ -43,11 +53,11 @@ function renderhomepage() {
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">PRODUCT NAME : LAPTOP  </a></p>
-                <p>PRICE :   </p>
-                <p>STATUS :   </p>
+                <h3>${productInfo.nom_article} </h3>
+                <p class="small">${productInfo.description} </p>
+                <p>PRICE : ${productInfo.prix}  </p>
+                <p>STATUS :  ${productInfo.status} </p>
 
-              
                 <p class="small text-muted">CATEGORY : ELECTRONICS</p>
               </div>
               <div>
