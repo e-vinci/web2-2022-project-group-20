@@ -20,14 +20,24 @@ const ProductPage = async () => {
     
     
 
-function renderhomepage() {
-    const html = 
+async function renderhomepage() {
+  const idProduct = new URLSearchParams(window.location.search).get("idProduct")
+  const request = {
+    method: "GET"
+  };
+  let response = await fetch(`api/articles/${idProduct}`, request);
+  response = await response.json();
+  
+  const productInfo = response[0];
+  // eslint-disable-next-line no-console
+  console.log(productInfo);
+  let html = 
     ` 
-    <section style="background-color: #eee;">
+  <section style="background-color: #eee;">
   <div class="containerproduct py-5">
     <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card" style="border-radius: 15px;">
+      <div class="col-md- col-lg-6 col-xl-7">
+        <div class="card" id="cardProductPage" style="border-radius: 15px;">
           <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light">
           
@@ -43,22 +53,21 @@ function renderhomepage() {
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">PRODUCT NAME : LAPTOP  </a></p>
-                <p>PRICE :   </p>
-                <p>STATUS :   </p>
+                <h3>${productInfo.nom_article} </h3>
+                <p class="small">${productInfo.description} </p>
+                <p>PRICE : ${productInfo.prix}  </p>
+                <p>STATUS : ${productInfo.status}   </p>
 
-              
-                <p class="small text-muted">CATEGORY : ELECTRONICS</p>
+                <p class="small text-muted">CATEGORY : ${productInfo.categorie}</p>
               </div>
               <div>
-                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-                <p class="small text-muted">Rated 4.0/5</p>
-              </div>
+                <p>SELLER :  <a href="/profile?idProduct=${productInfo.id_vendeur}">${productInfo.prenom_vendeur} ${productInfo.nom_vendeur}</a></p>
+                `
+                if(productInfo.id_acheteur){
+                  html += `<p>BUYER :  <a href="/profile?idProduct=${productInfo.id_acheteur}">${productInfo.prenom_acheteur} ${productInfo.nom_acheteur}</a></p>`
+                 
+                }
+              html += `</div>
             </div>
           </div>
           <hr class="my-0" />
