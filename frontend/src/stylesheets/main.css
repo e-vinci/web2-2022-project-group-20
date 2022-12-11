@@ -883,11 +883,13 @@ form.sign-in-form {
   object-fit: cover;
 }
 
-.card{
+.cardHomePage{
   margin: 0.5rem;
   height: 300px;
   width: 18rem;
 }
+
+
 
 /* CSS FOR PANIER PAGE */ 
 

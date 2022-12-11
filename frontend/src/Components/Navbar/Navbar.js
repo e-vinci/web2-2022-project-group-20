@@ -95,7 +95,7 @@ function renderNavbar() {
     <div class="bottom-content">
 
     <li  >
-        <a class="logBtn" id="logout">
+        <a class="logBtn" data-uri="/login" id="logout">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG OUT </span>
         </a>
@@ -107,7 +107,7 @@ function renderNavbar() {
     <div class="bottom-content">
 
     <li >
-        <a href="/loginPage" class="logBtn" id="login">
+        <a href="/loginPage"  class="logBtn" id="login">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG IN </span>
         </a>
