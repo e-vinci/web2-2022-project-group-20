@@ -66,8 +66,9 @@ function renderNavbar() {
                 <span class="text nav-text">Sell page</span>
             </a>
         </li>
+        
         <li class="">
-          <a href="/myitem">
+        <a data-uri="/myitem">
             <i class='bx bx-heart icon' ></i>
             <span class="text nav-text">Items I like</span>
           </a>
