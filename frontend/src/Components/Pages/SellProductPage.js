@@ -58,7 +58,6 @@ async function renderSellProductPage(){
   main.innerHTML = render;
 
   const form = document.querySelector("form");
-
 form.addEventListener("submit", ()=>{
     const fileInput = document.querySelector("#fileInput")
     const file = fileInput.files[0];
@@ -77,7 +76,6 @@ form.addEventListener("submit", ()=>{
       }).then(response => response.json()).then(responseJson => {
         // eslint-disable-next-line no-unused-vars
         const imageUrl = responseJson.data.link;
-        form.photo.value = "afou";
 
       });
 });
