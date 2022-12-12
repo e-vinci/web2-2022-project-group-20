@@ -12,9 +12,12 @@ const membersDB = {
                           email,
                           nom,
                           prenom,
+                          is_admin,
                           image_profil,
-                          balance
-                    FROM vinced.membres 
+                          balance,
+                          nbr_annonces_postee,
+                          nbr_annonces_vendues
+                    FROM vinced.membres_infos 
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
             values: [id]

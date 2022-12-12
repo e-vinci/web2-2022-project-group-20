@@ -7576,7 +7576,7 @@
 2239356||2239355|c|G
 2239356||2239355|C|G
 2239356||2239355|T|G</Grants>
-      <IntrospectionStateNumber>22713132</IntrospectionStateNumber>
+      <IntrospectionStateNumber>22713923</IntrospectionStateNumber>
       <ServerVersion>11.13</ServerVersion>
       <StartupTime>1629362233</StartupTime>
       <TimeZones>true ACDT
@@ -19379,7 +19379,7 @@ false posixrules
 12825||10|C|G
 12825||-9223372036854775808|U|G
 12825||10|U|G</Grants>
-      <IntrospectionStateNumber>22713132</IntrospectionStateNumber>
+      <IntrospectionStateNumber>22713923</IntrospectionStateNumber>
       <ObjectId>2162956</ObjectId>
       <OwnerName>zkyiherr</OwnerName>
     </database>
@@ -37582,13 +37582,13 @@ false posixrules
 18318||10|t|G
 18318||10|D|G
 18318||10|w|G</Grants>
-      <IntrospectionStateNumber>22713132</IntrospectionStateNumber>
+      <IntrospectionStateNumber>22713904</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>359</StateNumber>
       <OwnerName>postgres</OwnerName>
     </schema>
     <schema id="5583" parent="2597" name="vinced">
-      <IntrospectionStateNumber>22713132</IntrospectionStateNumber>
+      <IntrospectionStateNumber>22713923</IntrospectionStateNumber>
       <ObjectId>2163326</ObjectId>
       <StateNumber>22023406</StateNumber>
       <OwnerName>zkyiherr</OwnerName>
@@ -50193,10 +50193,10 @@ Vendue</Labels>
       <StateNumber>22701253</StateNumber>
       <OwnerName>zkyiherr</OwnerName>
     </view>
-    <view id="6624" parent="5583" name="users_infos">
-      <ObjectId>2242273</ObjectId>
-      <SourceTextLength>428</SourceTextLength>
-      <StateNumber>22713131</StateNumber>
+    <view id="6624" parent="5583" name="membres_infos">
+      <ObjectId>2242293</ObjectId>
+      <SourceTextLength>469</SourceTextLength>
+      <StateNumber>22713903</StateNumber>
       <OwnerName>zkyiherr</OwnerName>
     </view>
     <argument id="6625" parent="5584">
@@ -61217,37 +61217,47 @@ id_annonce</ColNames>
     <column id="9271" parent="6624" name="id_membre">
       <DasType>integer|0s</DasType>
       <Position>1</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
     </column>
-    <column id="9272" parent="6624" name="nom">
+    <column id="9272" parent="6624" name="email">
       <DasType>varchar(50)|0s</DasType>
       <Position>2</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
     </column>
-    <column id="9273" parent="6624" name="prenom">
+    <column id="9273" parent="6624" name="nom">
       <DasType>varchar(50)|0s</DasType>
       <Position>3</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
     </column>
-    <column id="9274" parent="6624" name="is_admin">
-      <DasType>boolean|0s</DasType>
+    <column id="9274" parent="6624" name="prenom">
+      <DasType>varchar(50)|0s</DasType>
       <Position>4</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
     </column>
-    <column id="9275" parent="6624" name="balance">
-      <DasType>integer|0s</DasType>
+    <column id="9275" parent="6624" name="is_admin">
+      <DasType>boolean|0s</DasType>
       <Position>5</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
     </column>
-    <column id="9276" parent="6624" name="annonces_postee">
-      <DasType>bigint|0s</DasType>
+    <column id="9276" parent="6624" name="image_profil">
+      <DasType>varchar(100)|0s</DasType>
       <Position>6</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
     </column>
-    <column id="9277" parent="6624" name="annonces_vendues">
-      <DasType>bigint|0s</DasType>
+    <column id="9277" parent="6624" name="balance">
+      <DasType>integer|0s</DasType>
       <Position>7</Position>
-      <StateNumber>22713131</StateNumber>
+      <StateNumber>22713903</StateNumber>
+    </column>
+    <column id="9278" parent="6624" name="nbr_annonces_postee">
+      <DasType>bigint|0s</DasType>
+      <Position>8</Position>
+      <StateNumber>22713903</StateNumber>
+    </column>
+    <column id="9279" parent="6624" name="nbr_annonces_vendues">
+      <DasType>bigint|0s</DasType>
+      <Position>9</Position>
+      <StateNumber>22713903</StateNumber>
     </column>
   </database-model>
 </dataSource>

@@ -91,15 +91,17 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infos AS
     SELECT m.id_membre,
+           m.email,
            m.nom,
            m.prenom,
            m.is_admin,
+           m.image_profil,
            m.balance,
-           count(a.id_annonce) AS "annonces_postee",
-           count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "annonces_vendues"
+           count(a.id_annonce) AS "nbr_annonces_postee",
+           count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
     FROM vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur
     GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance;
-
+    
 -- INSERT INTO MEMBRES
 INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', 'azerty', '../images/default.jpg');
 INSERT into vinced.membres VALUES (DEFAULT, 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', 'azerty', '../images/default.jpg');

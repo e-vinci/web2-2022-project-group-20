@@ -3,12 +3,25 @@ import gameboyimg from '../../img/gameboy.png';
 
 
 
-  const renderpanier = async () => {
+  const renderpanier = async () => {  
+    
+    // Récupère l'id membre dans l'URL
+    let idMember = new URLSearchParams(window.location.search).get("idProduct")
+
+    // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
+    if(!idMember) {
+    const local = await JSON.parse(window.localStorage.getItem("member"));
+    idMember = local.id_membre;
+    }
     const request = {
       method: "GET"
     };
-    let information = await fetch(`api/profil/`, request);
-    information = await information.json();
+    
+    // Récupère le membre en question
+    let response = await fetch(`api/members/${idMember}`, request);
+    response = await response.json();
+    const member = response[0];
+
     const profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
@@ -18,7 +31,7 @@ import gameboyimg from '../../img/gameboy.png';
             <div class="card-body text-center">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3" >${information.nom}</h5>
+              <h5 class="my-3" >${member.nom}</h5>
               <p class="text-muted mb-1">STUDENT</p>
               <p class="text-muted mb-4">BRUXELLES</p>
 
@@ -68,7 +81,7 @@ import gameboyimg from '../../img/gameboy.png';
                   <p class="mb-0">Email</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">${information.mail}</p>
+                  <p class="text-muted mb-0">${member.mail}</p>
                 </div>
               </div>
               <hr>
