@@ -91,6 +91,14 @@ form.addEventListener("submit", async ()=>{
         })
 
 
+    fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {Authorization: `Client-ID a7f3a8a833acad6`},
+        body: formdata
+      }).then(response => response.json()).then(responseJson => {
+        // eslint-disable-next-line no-unused-vars
+        const imageUrl = responseJson.data.link;
+        form.photo.value = "afou";
 
 });
 
