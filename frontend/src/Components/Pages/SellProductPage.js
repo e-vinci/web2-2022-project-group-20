@@ -4,6 +4,13 @@ const SellProductPage = ()=>{
     renderSellProductPage();
 };
 
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
  function categorieshtml(categories){
     
     let html = "";
@@ -48,6 +55,8 @@ async function renderSellProductPage(){
         <br>
         <br>
         <button type="submit" class="btn btn-primary btn-lg">En vente !</button>
+
+        <img id="image" src="" alt="">
     </form>
    
 
@@ -59,27 +68,30 @@ async function renderSellProductPage(){
 
   const form = document.querySelector("form");
 
-form.addEventListener("submit", ()=>{
-    const fileInput = document.querySelector("#fileInput")
-    const file = fileInput.files[0];
+form.addEventListener("submit", async ()=>{
+    const file = document.querySelector("#fileInput")
 
-    const formdata = new FormData();
-    formdata.append('image', file);
-    // eslint-disable-next-line no-console
-    console.log(formdata);
+    const formdata = new FormData()
+    formdata.append("image", file.files[0])
+    
+    fetch("https://api.imgur.com/3/image/", {
+            method: "post",
+            headers: {
+                Authorization: "Client-ID a7f3a8a833acad6"
+            },
+            body: {
+                image: await toBase64(file.files[0])
+            }
+        }).then(data => data.json()).then(data => {
+            // eslint-disable-next-line no-console
+            console.log(data.data.link)
+        }).catch(err => {
+            // eslint-disable-next-line no-console
+            console.log(err)
+        })
 
-    form.photo.value = "afou";
 
-    fetch('https://api.imgur.com/3/image', {
-        method: 'POST',
-        headers: {Authorization: `Client-ID a7f3a8a833acad6`},
-        body: formdata
-      }).then(response => response.json()).then(responseJson => {
-        // eslint-disable-next-line no-unused-vars
-        const imageUrl = responseJson.data.link;
-        form.photo.value = "afou";
 
-      });
 });
 
 
