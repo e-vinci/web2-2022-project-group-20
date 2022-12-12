@@ -10,8 +10,8 @@ import gameboyimg from '../../img/gameboy.png';
 
     // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
     if(!idMember) {
-    const local = await JSON.parse(window.localStorage.getItem("member"));
-    idMember = local.id_membre;
+      const local = await JSON.parse(window.localStorage.getItem("member"));
+      idMember = local.id_membre;
     }
     const request = {
       method: "GET"
@@ -21,7 +21,6 @@ import gameboyimg from '../../img/gameboy.png';
     let response = await fetch(`api/members/${idMember}`, request);
     response = await response.json();
     const member = response[0];
-
     let profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
