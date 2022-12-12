@@ -61,10 +61,10 @@ async function renderhomepage() {
                 <p class="small text-muted">CATEGORY : ${productInfo.categorie}</p>
               </div>
               <div>
-                <p>SELLER :  <a href="/profile?idProduct=${productInfo.id_vendeur}">${productInfo.prenom_vendeur} ${productInfo.nom_vendeur}</a></p>
+                <p>SELLER :  <a href="/profile?idMembre=${productInfo.id_vendeur}">${productInfo.prenom_vendeur} ${productInfo.nom_vendeur}</a></p>
                 `
                 if(productInfo.id_acheteur){
-                  html += `<p>BUYER :  <a href="/profile?idProduct=${productInfo.id_acheteur}">${productInfo.prenom_acheteur} ${productInfo.nom_acheteur}</a></p>`
+                  html += `<p>BUYER :  <a href="/profile?idMembre=${productInfo.id_acheteur}">${productInfo.prenom_acheteur} ${productInfo.nom_acheteur}</a></p>`
                  
                 }
               html += `</div>

@@ -6,7 +6,7 @@ import gameboyimg from '../../img/gameboy.png';
   const renderpanier = async () => {  
     
     // Récupère l'id membre dans l'URL
-    let idMember = new URLSearchParams(window.location.search).get("idProduct")
+    let idMember = new URLSearchParams(window.location.search).get("idMembre")
 
     // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
     if(!idMember) {

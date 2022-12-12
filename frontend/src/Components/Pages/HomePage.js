@@ -25,7 +25,7 @@ const HomePageRender = async () => {
               class="card-img-top" alt="Laptop" />
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <p class="small"><a href="#!" class="text-muted">${carte.prenom_vendeur} ${carte.nom_vendeur}</a></p>
+                <p class="small"><a href="/profile?idMembre=${carte.id_vendeur}" class="text-muted">${carte.prenom_vendeur} ${carte.nom_vendeur}</a></p>
               </div>
 
               <div class="d-flex justify-content-between mb-3">
