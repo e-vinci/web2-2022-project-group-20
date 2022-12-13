@@ -7,7 +7,11 @@ const router = express.Router();
  * GET all articles or articles by id
  */
 router.get("/", async (req, res) => {
-    
+
+    if (req.query.id) {
+        const articles = await articleModel.getArticleById(req.query.id);
+        return res.json(articles);
+    }
     try {
         const articles = await articleModel.getAllInfosForAllArticles();
         return res.json(articles);
