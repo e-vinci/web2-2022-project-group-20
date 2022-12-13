@@ -54,17 +54,11 @@ const Itemlikepage = () => {
               </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-6">
-              <h5>${article.nom_article}</h5>
+              <h5>ARTICLE : ${article.nom_article}</h5>
               <div class="d-flex flex-row">
-                <div class="text-danger mb-1 me-2">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <span>289</span>
+
               </div>
-              
+
               <p class="text-truncate mb-4 mb-md-0">${article.description}</p>
               <hr>
               <div> 
