@@ -1,6 +1,4 @@
 const express = require("express");
-// eslint-disable-next-line no-unused-vars
-const { render } = require("../app");
 const articleModel = require("../models/articles");
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
@@ -9,7 +7,7 @@ const router = express.Router();
  * GET all articles or articles by id
  */
 router.get("/", async (req, res) => {
-
+    
     if (req.query.id) {
         const articles = await articleModel.getArticleById(req.query.id);
         return res.json(articles);
@@ -26,7 +24,7 @@ router.get("/", async (req, res) => {
  * GET one articleby its id
  */
 router.get("/:id", async (req, res) => {
-    if(req.params.id > 0){
+    if(Number.isInteger(req.params.id)){
         try {
             const articles = await articleModel.getAllInfosForArticleById(req.params.id);
             return res.json(articles);
@@ -34,6 +32,8 @@ router.get("/:id", async (req, res) => {
             return res.sendStatus(502);
         }
     }else{
+        // eslint-disable-next-line no-console
+        console.log("tetsttt");
         try {
             const cartes = await articleModel.getAllInfosForAllArticles();
             return res.json(cartes);
@@ -71,9 +71,10 @@ router.get("/user/:id", async (req, res) => {
 });
 
 /**
- * GET all articles by favorite user id
+ * GET all favorite articles from user id
  */
 router.get("/favorite/:id", async (req, res) => {
+    console.log("TEST");
     try {
         const articles = await articleModel.getUsersFavoriteArticles(req.params.id);
         return res.json(articles);
@@ -127,8 +128,5 @@ router.post("/", async (req, res) => {
         }
 
 );
-
-        
-
 
 module.exports = router;

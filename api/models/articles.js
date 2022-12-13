@@ -112,25 +112,28 @@ const articlesDB = {
     getUsersFavoriteArticles : async (id) =>{
         const query = {
             text: `SELECT id_annonce,
-                                nom,
-                                description,
-                                id_acheteur,
-                                id_vendeur,
-                                date_pub,
-                                prix,
-                                status
-                        FROM vinced.annonces
+                            nom_article,
+                            description,
+                            id_acheteur,
+                            prenom_acheteur,
+                            nom_acheteur,
+                            id_vendeur,
+                            prenom_vendeur,
+                            nom_vendeur,
+                            date_pub,
+                            prix,
+                            status
+                        FROM vinced.cartes_articles
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
-                                                WHERE id_user = $1)
-                        ORDER BY id_annonce DESC`,
+                                                WHERE id_membre = 1)`,
             values: [id]
         };
         try {
             const {rows} = await db.query(query);
             return rows;
         } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
+            throw new Error("Error while getting these liked articles from the database.");
         }
     },
 

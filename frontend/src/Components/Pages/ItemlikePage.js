@@ -5,11 +5,22 @@ const Itemlikepage = () => {
     clearPage();
     renderPageTitle('ITEM PAGE');
     itemlikepagefuntion();
-
-    
   };
 
-  function itemlikepagefuntion() {
+  async function itemlikepagefuntion() {
+    const local = await JSON.parse(window.localStorage.getItem("member"));
+    // eslint-disable-next-line no-unused-vars
+    const idMember = local.id_membre
+
+    const request = {
+      method: "GET"
+    };
+    let response = await fetch(`api/articles/cartes`, request);
+    response = await response.json();
+    // eslint-disable-next-line no-unused-vars
+    const items = response;
+    // eslint-disable-next-line no-console
+    console.table(items);
     const likeitem = `
     <section style="background-color: #eee;">
   <div class="containeritemlike py-5">

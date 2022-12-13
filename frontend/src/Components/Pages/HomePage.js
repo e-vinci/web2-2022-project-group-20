@@ -12,6 +12,7 @@ const HomePageRender = async () => {
     };
     let cartes = await fetch(`api/articles/cartes`, request);
     cartes = await cartes.json();
+    console.log(cartes);
     let html = `
       <section style="background-color: #eee;">
       <div class="containerhomepage py-5">

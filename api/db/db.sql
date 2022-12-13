@@ -16,7 +16,7 @@ CREATE TABLE vinced.membres (
 
 CREATE TABLE vinced.adresses (
     id_adresse SERIAL PRIMARY KEY,
-    id_membre INTEGER NOT NULL REFERENCES vinced.membres,
+    id_membre INTEGER NOT NULL REFERENCES vinced.membres,x
     rue VARCHAR(100) NOT NULL,
     numero VARCHAR(5) NOT NULL,
     boite VARCHAR(5),
@@ -101,19 +101,19 @@ CREATE OR REPLACE VIEW vinced.users_infos AS
            count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
     FROM vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur
     GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance;
-    
+$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa  
     
 -- INSERT INTO MEMBRES
-INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'rayan.abarkan@student.vinci.be', 'ABARKAN','Rayan', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'antoine.pirelot@student.vinci.be', 'PIRELOT','Antoine', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'clement.coegniet@student.vinci.be', 'COEUGNIET','Clément', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'luis.brunard@student.vinci.be', 'BRUNARD','Luis', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'elie.debacker@student.vinci.be', 'DeBacker','Elie', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be', 'BOGEARTS','Olivier', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'ferdinand.rouxdebezieux@student.vinci.be', 'Roux De Bézieux','Ferdinand', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', 'azerty', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'rayan.abarkan@student.vinci.be', 'ABARKAN','Rayan', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'antoine.pirelot@student.vinci.be', 'PIRELOT','Antoine', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'clement.coegniet@student.vinci.be', 'COEUGNIET','Clément', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'luis.brunard@student.vinci.be', 'BRUNARD','Luis', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'elie.debacker@student.vinci.be', 'DeBacker','Elie', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be', 'BOGEARTS','Olivier', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'ferdinand.rouxdebezieux@student.vinci.be', 'Roux De Bézieux','Ferdinand', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
 
 -- INSERT INTO ANNONCES
 INSERT INTO vinced.annonces VALUES (DEFAULT, 'PS5', 'PS5 1TO sans lecteur cd', 1, 5, '2022-03-15', 650, 'Resrvée');
