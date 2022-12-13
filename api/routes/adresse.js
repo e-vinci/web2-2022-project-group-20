@@ -40,13 +40,9 @@ router.post("/", async (req, res) => {
         
     }
 
-    try {
-        const newAdresse = await adresseModel.addAdresse(adresse);
+        const newAdresse = await adresseModel.createAdresse(adresse);
         return res.json(newAdresse);
-    }
-    catch (e) {
-    return res.sendStatus(502);
-    }
+
 }
 );
 
