@@ -116,9 +116,7 @@ router.get("/search", async (req, res) => {
  * POST a new article
     */
 router.post("/", async (req, res) => {
-    
     try {
-
         const article = {
             nom: req.body.nom,
             description: req.body.description,
