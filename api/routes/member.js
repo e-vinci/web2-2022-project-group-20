@@ -34,7 +34,7 @@ router.get('/article/:id', async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post('/register', async (req, res) => {
   if (
     !req.body ||
     (req.body.lastname && req.body.lastname === '') ||
@@ -46,70 +46,65 @@ router.post("/register", async (req, res) => {
 
   const authenticatedMember = await memberModel.register(req.body);
   if (!authenticatedMember) return res.status(409).end();
+  if (authenticatedMember === 1) return res.status(409).end();
 
-  try{
-    req.session.idMember = authenticatedMember.idMember;
+  try {
+    req.session.idMember = authenticatedMember.id_membre;
     req.session.token = authenticatedMember.token;
-    }catch(e){
-      return res.sendStatus(502);
-    }
-
+  } catch (e) {
+    res.status(500);
+  }
   return res.json(authenticatedMember);
 });
 
-router.post("/login", async (req, res) => {
-  if (!req.body ||
-    (req.body.email && req.body.email === "") ||
-    (req.body.password && req.body.password === "")){
-      return res.status(400).end();
+router.post('/login', async (req, res) => {
+  if (
+    !req.body ||
+    (req.body.email && req.body.email === '') ||
+    (req.body.password && req.body.password === '')
+  ) {
+    return res.status(400).end();
   }
   const authenticatedMember = await memberModel.login(req.body);
-  
+
   if (authenticatedMember === 0) return res.sendStatus(404).end();
   if (authenticatedMember === 1) return res.sendStatus(403).end();
-  
-  try{
+
+  try {
     req.session.idMember = authenticatedMember.id_membre;
     req.session.token = authenticatedMember.token;
-  }catch(e){ 
+  } catch (e) {
     res.status(500);
   }
   return res.json(authenticatedMember);
 });
 
 router.put('/:email/addCredits', async (req, res) => {
-  if(
-    !req.body ||
-    (req.body.credits && req.body.credits.length === 0)
-  )
-    return res.status(400).end;
+  if (!req.body || (req.body.credits && req.body.credits.length === 0)) return res.status(400).end;
 
   try {
     const member = await memberModel.addCredits(req.params.email, req.body.credits, req.app.pool);
     if (!member) return res.status(304).end();
     return res.json(member);
-  }catch (error){
+  } catch (error) {
     return res.status(420).end();
   }
-})
-
-
+});
 
 router.put('/:email/removeCredits', async (req, res) => {
-  if(
-    !req.body ||
-    (req.body.credits && req.body.credits.length === 0)
-  )
-    return res.status(400).end;
+  if (!req.body || (req.body.credits && req.body.credits.length === 0)) return res.status(400).end;
 
   try {
-    const member = await memberModel.removeCredits(req.params.email, req.body.credits, req.app.pool);
+    const member = await memberModel.removeCredits(
+      req.params.email,
+      req.body.credits,
+      req.app.pool,
+    );
     if (!member) return res.status(304).end();
     return res.json(member);
-  }catch (error){
+  } catch (error) {
     return res.status(420).end();
   }
-})
-
+});
 
 module.exports = router;
