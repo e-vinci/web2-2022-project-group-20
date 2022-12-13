@@ -5,47 +5,49 @@ const AdressPage = ()=>{
 
 function renderAdressPage() {
     const render = `
-    <div class="wrapper mx-auto">
-    <div class="contentcontact">
+    <div class="containercontact">
 
-        <div class="right-side">    
-            <div class="topic-text">Ajouter une adresse</div>
-            <p>Si vous avez une nouvelle adresse, vous pouvez l'ajouter ici.</p>
-            <form action="#">
-
-                <div class="input-box">
-                    <input type="text" placeholder="Entrez votre adresse" >
-                </div>
-
-                <div class="input-box">
-                    <input type="text" placeholder="Entrez Le Numero" >
-                </div>
-
-                <div class="input-box">
-                <input type="text" placeholder="Entrez Le Numero">
-                </div>
-
-                <div class="input-box">
-                    <input type="text" placeholder="Entrez votre ville">
-                </div>
-                
-                <div class="input-box">
-                    <input type="text" placeholder="Entrez votre code postal">
-                </div>
-
-                <div class="input-box"> 
-                    <input type="text" placeholder="Entrez votre pays">
-                </div>
-
-
-                <div class="button">
-                    <input type="button" value="Ajouter" >
-                </div>
-
-            </form>
-        </div>
+    <div class="title">
+        <h1>Ajout d'une Adresse</h1>
     </div>
+
+        <div class="col mt-5 mb-3">
+
+            <label for="fname">Adresse</label>
+            <input type="text" placeholder="Adresse">
+
+            <label for="fname">N°</label>
+            <input type="text" placeholder="" size="1">
+
+            <label for="fname">Boite</label>
+            <input type="text" placeholder="" size="1">
+    
+        </div>
+
+        <div class="col mb-3">
+
+            <label for="fname">Ville</label>
+            <input type="text" placeholder="Adresse">
+
+            <label for="fname">Code Postale</label>
+            <input type="text" placeholder="" size="3">
+    
+        </div>
+
+        <div class="col mb-2">
+
+            <label for="fname">Pays</label>
+            <input type="text" placeholder="Belgique">
+
+    </div>  
+
+    <button type="button" class="btn btn-primary btn-lg">Ajouter </button>
+
+
+
 </div>
+</div>
+
     `;
 
     const main = document.querySelector("main");
