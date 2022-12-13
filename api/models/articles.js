@@ -37,7 +37,7 @@ const articlesDB = {
                 throw new Error("Error while getting this article from the database.");
             }
     },
-    getAllInfosForArticleById : async (id) => {
+    getInfosForArticleById : async (id) => {
         const query = {
             text: `SELECT id_annonce,
                         nom_article,
