@@ -74,7 +74,7 @@ router.get("/user", async (req, res) => {
 /**
  * GET all favorite articles from user id
  */
-router.get("/favorite/:id", async (req, res) => {
+router.get("/favorite", async (req, res) => {
     try {
         const articles = await articleModel.getUsersFavoriteArticles(req.query.id);
         return res.json(articles);
