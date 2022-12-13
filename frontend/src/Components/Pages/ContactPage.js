@@ -1,9 +1,10 @@
 
-const ContactPage = ()=>{
-    rendercontactusPage();
-   
 
+const ContactPage = ()=>{
+    rendercontactusPage();  
 };
+
+
 
 function rendercontactusPage(){
     const render = `
@@ -47,14 +48,12 @@ function rendercontactusPage(){
         <label for="exampleFormControlTextarea1">YOUR MESSAGE</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
       </div>
-    
+      
       </form>
-
-      <div class="input-box message-box">
-        </div>
-        <div class="button">
-          <input type="submit" value="Send N" >
-        </div>
+      
+      <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary" type="button">Button</button>
+      </div>
   
     </div>
     </div>
@@ -66,6 +65,8 @@ function rendercontactusPage(){
 
   
 };
+
+
 
 
 

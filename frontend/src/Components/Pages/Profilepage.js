@@ -21,11 +21,11 @@ import gameboyimg from '../../img/gameboy.png';
     let response = await fetch(`api/members?id=${idMember}`, request);
     response = await response.json();
     const member = response[0];
-
+/*
     let adress = await fetch(`api/adresses/user?id=${idMember}`, request)
     adress = await response.json();
     const adresse = adress[0];
-
+*/
     let profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
@@ -119,22 +119,14 @@ import gameboyimg from '../../img/gameboy.png';
                   <p class="text-muted mb-0">${member.phone}</p>
                 </div>
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Mobile</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"></p>
-                </div>
-              </div>
+              
               <hr>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">adresse</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">${adresse.rue}</p>
+                  <p class="text-muted mb-0">${member.street} n°${member.number} ${member.zip_code}  ${member.city}   ${member.country} </p>
                 </div>
               </div>
             </div>
@@ -164,20 +156,7 @@ import gameboyimg from '../../img/gameboy.png';
               </div>
             </div>
           </div>
-
-          <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1"></span> PUBLICATION
-                  </p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                </div>
-                <img src="${gameboyimg}" class="image" alt="" />
-              </div>
-            </div>
-          </div>
-
-          
+     
         </div>
       </div>
     </div>

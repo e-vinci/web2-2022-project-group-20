@@ -92,18 +92,25 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
         ;
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
-CREATE OR REPLACE VIEW vinced.users_infos AS
-    SELECT m.id_membre,
-           m.email,
-           m.nom,
-           m.prenom,
-           m.is_admin,
-           m.image_profil,
-           m.balance,
-           count(a.id_annonce) AS "nbr_annonces_postee",
-           count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
-    FROM vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur
-    GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance;
+CREATE OR REPLACE VIEW vinced.users_infoss AS
+SELECT m.id_membre,
+       m.email,
+       m.nom,
+       m.prenom,
+       m.is_admin,
+       m.image_profil,
+       m.balance,
+       ad.rue AS "street",
+       ad.numero AS "number",
+       ad.boite AS "box",
+       ad.ville AS "city",
+       ad.code_postal AS "zip_code",
+       ad.pays AS "country",
+       ad.id_adresse AS "address_id",
+       count(a.id_annonce) AS "nbr_annonces_postee",,
+       count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
+FROM  vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur LEFT JOIN vinced.adresses ad ON m.id_membre = ad.id_membre
+GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance,ad.id_adresse;
 $2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa  
     
 -- INSERT INTO MEMBRES

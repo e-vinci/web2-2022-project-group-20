@@ -16,8 +16,14 @@ const membersDB = {
                           image_profil,
                           balance,
                           nbr_annonces_postee,
-                          nbr_annonces_vendues
-                    FROM vinced.users_infos 
+                          nbr_annonces_vendues,
+                          street, 
+                          number,
+                          box,
+                          city,
+                          zip_code,
+                          country
+                    FROM vinced.users_infoss
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
             values: [id]
@@ -101,6 +107,7 @@ const membersDB = {
         authenticatedMember.token = token;
         return authenticatedMember;
     },
+
     async addCredits(email, credits, pool){
         try {
           const { rows } = await pool.query('UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *', [credits, email]);
