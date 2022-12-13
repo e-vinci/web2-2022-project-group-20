@@ -53,7 +53,7 @@ function rendercontactusPage(){
       <div class="input-box message-box">
         </div>
         <div class="button">
-          <input type="submit" value="Send Now" >
+          <input type="submit" value="Send N" >
         </div>
   
     </div>
