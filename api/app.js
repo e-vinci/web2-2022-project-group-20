@@ -11,14 +11,20 @@ const categoriesRouter = require('./routes/category');
 
 const app = express();
 
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+    credentials: true
+}
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/articles',cors({origin: 'http://localhost:8080'}), articlesRouter);
-app.use('/members',cors({origin: 'http://localhost:8080'}), membersRouter);
-app.use('/favorites',cors({origin: 'http://localhost:8080'}), favoritesRouter);
-app.use('/categories',cors({origin: 'http://localhost:8080'}), categoriesRouter);
+app.use('/articles',cors(corsOptions), articlesRouter);
+app.use('/members',cors(corsOptions), membersRouter);
+app.use('/favorites',cors(corsOptions), favoritesRouter);
+app.use('/categories',cors(corsOptions), categoriesRouter);
 
 module.exports = app;

@@ -14,7 +14,6 @@ router.get("/", async (req, res) => {
     }
         const categories = await categoryModel.getAllCategories();
         return res.json(categories);
-   
 }
 );
 

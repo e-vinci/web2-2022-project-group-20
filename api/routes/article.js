@@ -23,26 +23,26 @@ router.get("/", async (req, res) => {
 /**
  * GET one articleby its id
  */
-router.get("/:id", async (req, res) => {
-    if(Number.isInteger(req.params.id)){
-        try {
-            const articles = await articleModel.getAllInfosForArticleById(req.params.id);
-            return res.json(articles);
-        } catch (e) {
-            return res.sendStatus(502);
-        }
-    }else{
-        // eslint-disable-next-line no-console
-        console.log("tetsttt");
-        try {
-            const cartes = await articleModel.getAllInfosForAllArticles();
-            return res.json(cartes);
-        } catch (e) {
+
+// à supprimer cest uselless jle laisse juste au cas ou ( en plus ca niquais tout)
+// router.get("/:id", async (req, res) => {
+//     if(req.params.id > 0){
+//         try {
+//             const articles = await articleModel.getAllInfosForArticleById(req.query.id);
+//             return res.json(articles);
+//         } catch (e) {
+//             return res.sendStatus(502);
+//         }
+//     }else{
+//         try {
+//             const cartes = await articleModel.getAllInfosForAllArticles();
+//             return res.json(cartes);
+//         } catch (e) {
         
-            return res.sendStatus(502);
-        }
-    }
-});
+//             return res.sendStatus(502);
+//         }
+//     }
+// });
 
 // /**
 //  * GET all articles with all infos for cards
@@ -61,9 +61,10 @@ router.get("/:id", async (req, res) => {
 /**
  * GET all articles by user id
  */
-router.get("/user/:id", async (req, res) => {
+router.get("/user", async (req, res) => {
     try {
-        const articles = await articleModel.getArticlesByUserId(req.params.id);
+        // eslint-disable-next-line no-console
+        const articles = await articleModel.getArticlesByUserId(req.query.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
@@ -73,10 +74,9 @@ router.get("/user/:id", async (req, res) => {
 /**
  * GET all favorite articles from user id
  */
-router.get("/favorite/:id", async (req, res) => {
-    console.log("TEST");
+router.get("/favorite", async (req, res) => {
     try {
-        const articles = await articleModel.getUsersFavoriteArticles(req.params.id);
+        const articles = await articleModel.getUsersFavoriteArticles(req.query.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
@@ -87,46 +87,49 @@ router.get("/favorite/:id", async (req, res) => {
 /**
  * GET all articles by category id
  */
-router.get("/category/:id", async (req, res) => {
+router.get("/category", async (req, res) => {
     try {
-        const articles = await articleModel.getArticlesByCategoryId(req.params.id);
+        const articles = await articleModel.getArticlesByCategoryId(req.query.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
     }
+
 });
 
 /**
  * GET all articles by search
  */
-router.get("/search/:search", async (req, res) => {
+router.get("/search", async (req, res) => {
     try {
-        const articles = await articleModel.getArticlesBySearch(req.params.search);
+        const articles = await articleModel.getArticlesBySearch(req.query.search);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
     }
+
 });
 
 /**
  * POST a new article
     */
 router.post("/", async (req, res) => {
-    
+    try {
         const article = {
             nom: req.body.nom,
             description: req.body.description,
             id_categorie: req.body.id_categorie,
-            id_vendeur: req.body.id_vendeur,
+            id_vendeur: 1,
             prix: req.body.prix,
             photo: req.body.photo
         };
         // eslint-disable-next-line no-console
-        console.log(article);
-        return res.redirect('http://localhost:8080/');
-
+        const createArticle = await articleModel.createArticle(article);
+        return res.json(createArticle);
         }
-
-);
+    catch (e) {
+        return res.sendStatus(502);
+    }
+});
 
 module.exports = router;

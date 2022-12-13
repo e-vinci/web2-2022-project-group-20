@@ -126,7 +126,8 @@ const articlesDB = {
                         FROM vinced.cartes_articles
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
-                                                WHERE id_membre = 1)`,
+                                                WHERE id_membre = $1)
+                        ORDER BY id_annonce DESC`,
             values: [id]
         };
         try {
@@ -152,12 +153,9 @@ const articlesDB = {
                         ORDER BY id_annonce DESC`,
             values: [id]
         };
-        try {
             const {rows} = await db.query(query);
             return rows;
-        } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
-        }
+
     },
 
     getArticlesBySearch : async (search) => {
@@ -171,16 +169,13 @@ const articlesDB = {
                                 prix,
                                 status
                         FROM vinced.annonces
-                        WHERE nom ILIKE '%$1%'
+                        WHERE nom LIKE $1
                         ORDER BY id_annonce DESC`,
-            values: [search]
+            values: [`%${  search  }%`]
          };
-        try {
             const {rows} = await db.query(query);
             return rows;
-        } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
-        }
+
     },
 
     // POST REQUESTS
@@ -188,10 +183,10 @@ const articlesDB = {
     createArticle : async (article) => {
 
         const query = {
-            text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub)
-                    VALUES ($1, $2, $3, $4, $5,$6)
+            text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub,categorie)
+                    VALUES ($1, $2, $3, $4, $5,$6,$7)
                     RETURNING id_annonce`,
-            values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0]]
+            values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0],article.categorie]
         };
             const {rows} = await db.query(query);
             return rows;
