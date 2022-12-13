@@ -149,12 +149,9 @@ const articlesDB = {
                         ORDER BY id_annonce DESC`,
             values: [id]
         };
-        try {
             const {rows} = await db.query(query);
             return rows;
-        } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
-        }
+
     },
 
     getArticlesBySearch : async (search) => {

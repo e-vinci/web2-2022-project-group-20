@@ -10,7 +10,7 @@ CREATE TABLE vinced.membres (
 	mdp VARCHAR(50) NOT NULL CHECK ( mdp <> '' ),
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
     is_admin BOOLEAN DEFAULT false,
-    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( prix >= 0 )
+    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 )
 
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE vinced.annonces (
     status vinced.STATUS NOT NULL DEFAULT 'Postée',
     photo VARCHAR(50) CHECK ( photo <> '' ),
     id_adresse INTEGER REFERENCES vinced.adresses,
-    categorie  integer references vinced.categories
+    id_categorie  integer references vinced.categories
 );
 
 CREATE TABLE vinced.favoris (
@@ -86,7 +86,7 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
            mv.prenom AS "prenom_vendeur"
     FROM ( (vinced.annonces a LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur)
         JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre )
-        JOIN vinced.categories c on a.categorie = c.id_categorie;
+        JOIN vinced.categories c on a.id_categorie = c.id_categorie;
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infos AS
@@ -115,19 +115,26 @@ INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be',
 INSERT into vinced.membres VALUES (DEFAULT, 'ferdinand.rouxdebezieux@student.vinci.be', 'Roux De Bézieux','Ferdinand', 'azerty', '../images/default.jpg');
 INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', 'azerty', '../images/default.jpg');
 
--- INSERT INTO ANNONCES
-INSERT INTO vinced.annonces VALUES (DEFAULT, 'PS5', 'PS5 1TO sans lecteur cd', 1, 5, '2022-03-15', 650, 'Resrvée');
-INSERT INTO vinced.annonces VALUES (DEFAULT, 'Clavier logitech', 'Clavier logitech mechanique avec RGB', null, 3, '2022-03-15', 65, 'Postée');
-INSERT INTO vinced.annonces VALUES (DEFAULT, 'Assistant alexa', 'Alexa 2de gen', 4, 2, '2022-03-19', 90, 'En cours');
-INSERT INTO vinced.annonces VALUES (DEFAULT, 'Table de chevet', 'Table de chevet IKEA (ref: chtêmöl)', 7, 9, '2022-09-26', 45, 'Vendue');
-INSERT INTO vinced.annonces VALUES (DEFAULT, 'Plaid', 'Plaid chaud pour l''hiver', null, 5, '2022-04-02', 650, 'Postée');
-INSERT INTO vinced.annonces VALUES (DEFAULT, 'Pull col roulé', 'Pull col roulé tommy taille m', null, 6, '2022-05-22', 65, 'Postée');
-
 -- INSERT INTO ADRESSES
 INSERT INTO vinced.adresses VALUES (DEFAULT, 1, 'Rue de l''abricot', '25', null, 'Bruxelles', '1190', 'Belgique');
 INSERT INTO vinced.adresses VALUES (DEFAULT, 4, 'Avenue Brugman', '145', '3A', 'Bruxelles', '1180', 'Belgique');
 INSERT INTO vinced.adresses VALUES (DEFAULT, 6, 'Rue des croix de pierre', '40', null, 'Bruxelles', '1160', 'Belgique');
 INSERT INTO vinced.adresses VALUES (DEFAULT, 9, 'Rue Victor Rousseau', '65', null, 'Bruxelles', '1190', 'Belgique');
+
+-- INSERT INTO CATEGORIES
+INSERT INTO vinced.categories VALUES (DEFAULT, 'Informatique');
+INSERT INTO vinced.categories VALUES (DEFAULT, 'jardinage');
+INSERT INTO vinced.categories VALUES (DEFAULT, 'Gaming');
+INSERT INTO vinced.categories VALUES (DEFAULT, 'Meuble de chambre');
+INSERT INTO vinced.categories VALUES (DEFAULT, 'Vetements');
+
+-- INSERT INTO ANNONCES
+INSERT INTO vinced.annonces VALUES (DEFAULT, 'PS5', 'PS5 1TO sans lecteur cd', 1, 5, '2022-03-15', 650, 'Resrvée',0,1,1);
+INSERT INTO vinced.annonces VALUES (DEFAULT, 'Clavier logitech', 'Clavier logitech mechanique avec RGB', null, 3, '2022-03-15', 65, 'Postée',0,1,4);
+INSERT INTO vinced.annonces VALUES (DEFAULT, 'Assistant alexa', 'Alexa 2de gen', 4, 2, '2022-03-19', 90, 'En cours',0,4,3);
+INSERT INTO vinced.annonces VALUES (DEFAULT, 'Table de chevet', 'Table de chevet IKEA (ref: chtêmöl)', 7, 9, '2022-09-26', 45, 'Vendue',0,1,5);
+INSERT INTO vinced.annonces VALUES (DEFAULT, 'Plaid', 'Plaid chaud pour l''hiver', null, 5, '2022-04-02', 650, 'Postée',0,2,1);
+INSERT INTO vinced.annonces VALUES (DEFAULT, 'Pull col roulé', 'Pull col roulé tommy taille m', null, 6, '2022-05-22', 65, 'Postée',0,1,2);
 
 -- INSERT INTO FAVORIS
 INSERT INTO vinced.favoris VALUES (1, 6);
@@ -137,13 +144,6 @@ INSERT INTO vinced.favoris VALUES (4, 4);
 INSERT INTO vinced.favoris VALUES (8, 4);
 INSERT INTO vinced.favoris VALUES (3, 1);
 INSERT INTO vinced.favoris VALUES (7, 3);
-
--- INSERT INTO CATEGORIES
-INSERT INTO vinced.categories VALUES (DEFAULT, 'Informatique');
-INSERT INTO vinced.categories VALUES (DEFAULT, 'jardinage');
-INSERT INTO vinced.categories VALUES (DEFAULT, 'Gaming');
-INSERT INTO vinced.categories VALUES (DEFAULT, 'Meuble de chambre');
-INSERT INTO vinced.categories VALUES (DEFAULT, 'Vetements');
 
 -- INSERT INTO CATEGORIES CHOISIS
 INSERT INTO vinced.categories_choisis VALUES (1, 1);
@@ -155,5 +155,4 @@ INSERT INTO vinced.categories_choisis VALUES (3, 4);
 INSERT INTO vinced.categories_choisis VALUES (4, 4);
 INSERT INTO vinced.categories_choisis VALUES (5, 5);
 INSERT INTO vinced.categories_choisis VALUES (6, 5);
-
 

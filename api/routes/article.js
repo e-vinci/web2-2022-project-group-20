@@ -89,13 +89,10 @@ router.get("/favorite", async (req, res) => {
 /**
  * GET all articles by category id
  */
-router.get("/category/:id", async (req, res) => {
-    try {
+router.get("/category", async (req, res) => {
         const articles = await articleModel.getArticlesByCategoryId(req.query.id);
         return res.json(articles);
-    } catch (e) {
-        return res.sendStatus(502);
-    }
+
 });
 
 /**
