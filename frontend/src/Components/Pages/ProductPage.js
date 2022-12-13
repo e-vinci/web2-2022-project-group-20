@@ -17,15 +17,12 @@ const ProductPage = async () => {
     renderhomepage();
 }
 
-    
-    
-
 async function renderhomepage() {
   const idProduct = new URLSearchParams(window.location.search).get("idProduct")
   const request = {
     method: "GET"
   };
-  let response = await fetch(`api/articles/${idProduct}`, request);
+  let response = await fetch(`api/articles?id=${idProduct}`, request);
   response = await response.json();
   
   const productInfo = response[0];

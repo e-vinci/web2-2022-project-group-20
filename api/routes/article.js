@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     
     if (req.query.id) {
-        const articles = await articleModel.getArticleById(req.query.id);
+        const articles = await articleModel.getInfosForArticleById(req.query.id);
         return res.json(articles);
     }
     try {
