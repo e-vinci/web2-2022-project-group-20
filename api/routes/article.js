@@ -90,8 +90,12 @@ router.get("/favorite", async (req, res) => {
  * GET all articles by category id
  */
 router.get("/category", async (req, res) => {
+    try {
         const articles = await articleModel.getArticlesByCategoryId(req.query.id);
         return res.json(articles);
+    } catch (e) {
+        return res.sendStatus(502);
+    }
 
 });
 
@@ -99,8 +103,12 @@ router.get("/category", async (req, res) => {
  * GET all articles by search
  */
 router.get("/search", async (req, res) => {
+    try {
         const articles = await articleModel.getArticlesBySearch(req.query.search);
         return res.json(articles);
+    } catch (e) {
+        return res.sendStatus(502);
+    }
 
 });
 
@@ -109,7 +117,8 @@ router.get("/search", async (req, res) => {
     */
 router.post("/", async (req, res) => {
     
-        // eslint-disable-next-line no-unused-vars
+    try {
+
         const article = {
             nom: req.body.nom,
             description: req.body.description,
@@ -121,12 +130,10 @@ router.post("/", async (req, res) => {
         // eslint-disable-next-line no-console
         const createArticle = await articleModel.createArticle(article);
         return res.json(createArticle);
-
         }
-
-);
-
-        
-
+    catch (e) {
+        return res.sendStatus(502);
+    }
+});
 
 module.exports = router;
