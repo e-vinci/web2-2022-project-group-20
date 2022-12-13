@@ -11,6 +11,7 @@ function renderAdressPage() {
         <h1>Ajout d'une Adresse</h1>
     </div>
 
+    <form action="/action_page.php">
         <div class="col mt-5 mb-3">
 
             <label for="fname">Adresse</label>
@@ -41,9 +42,9 @@ function renderAdressPage() {
 
     </div>  
 
-    <button type="button" class="btn btn-primary btn-lg">Ajouter </button>
+    <button type="submit" class="btn btn-primary btn-lg">Ajouter </button>
 
-
+</form>
 
 </div>
 </div>
