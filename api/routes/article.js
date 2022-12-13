@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     if(req.params.id > 0){
         try {
-            const articles = await articleModel.getAllInfosForArticleById(req.params.id);
+            const articles = await articleModel.getAllInfosForArticleById(req.query.id);
             return res.json(articles);
         } catch (e) {
             return res.sendStatus(502);
@@ -63,7 +63,7 @@ router.get("/:id", async (req, res) => {
  */
 router.get("/user/:id", async (req, res) => {
     try {
-        const articles = await articleModel.getArticlesByUserId(req.params.id);
+        const articles = await articleModel.getArticlesByUserId(req.query.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
@@ -75,7 +75,7 @@ router.get("/user/:id", async (req, res) => {
  */
 router.get("/favorite/:id", async (req, res) => {
     try {
-        const articles = await articleModel.getUsersFavoriteArticles(req.params.id);
+        const articles = await articleModel.getUsersFavoriteArticles(req.query.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
@@ -88,7 +88,7 @@ router.get("/favorite/:id", async (req, res) => {
  */
 router.get("/category/:id", async (req, res) => {
     try {
-        const articles = await articleModel.getArticlesByCategoryId(req.params.id);
+        const articles = await articleModel.getArticlesByCategoryId(req.query.id);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
@@ -100,7 +100,7 @@ router.get("/category/:id", async (req, res) => {
  */
 router.get("/search/:search", async (req, res) => {
     try {
-        const articles = await articleModel.getArticlesBySearch(req.params.search);
+        const articles = await articleModel.getArticlesBySearch(req.query.search);
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
