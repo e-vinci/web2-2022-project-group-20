@@ -10,8 +10,9 @@ const HomePageRender = async () => {
     const request = {
       method: "GET"
     };
-    let cartes = await fetch(`api/articles/cartes`, request);
+    let cartes = await fetch(`api/articles/`, request);
     cartes = await cartes.json();
+    // eslint-disable-next-line no-console
     console.log(cartes);
     let html = `
       <section style="background-color: #eee;">

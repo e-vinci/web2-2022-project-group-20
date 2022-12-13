@@ -72,21 +72,24 @@ CREATE TABLE vinced.annonce_photos (
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN ARTICLE
 CREATE OR REPLACE VIEW vinced.cartes_articles AS
-    SELECT a.id_annonce, a.nom AS "nom_article",
-           a.description,a.prix,
-            a.date_pub,
-            a.photo,
-            a.status,
+    SELECT a.id_annonce,
+           a.nom AS "nom_article",
+           a.description,
+           a.prix,
+           a.date_pub,
+           a.photo,
+           a.status,
            c.nom AS "categorie",
-           ma.id_membre AS "id_acheteur", 
-           ma.nom AS "nom_acheteur", 
+           ma.id_membre AS "id_acheteur",
+           ma.nom AS "nom_acheteur",
            ma.prenom AS "prenom_acheteur",
-           mv.id_membre AS "id_vendeur", 
-           mv.nom AS "nom_vendeur", 
+           mv.id_membre AS "id_vendeur",
+           mv.nom AS "nom_vendeur",
            mv.prenom AS "prenom_vendeur"
-    FROM ( (vinced.annonces a LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur)
-        JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre )
-        JOIN vinced.categories c on a.id_categorie = c.id_categorie;
+    FROM ( (vinced.annonces a LEFT JOIN vinced.categories c on a.categorie = c.id_categorie )
+        LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur )
+        JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre
+        ;
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infos AS

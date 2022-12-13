@@ -8,41 +8,27 @@ const router = express.Router();
  */
 router.get("/", async (req, res) => {
     
-    if (req.query.id) {
-        const articles = await articleModel.getArticleById(req.query.id);
-        return res.json(articles);
-    }
     try {
-        const articles = await articleModel.getAllArticles();
+        const articles = await articleModel.getAllInfosForAllArticles();
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
-    }}
-);
+    }
+});
 
 /**
  * GET one articleby its id
  */
 
 // à supprimer cest uselless jle laisse juste au cas ou ( en plus ca niquais tout)
-// router.get("/:id", async (req, res) => {
-//     if(req.params.id > 0){
-//         try {
-//             const articles = await articleModel.getAllInfosForArticleById(req.query.id);
-//             return res.json(articles);
-//         } catch (e) {
-//             return res.sendStatus(502);
-//         }
-//     }else{
-//         try {
-//             const cartes = await articleModel.getAllInfosForAllArticles();
-//             return res.json(cartes);
-//         } catch (e) {
-        
-//             return res.sendStatus(502);
-//         }
-//     }
-// });
+router.get("/:id", async (req, res) => {
+    try {
+        const articles = await articleModel.getAllInfosForArticleById(req.params.id);
+        return res.json(articles);
+    } catch (e) {
+        return res.sendStatus(502);
+    }
+});
 
 // /**
 //  * GET all articles with all infos for cards
