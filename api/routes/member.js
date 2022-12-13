@@ -58,13 +58,11 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    if (!req.body ||
-      (req.body.email && req.body.email === "") ||
-      (req.body.password && req.body.password === "")){
-        return res.status(400).end();
-    }
-      // eslint-disable-next-line no-console
-      console.log("test");
+  if (!req.body ||
+    (req.body.email && req.body.email === "") ||
+    (req.body.password && req.body.password === "")){
+      return res.status(400).end();
+  }
   const authenticatedMember = await memberModel.login(req.body);
   
   if (authenticatedMember === 0) return res.sendStatus(404).end();
@@ -72,12 +70,10 @@ router.post("/login", async (req, res) => {
   
   try{
     req.session.idMember = authenticatedMember.id_membre;
-    req.sssion.token = authenticatedMember.token;
-  }catch(e){
-    return res.status(502);
+    req.session.token = authenticatedMember.token;
+  }catch(e){ 
+    res.status(500);
   }
-      // eslint-disable-next-line no-console
-  console.log(res.json(authenticatedMember));
   return res.json(authenticatedMember);
 });
 

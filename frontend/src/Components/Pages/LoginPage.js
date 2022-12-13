@@ -127,14 +127,16 @@ function ad() {
       
       const request = {
         method: 'POST',
-        body: JSON.stringify({
+        body: JSON.stringify(
+          {
           email: emailField.value,
           password: passwordField.value,
         }),
         headers: {
-          'Content-Type': 'application/json'
-        },
+          'Content-Type': 'application/json',
+        }
       };
+        
       const response = await fetch(`api/members/login`, request);
 
       if(response.status !== 200){
