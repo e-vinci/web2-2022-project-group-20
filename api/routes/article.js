@@ -8,27 +8,41 @@ const router = express.Router();
  */
 router.get("/", async (req, res) => {
     
+    if (req.query.id) {
+        const articles = await articleModel.getArticleById(req.query.id);
+        return res.json(articles);
+    }
     try {
         const articles = await articleModel.getAllInfosForAllArticles();
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
-    }
-});
+    }}
+);
 
 /**
  * GET one articleby its id
  */
 
 // à supprimer cest uselless jle laisse juste au cas ou ( en plus ca niquais tout)
-router.get("/:id", async (req, res) => {
-    try {
-        const articles = await articleModel.getAllInfosForArticleById(req.params.id);
-        return res.json(articles);
-    } catch (e) {
-        return res.sendStatus(502);
-    }
-});
+// router.get("/:id", async (req, res) => {
+//     if(req.params.id > 0){
+//         try {
+//             const articles = await articleModel.getAllInfosForArticleById(req.query.id);
+//             return res.json(articles);
+//         } catch (e) {
+//             return res.sendStatus(502);
+//         }
+//     }else{
+//         try {
+//             const cartes = await articleModel.getAllInfosForAllArticles();
+//             return res.json(cartes);
+//         } catch (e) {
+        
+//             return res.sendStatus(502);
+//         }
+//     }
+// });
 
 // /**
 //  * GET all articles with all infos for cards
@@ -60,7 +74,7 @@ router.get("/user", async (req, res) => {
 /**
  * GET all favorite articles from user id
  */
-router.get("/favorite", async (req, res) => {
+router.get("/favorite/:id", async (req, res) => {
     try {
         const articles = await articleModel.getUsersFavoriteArticles(req.query.id);
         return res.json(articles);
@@ -113,9 +127,12 @@ router.post("/", async (req, res) => {
         const createArticle = await articleModel.createArticle(article);
         return res.json(createArticle);
         }
-    catch (e) {
+    catch{
         return res.sendStatus(502);
     }
 });
+
+        
+
 
 module.exports = router;

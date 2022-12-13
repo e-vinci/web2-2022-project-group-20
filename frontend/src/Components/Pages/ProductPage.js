@@ -29,8 +29,6 @@ async function renderhomepage() {
   response = await response.json();
   
   const productInfo = response[0];
-  // eslint-disable-next-line no-console
-  console.log(productInfo);
   let html = 
     ` 
   <section style="background-color: #eee;">

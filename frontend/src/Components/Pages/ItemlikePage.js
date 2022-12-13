@@ -15,12 +15,15 @@ const Itemlikepage = () => {
     const request = {
       method: "GET"
     };
-    let response = await fetch(`api/articles/cartes`, request);
+    let response = await fetch(`api/articles/favorite/${idMember}`, request);
     response = await response.json();
     // eslint-disable-next-line no-unused-vars
     const items = response;
     // eslint-disable-next-line no-console
-    console.table(items);
+    console.log(items);
+    // items.array.forEach(item => {
+    //   
+    // });
     const likeitem = `
     <section style="background-color: #eee;">
   <div class="containeritemlike py-5">

@@ -12,8 +12,6 @@ const HomePageRender = async () => {
     };
     let cartes = await fetch(`api/articles/`, request);
     cartes = await cartes.json();
-    // eslint-disable-next-line no-console
-    console.log(cartes);
     let html = `
       <section style="background-color: #eee;">
       <div class="containerhomepage py-5">
