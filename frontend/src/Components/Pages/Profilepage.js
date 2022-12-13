@@ -21,6 +21,11 @@ import gameboyimg from '../../img/gameboy.png';
     let response = await fetch(`api/members?id=${idMember}`, request);
     response = await response.json();
     const member = response[0];
+
+    let adress = await fetch(`api/adresses/user?id=${idMember}`, request)
+    adress = await response.json();
+    const adresse = adress[0];
+
     let profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
@@ -87,6 +92,24 @@ import gameboyimg from '../../img/gameboy.png';
                   <p class="text-muted mb-0">${member.email}</p>
                 </div>
               </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">NOMBER OF POST POSTED</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">${member.nbr_annonces_postee}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">NOMBER OF POST SELL</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">${member.nbr_annonces_vendues}</p>
+                </div>
+              </div>
                <hr>
               <div class="row">
                 <div class="col-sm-3">
@@ -111,7 +134,7 @@ import gameboyimg from '../../img/gameboy.png';
                   <p class="mb-0">adresse</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">${member.adress}</p>
+                  <p class="text-muted mb-0">${adresse.rue}</p>
                 </div>
               </div>
             </div>

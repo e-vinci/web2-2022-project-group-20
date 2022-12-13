@@ -19,6 +19,10 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * GET member adresse
+ */
+
+/**
  * GET all members who fav an article by its id
  */
 router.get('/article/:id', async (req, res) => {

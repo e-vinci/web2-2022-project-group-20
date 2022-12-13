@@ -8,6 +8,7 @@ const articlesRouter = require('./routes/article');
 const membersRouter = require('./routes/member');
 const favoritesRouter = require("./routes/favorite");
 const categoriesRouter = require('./routes/category');
+const adressesRouter = require('./routes/adresse');
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use('/articles',cors(corsOptions), articlesRouter);
 app.use('/members',cors(corsOptions), membersRouter);
 app.use('/favorites',cors(corsOptions), favoritesRouter);
 app.use('/categories',cors(corsOptions), categoriesRouter);
+app.use('/adresses',cors(corsOptions), adressesRouter);
 
 module.exports = app;
