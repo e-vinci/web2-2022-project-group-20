@@ -185,10 +185,10 @@ const articlesDB = {
     createArticle : async (article) => {
 
         const query = {
-            text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub)
-                    VALUES ($1, $2, $3, $4, $5,$6)
+            text: `INSERT INTO vinced.annonces (nom, description, id_vendeur, prix, photo,date_pub,categorie)
+                    VALUES ($1, $2, $3, $4, $5,$6,$7)
                     RETURNING id_annonce`,
-            values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0]]
+            values: [article.nom, article.description, article.id_vendeur, article.prix, article.photo,new Date().toISOString().split('T')[0],article.categorie]
         };
             const {rows} = await db.query(query);
             return rows;

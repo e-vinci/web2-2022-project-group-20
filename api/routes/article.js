@@ -112,17 +112,18 @@ router.get("/search/:search", async (req, res) => {
     */
 router.post("/", async (req, res) => {
     
+        // eslint-disable-next-line no-unused-vars
         const article = {
             nom: req.body.nom,
             description: req.body.description,
             id_categorie: req.body.id_categorie,
-            id_vendeur: req.body.id_vendeur,
+            id_vendeur: 1,
             prix: req.body.prix,
             photo: req.body.photo
         };
         // eslint-disable-next-line no-console
-        console.log(article);
-        return res.redirect('http://localhost:8080/');
+        const createArticle = await articleModel.createArticle(article);
+        return res.json(createArticle);
 
         }
 

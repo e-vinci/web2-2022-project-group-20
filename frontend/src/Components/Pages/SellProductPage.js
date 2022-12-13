@@ -4,12 +4,6 @@ const SellProductPage = ()=>{
     renderSellProductPage();
 };
 
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-});
 
  function categorieshtml(categories){
     
@@ -23,10 +17,10 @@ const toBase64 = file => new Promise((resolve, reject) => {
 
 async function renderSellProductPage(){
     const categories = await fetch("http://localhost:3000/categories").then((response)=>response.json()); 
-    
+    const photoValue = null;
 
     const render = `
-    <form action="http://localhost:3000/articles" method="POST" onsubmit="DoSubmit();">
+    <form action="http://localhost:3000/articles" method="POST" >
     
         
         <label for="nom">Titre (min 4 chars):</label>
@@ -48,9 +42,12 @@ async function renderSellProductPage(){
         <br>
 
         <label for="name">Photo :</label>
-        <input type="file" id="fileInput" name="photo" accept="image/*">
+        <input type="file" id="fileInput" name="fileInput" accept="image/*">
+        <input type="hidden" id="photo" name="photo" value=""/>
 
-        <input type="hidden" id="id_vendeur" name="id_vendeur" value="10" />
+
+        <input type="hidden" id="id_vendeur" name="id_vendeur" value=${photoValue} />
+
 
         <br>
         <br>
@@ -68,39 +65,59 @@ async function renderSellProductPage(){
 
   const form = document.querySelector("form");
 
-form.addEventListener("submit", async ()=>{
+form.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const toBase64 = file => {
+    if (!(file instanceof File)) {
+        throw new TypeError('Expected a File object');
+    }
+  
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        const blob = new Blob([file], { type: file.type });
+  
+        reader.readAsDataURL(blob);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+  };
+
+
     const file = document.querySelector("#fileInput")
+    let base64 = await toBase64(file.files[0]);
+    base64 = base64.replace(/^data:image\/(png|jpg);base64,/, "");
 
-    const formdata = new FormData()
-    formdata.append("image", file.files[0])
-    
-    fetch("https://api.imgur.com/3/image/", {
-            method: "post",
-            headers: {
-                Authorization: "Client-ID a7f3a8a833acad6"
-            },
-            body: {
-                image: await toBase64(file.files[0])
-            }
-        }).then(data => data.json()).then(data => {
-            // eslint-disable-next-line no-console
-            console.log(data.data.link)
-        }).catch(err => {
-            // eslint-disable-next-line no-console
-            console.log(err)
-        })
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Client-ID 1a9bf8ef9195d8c");
+
+    const formdata = new FormData();
+    formdata.append("image",base64);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    const request = fetch("https://api.imgur.com/3/image", requestOptions);
+    const response = await request;
+    // eslint-disable-next-line no-unused-vars
+    const json = await response.json();
+    // eslint-disable-next-line no-console
+    console.log(response);
+
+    form.elements.photo.value = json.data.link;
+
+    form.submit();
+    // eslint-disable-next-line no-unused-vars
 
 
-    fetch('https://api.imgur.com/3/image', {
-        method: 'POST',
-        headers: {Authorization: `Client-ID a7f3a8a833acad6`},
-        body: formdata
-      }).then(response => response.json()).then(responseJson => {
-        // eslint-disable-next-line no-unused-vars
-        const imageUrl = responseJson.data.link;
-        form.photo.value = "afou";
+})
 
-});
+}
+
 
 
   /* Client ID:
@@ -112,6 +129,5 @@ Client secret:
 
   // Get the file input element
   
-}
 
 export default SellProductPage;
