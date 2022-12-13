@@ -37,7 +37,7 @@ const articlesDB = {
                 throw new Error("Error while getting this article from the database.");
             }
     },
-    getInfosForArticleById : async (id) => {
+    getAllInfosForArticleById : async (id) => {
         const query = {
             text: `SELECT id_annonce,
                         nom_article,
@@ -112,18 +112,14 @@ const articlesDB = {
     getUsersFavoriteArticles : async (id) =>{
         const query = {
             text: `SELECT id_annonce,
-                            nom_article,
-                            description,
-                            id_acheteur,
-                            prenom_acheteur,
-                            nom_acheteur,
-                            id_vendeur,
-                            prenom_vendeur,
-                            nom_vendeur,
-                            date_pub,
-                            prix,
-                            status
-                        FROM vinced.cartes_articles
+                                nom,
+                                description,
+                                id_acheteur,
+                                id_vendeur,
+                                date_pub,
+                                prix,
+                                status
+                        FROM vinced.annonces
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
                                                 WHERE id_membre = $1)
@@ -134,7 +130,7 @@ const articlesDB = {
             const {rows} = await db.query(query);
             return rows;
         } catch (e) {
-            throw new Error("Error while getting these liked articles from the database.");
+            throw new Error("Error while getting all posts from the database.");
         }
     },
 
@@ -148,7 +144,7 @@ const articlesDB = {
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.annonces
+                        FROM vinced.annonce
                         WHERE id_categorie = $1
                         ORDER BY id_annonce DESC`,
             values: [id]

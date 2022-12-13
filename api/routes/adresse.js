@@ -19,16 +19,36 @@ router.get("/", async (req, res) => {
 
 
 router.get("/user", async (req, res) => {
-
     if (req.query.id) {
         const categories = await adresseModel.getAllAdressesUser(req.query.id);
         return res.json(categories);
     }
     return res.sendStatus(502);
-
 }
 );
 
+router.post("/", async (req, res) => {
+
+    const adresse = {
+        id_membre: req.body.id_membre,
+        rue: req.body.rue,
+        numero: req.body.numero,
+        ville: req.body.ville,
+        code_postal: req.body.code_postal,
+        pays: req.body.pays,
+        isDefault: req.body.isDefault
+        
+    }
+    
+    try {
+        const newAdresse = await adresseModel.addAdresse(adresse);
+        return res.json(newAdresse);
+    }
+    catch (e) {
+    return res.sendStatus(502);
+    }
+}
+);
 
 
 module.exports = router;
