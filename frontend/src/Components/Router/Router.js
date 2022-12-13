@@ -7,7 +7,7 @@ import PageProfile from '../Pages/Profilepage';
 import SellPage from '../Pages/SellProductPage';
 import WalletPage from '../Pages/WalletPage';
 import Itemlikepage from '../Pages/ItemlikePage';
-
+import AdressPage from '../Pages/AdressPage';
 
  
 const routes = {
@@ -20,6 +20,7 @@ const routes = {
   '/sell' : SellPage,
   '/wallet' : WalletPage,
   '/myitem' : Itemlikepage,
+  '/myadress' : AdressPage,
   
 };
 
