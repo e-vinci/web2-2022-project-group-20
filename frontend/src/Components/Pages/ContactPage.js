@@ -2,13 +2,17 @@
 
 const ContactPage = ()=>{
     rendercontactusPage();
+   
 
 };
 
 function rendercontactusPage(){
     const render = `
+
+    <form
     <div class="containercontact">
     <div class="contentcontact">
+    <form id="contact-form" name="contact-form" action="mail.php" method="POST">
       <div class="left-side">
         <div class="address details">
           <i class="fas fa-map-marker-alt"></i>
@@ -34,18 +38,25 @@ function rendercontactusPage(){
         <p>If you have any work from me or any types of quries related to our site, you can send a message from here. It's will be pleasure to help you.</p>
       <form action="#">
         <div class="input-box">
-          <input type="text" placeholder="Enter your name">
+          <input type="text" id="name"  placeholder="Enter your name">
         </div>
         <div class="input-box">
           <input type="text" placeholder="Enter your email">
         </div>
-        <div class="input-box message-box">
-          
+
+        <div class="form-group">
+        <label for="exampleFormControlTextarea1">YOUR MESSAGE</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+      </div>
+    
+      </form>
+
+      <div class="input-box message-box">
         </div>
         <div class="button">
-          <input type="button" value="Send Now" >
+          <input type="submit" value="Send Now" >
         </div>
-      </form>
+  
     </div>
     </div>
   </div>
@@ -54,6 +65,13 @@ function rendercontactusPage(){
   const main = document.querySelector("main");
   main.innerHTML = render;
 
-}
+  
+};
+
+
+
+
+
+
 
 export default ContactPage;
