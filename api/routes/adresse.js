@@ -33,13 +33,13 @@ router.post("/", async (req, res) => {
         id_membre: req.body.id_membre,
         rue: req.body.rue,
         numero: req.body.numero,
+        boite : req.body.boite,
         ville: req.body.ville,
         code_postal: req.body.code_postal,
         pays: req.body.pays,
-        isDefault: req.body.isDefault
         
     }
-    
+
     try {
         const newAdresse = await adresseModel.addAdresse(adresse);
         return res.json(newAdresse);
