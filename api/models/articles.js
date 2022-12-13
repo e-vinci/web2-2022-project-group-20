@@ -122,7 +122,7 @@ const articlesDB = {
                         FROM vinced.annonces
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
-                                                WHERE id_user = $1)
+                                                WHERE id_membre = $1)
                         ORDER BY id_annonce DESC`,
             values: [id]
         };
@@ -168,16 +168,13 @@ const articlesDB = {
                                 prix,
                                 status
                         FROM vinced.annonces
-                        WHERE nom ILIKE '%$1%'
+                        WHERE nom LIKE $1
                         ORDER BY id_annonce DESC`,
-            values: [search]
+            values: [`%${  search  }%`]
          };
-        try {
             const {rows} = await db.query(query);
             return rows;
-        } catch (e) {
-            throw new Error("Error while getting all posts from the database.");
-        }
+
     },
 
     // POST REQUESTS
