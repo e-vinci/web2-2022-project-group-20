@@ -10,9 +10,7 @@ const router = express.Router();
  */
 router.get('/', async (req, res) => {
   try {
-    console.log("test")
     const member = await memberModel.getMemberById(req.query.id);
-    console.log("test")
 
     return res.json(member);
   } catch (e) {
@@ -61,18 +59,21 @@ router.post("/login", async (req, res) => {
       (req.body.password && req.body.password === "")){
         return res.status(400).end();
     }
+      // eslint-disable-next-line no-console
+      console.log("test");
   const authenticatedMember = await memberModel.login(req.body);
+  
   if (authenticatedMember === 0) return res.sendStatus(404).end();
   if (authenticatedMember === 1) return res.sendStatus(403).end();
-
+  
   try{
-    req.session.idMember = authenticatedMember.idMember;
+    req.session.idMember = authenticatedMember.id_membre;
     req.sssion.token = authenticatedMember.token;
   }catch(e){
-    // eslint-disable-next-line no-console
-    console.error(e);
+    return res.status(502);
   }
-
+      // eslint-disable-next-line no-console
+  console.log(res.json(authenticatedMember));
   return res.json(authenticatedMember);
 });
 
