@@ -1,6 +1,4 @@
 const express = require("express");
-// eslint-disable-next-line no-unused-vars
-const { render } = require("../app");
 const articleModel = require("../models/articles");
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
@@ -9,13 +7,13 @@ const router = express.Router();
  * GET all articles or articles by id
  */
 router.get("/", async (req, res) => {
-
+    
     if (req.query.id) {
-        const articles = await articleModel.getArticleById(req.query.id);
+        const articles = await articleModel.getInfosForArticleById(req.query.id);
         return res.json(articles);
     }
     try {
-        const articles = await articleModel.getAllArticles();
+        const articles = await articleModel.getAllInfosForAllArticles();
         return res.json(articles);
     } catch (e) {
         return res.sendStatus(502);
@@ -74,7 +72,7 @@ router.get("/user", async (req, res) => {
 });
 
 /**
- * GET all articles by favorite user id
+ * GET all favorite articles from user id
  */
 router.get("/favorite", async (req, res) => {
     try {
@@ -129,9 +127,12 @@ router.post("/", async (req, res) => {
         const createArticle = await articleModel.createArticle(article);
         return res.json(createArticle);
         }
-    catch (e) {
+    catch{
         return res.sendStatus(502);
     }
 });
+
+        
+
 
 module.exports = router;

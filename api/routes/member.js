@@ -8,21 +8,12 @@ const router = express.Router();
 /**
  * GET member by its id
  */
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const member = await memberModel.getMemberById(req.params.id);
-    return res.json(member);
-  } catch (e) {
-    return res.sendStatus(502);
-  }
-});
+    console.log("test")
+    const member = await memberModel.getMemberById(req.query.id);
+    console.log("test")
 
-/**
- * GET member infos and stats by its id
- */
-router.get('/:id', async (req, res) => {
-  try {
-    const member = await memberModel.getMemberById(req.params.id);
     return res.json(member);
   } catch (e) {
     return res.sendStatus(502);
@@ -58,8 +49,7 @@ router.post("/register", async (req, res) => {
     req.session.idMember = authenticatedMember.idMember;
     req.session.token = authenticatedMember.token;
     }catch(e){
-      // eslint-disable-next-line no-console
-      console.error(e);
+      return res.sendStatus(502);
     }
 
   return res.json(authenticatedMember);

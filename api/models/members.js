@@ -17,12 +17,11 @@ const membersDB = {
                           balance,
                           nbr_annonces_postee,
                           nbr_annonces_vendues
-                    FROM vinced.membres_infos 
+                    FROM vinced.users_infos 
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
             values: [id]
         };
-
         try {
             const {rows} = await db.query(query);
             return rows;

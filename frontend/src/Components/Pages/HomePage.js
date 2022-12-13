@@ -10,7 +10,7 @@ const HomePageRender = async () => {
     const request = {
       method: "GET"
     };
-    let cartes = await fetch(`api/articles/cartes`, request);
+    let cartes = await fetch(`api/articles/`, request);
     cartes = await cartes.json();
     let html = `
       <section style="background-color: #eee;">

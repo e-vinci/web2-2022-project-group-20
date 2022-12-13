@@ -16,7 +16,7 @@ CREATE TABLE vinced.membres (
 
 CREATE TABLE vinced.adresses (
     id_adresse SERIAL PRIMARY KEY,
-    id_membre INTEGER NOT NULL REFERENCES vinced.membres,
+    id_membre INTEGER NOT NULL REFERENCES vinced.membres,x
     rue VARCHAR(100) NOT NULL,
     numero VARCHAR(5) NOT NULL,
     boite VARCHAR(5),
@@ -72,21 +72,24 @@ CREATE TABLE vinced.annonce_photos (
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN ARTICLE
 CREATE OR REPLACE VIEW vinced.cartes_articles AS
-    SELECT a.id_annonce, a.nom AS "nom_article",
-           a.description,a.prix,
-            a.date_pub,
-            a.photo,
-            a.status,
+    SELECT a.id_annonce,
+           a.nom AS "nom_article",
+           a.description,
+           a.prix,
+           a.date_pub,
+           a.photo,
+           a.status,
            c.nom AS "categorie",
-           ma.id_membre AS "id_acheteur", 
-           ma.nom AS "nom_acheteur", 
+           ma.id_membre AS "id_acheteur",
+           ma.nom AS "nom_acheteur",
            ma.prenom AS "prenom_acheteur",
-           mv.id_membre AS "id_vendeur", 
-           mv.nom AS "nom_vendeur", 
+           mv.id_membre AS "id_vendeur",
+           mv.nom AS "nom_vendeur",
            mv.prenom AS "prenom_vendeur"
-    FROM ( (vinced.annonces a LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur)
-        JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre )
-        JOIN vinced.categories c on a.id_categorie = c.id_categorie;
+    FROM ( (vinced.annonces a LEFT JOIN vinced.categories c on a.categorie = c.id_categorie )
+        LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur )
+        JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre
+        ;
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infos AS
@@ -101,19 +104,19 @@ CREATE OR REPLACE VIEW vinced.users_infos AS
            count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
     FROM vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur
     GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance;
-    
+$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa  
     
 -- INSERT INTO MEMBRES
-INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'rayan.abarkan@student.vinci.be', 'ABARKAN','Rayan', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'antoine.pirelot@student.vinci.be', 'PIRELOT','Antoine', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'clement.coegniet@student.vinci.be', 'COEUGNIET','Clément', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'luis.brunard@student.vinci.be', 'BRUNARD','Luis', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'elie.debacker@student.vinci.be', 'DeBacker','Elie', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be', 'BOGEARTS','Olivier', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'ferdinand.rouxdebezieux@student.vinci.be', 'Roux De Bézieux','Ferdinand', 'azerty', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', 'azerty', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'rayan.abarkan@student.vinci.be', 'ABARKAN','Rayan', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'antoine.pirelot@student.vinci.be', 'PIRELOT','Antoine', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'clement.coegniet@student.vinci.be', 'COEUGNIET','Clément', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'luis.brunard@student.vinci.be', 'BRUNARD','Luis', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'elie.debacker@student.vinci.be', 'DeBacker','Elie', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be', 'BOGEARTS','Olivier', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'ferdinand.rouxdebezieux@student.vinci.be', 'Roux De Bézieux','Ferdinand', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
 
 -- INSERT INTO ADRESSES
 INSERT INTO vinced.adresses VALUES (DEFAULT, 1, 'Rue de l''abricot', '25', null, 'Bruxelles', '1190', 'Belgique');
