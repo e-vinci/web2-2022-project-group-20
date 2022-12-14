@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
+import Navigate from '../Router/Navigate';
+import logo from '../../img/logo.png';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -9,39 +11,195 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
  */
 
 const Navbar = () => {
-  const navbarWrapper = document.querySelector('#navbarWrapper');
-  const navbar = `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Add your brand here</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#" data-uri="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/game">Game</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/new">New Page</a>
-              </li>                        
-            </ul>
-          </div>
-        </div>
-      </nav>
-  `;
-  navbarWrapper.innerHTML = navbar;
+  renderNavbar();
+  darkmode();
 };
+
+function renderNavbar() {
+  let anonymousUserNavbar = `
+  <nav class = "sidebar close">
+    <header>
+      <div class ="image-text">
+        <span class ="image">
+          <img src="${logo}" alt = "logo">
+        </span>
+        <div class="text logo-text">
+          <span class="name">VINCID</span>
+          <span class="profession">SELL, BUY EASILY</span>
+        </div>
+      </div>
+      <i class='bx bx-chevron-right toggle'></i>
+    </header>
+  <div class="menu-bar">
+    <div class="menu">
+      <li class="search-box">
+          <i class='bx bx-search icon'></i>
+          <input type="text" placeholder="Search...">
+      </li>
+      <ul class="menu-links">
+        <li class="">
+          <a data-uri="/">
+            <i class='bx bx-home-alt icon' ></i>
+            <span class="text nav-text">Home page</span>
+          </a>
+        </li>
+        </li>
+        <li class="">
+          <a data-uri="/panier">
+            <i class='bx bx-basket icon'></i>
+            <span class="text nav-text">Basket</span>
+          </a>
+        </li>
+    
+        <li class="">
+          <a data-uri="contact">
+            <i class='bx bx-mail-send icon'></i>
+            <span class="text nav-text">Contact</span>
+          </a>
+        </li>
+`;
+  if (window.localStorage.getItem('member') !== null) {
+    anonymousUserNavbar += `
+      <li class="">
+            <a data-uri="sell">
+                <i class='bx bx-purchase-tag-alt icon'></i>
+                <span class="text nav-text">Sell page</span>
+            </a>
+        </li>
+        
+        <li class="">
+        <a data-uri="/myitem">
+            <i class='bx bx-heart icon' ></i>
+            <span class="text nav-text">Items I like</span>
+          </a>
+        </li>
+
+        <li class="">
+          <a data-uri="wallet">
+            <i class='bx bx-wallet icon' ></i>
+            <span class="text nav-text">My wallets</span>
+          </a>
+        </li>
+        <li class="">
+          <a data-uri="/profile">
+            <i class='bx bx-male-female icon'></i>
+            <span class="text nav-text">Profile page</span>
+          </a>
+        </li>
+    </ul>
+    </div>
+    <div class="bottom-content">
+
+    <li  >
+        <a class="logBtn" data-uri="/login" id="logout">
+            <i class='bx bx-log-in icon' ></i>
+            <span class="text nav-text">LOG OUT </span>
+        </a>
+    </li>
+
+    `;
+  } else {
+    anonymousUserNavbar += ` </ul></div>
+    <div class="bottom-content">
+
+    <li >
+        <a href="/loginPage"  class="logBtn" id="login">
+            <i class='bx bx-log-in icon' ></i>
+            <span class="text nav-text">LOG IN </span>
+        </a>
+    </li>
+`;
+  }
+
+  anonymousUserNavbar += `
+
+    <li class="mode">
+        <div class="sun-moon">
+            <i class='bx bx-moon icon moon'></i>
+            <i class='bx bx-sun icon sun'></i>
+        </div>
+        <span class="mode-text text">Dark mode</span>
+
+        <div class="toggle-switch">
+            <span class="switch"></span>
+        </div>
+    </li>
+    
+</div>
+</div>
+
+</nav>
+`;
+
+  const navbar = document.querySelector('#navbarWrapper');
+  navbar.innerHTML = anonymousUserNavbar;
+
+  const navbarElements = document.querySelector('#navbarWrapper').getElementsByTagName('a');
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const element of navbarElements) {
+    element.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const dataUri = element.getAttribute('data-uri');
+      // Ce bloc sert a éviter le fait que quand on est déjà sur le profile d'un membre et qu'on veut aller sur le sien rien ne se passe.
+      const params = new URLSearchParams(window.location.search);
+      if (dataUri === '/profile' && params.get('idMembre')) {
+        // Récupère l'id du membre en session
+        // const local = await JSON.parse(window.localStorage.getItem("member"));
+
+        // Récupère les parametres en URL
+        // const params = new URLSearchParams(window.location.search);
+
+        // Modifie le param idMembre en l'idMembre en session
+        // params.delete("idMembre");
+
+        // Créée la nouvelle url
+        const newUrl = `${window.location.origin}${window.location.pathname}`;
+
+        // Met à jour la nouvelle URL
+        window.history.replaceState({}, '', newUrl);
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      }
+      Navigate(dataUri);
+    });
+  }
+
+  const logBtn = document.querySelector('.logBtn');
+
+  logBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (logBtn.id === 'logout') {
+      localStorage.clear();
+    }
+    Navigate('/login');
+    Navbar();
+  });
+}
+
+/* function navbarclick(){
+  const body = document.querySelector("body");
+  const sidebar = body.querySelector(".sidebar");
+  const toggle = body.querySelector(".toggle");
+
+  toggle.addEventListener("click", () =>{
+    sidebar.classList.toggle("close");
+  });
+} */
+
+function darkmode() {
+  const body = document.querySelector('body');
+  const modeSwitch = body.querySelector('.toggle-switch');
+  const modeText = body.querySelector('.mode-text');
+
+  modeSwitch.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if (body.classList.contains('dark')) {
+      modeText.innerText = 'Light mode';
+    } else {
+      modeText.innerText = 'Dark mode';
+    }
+  });
+}
 
 export default Navbar;

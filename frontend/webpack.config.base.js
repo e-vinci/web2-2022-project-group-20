@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 module.exports = {
   mode: 'none',
@@ -84,7 +85,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin({
       root: path.resolve(__dirname, '../'),
-    }),
+    }),new NodePolyfillPlugin(),
     /* For more advanced use cases, these two global variables determine
     which renderer is included in the Phaser build. If you only want to run
     your game with WebGL, then you’d set WEBGL_RENDERER to true,

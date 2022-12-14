@@ -1,0 +1,8 @@
+### POST a fav
+POST http://localhost:3000/favorites/
+Content-Type: application/json
+
+{
+  "id_user": 1,
+  "id_post": 1
+}
