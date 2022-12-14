@@ -133,21 +133,20 @@ function renderNavbar() {
 
   const navbar = document.querySelector('#navbarWrapper');
   navbar.innerHTML = anonymousUserNavbar;
-  
 
-  const navbarElements = document.querySelector("#navbarWrapper").getElementsByTagName("a");
+  const navbarElements = document.querySelector('#navbarWrapper').getElementsByTagName('a');
 
   // eslint-disable-next-line no-restricted-syntax
-  for(const element of navbarElements){
-    element.addEventListener("click", async (e) => {
+  for (const element of navbarElements) {
+    element.addEventListener('click', async (e) => {
       e.preventDefault();
-      const dataUri = element.getAttribute("data-uri");
+      const dataUri = element.getAttribute('data-uri');
       // Ce bloc sert a éviter le fait que quand on est déjà sur le profile d'un membre et qu'on veut aller sur le sien rien ne se passe.
-      const params = new URLSearchParams(window.location.search)
-      if(dataUri === "/profile" && params.get("idMembre")){
+      const params = new URLSearchParams(window.location.search);
+      if (dataUri === '/profile' && params.get('idMembre')) {
         // Récupère l'id du membre en session
         // const local = await JSON.parse(window.localStorage.getItem("member"));
-        
+
         // Récupère les parametres en URL
         // const params = new URLSearchParams(window.location.search);
 
@@ -163,21 +162,19 @@ function renderNavbar() {
         location.reload();
       }
       Navigate(dataUri);
-
     });
   }
 
-  const logBtn = document.querySelector(".logBtn");
+  const logBtn = document.querySelector('.logBtn');
 
-    logBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if(logBtn.id === "logout"){
-        localStorage.clear(); 
-      }
-      Navigate('/login');
-      Navbar();
-      });
-  
+  logBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (logBtn.id === 'logout') {
+      localStorage.clear();
+    }
+    Navigate('/login');
+    Navbar();
+  });
 }
 
 /* function navbarclick(){
