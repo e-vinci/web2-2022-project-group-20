@@ -13,6 +13,7 @@ const membersDB = {
                           nom,
                           prenom,
                           is_admin,
+                          phone,
                           image_profil,
                           balance,
                           nbr_annonces_postee,
@@ -23,7 +24,7 @@ const membersDB = {
                           city,
                           zip_code,
                           country
-                    FROM vinced.users_infoss
+                    FROM vinced.users_infos
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,
       values: [id],

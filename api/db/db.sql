@@ -95,7 +95,7 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
         
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
-CREATE OR REPLACE VIEW vinced.users_infoss AS
+CREATE OR REPLACE VIEW vinced.users_infos AS
 SELECT m.id_membre,
        m.email,
        m.nom,
