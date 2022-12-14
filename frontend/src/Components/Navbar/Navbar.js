@@ -142,20 +142,25 @@ function renderNavbar() {
     element.addEventListener("click", async (e) => {
       e.preventDefault();
       const dataUri = element.getAttribute("data-uri");
-      
-      if(dataUri === "/profile"){
+      // Ce bloc sert a éviter le fait que quand on est déjà sur le profile d'un membre et qu'on veut aller sur le sien rien ne se passe.
+      const params = new URLSearchParams(window.location.search)
+      if(dataUri === "/profile" && params.get("idMembre")){
         // Récupère l'id du membre en session
-        const local = await JSON.parse(window.localStorage.getItem("member"));
+        // const local = await JSON.parse(window.localStorage.getItem("member"));
         
         // Récupère les parametres en URL
-        const params = new URLSearchParams(window.location.search);
+        // const params = new URLSearchParams(window.location.search);
+
         // Modifie le param idMembre en l'idMembre en session
-        params.set("idMembre", local.id_membre);
+        // params.delete("idMembre");
+
         // Créée la nouvelle url
-        const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        const newUrl = `${window.location.origin}${window.location.pathname}`;
 
         // Met à jour la nouvelle URL
         window.history.replaceState({}, '', newUrl);
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
       }
       Navigate(dataUri);
 
