@@ -139,9 +139,26 @@ function renderNavbar() {
 
   // eslint-disable-next-line no-restricted-syntax
   for(const element of navbarElements){
-    element.addEventListener("click", (e) => {
+    element.addEventListener("click", async (e) => {
       e.preventDefault();
-      Navigate(element.getAttribute("data-uri"));
+      const dataUri = element.getAttribute("data-uri");
+      
+      if(dataUri === "/profile"){
+        // Récupère l'id du membre en session
+        const local = await JSON.parse(window.localStorage.getItem("member"));
+        
+        // Récupère les parametres en URL
+        const params = new URLSearchParams(window.location.search);
+        // Modifie le param idMembre en l'idMembre en session
+        params.set("idMembre", local.id_membre);
+        // Créée la nouvelle url
+        const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+
+        // Met à jour la nouvelle URL
+        window.history.replaceState({}, '', newUrl);
+      }
+      Navigate(dataUri);
+
     });
   }
 

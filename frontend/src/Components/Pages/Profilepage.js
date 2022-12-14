@@ -7,7 +7,8 @@ import gameboyimg from '../../img/gameboy.png';
     
     // Récupère l'id membre dans l'URL
     let idMember = new URLSearchParams(window.location.search).get("idMembre")
-
+    // eslint-disable-next-line no-console
+    console.log(idMember);
     // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
     if(!idMember) {
       const local = await JSON.parse(window.localStorage.getItem("member"));
