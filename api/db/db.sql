@@ -91,6 +91,9 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
         JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre
         ;
 
+
+        
+
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infoss AS
 SELECT m.id_membre,
@@ -107,6 +110,14 @@ SELECT m.id_membre,
        ad.code_postal AS "zip_code",
        ad.pays AS "country",
        ad.id_adresse AS "address_id",
+       a.id_annonce, 
+       a.nom,
+       a.description,
+       a.id_vendeur,
+       a.date_pub,
+       a.prix,
+       a.status,
+       a.photo,
        count(a.id_annonce) AS "nbr_annonces_postee",,
        count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
 FROM  vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur LEFT JOIN vinced.adresses ad ON m.id_membre = ad.id_membre

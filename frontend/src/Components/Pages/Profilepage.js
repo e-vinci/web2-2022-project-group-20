@@ -21,11 +21,13 @@ import gameboyimg from '../../img/gameboy.png';
     let response = await fetch(`api/members?id=${idMember}`, request);
     response = await response.json();
     const member = response[0];
-/*
-    let adress = await fetch(`api/adresses/user?id=${idMember}`, request)
-    adress = await response.json();
-    const adresse = adress[0];
+      
+    /*
+    let resd = await fetch(`api/articles/user?id=${idMember}`, request);
+    resd = await response.json();
+    const article = resd[0];
 */
+
     let profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
@@ -132,11 +134,13 @@ import gameboyimg from '../../img/gameboy.png';
             </div>
           </div>`
 
+         /* article.forEach(async carte  => { */
+            
           profilepage += `<div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1"></span> PUBLICATION
+                  <p class="mb-4"><span class="text-primary font-italic me-1"></span>
                   </p>
                   <div class="progress rounded mb-2" style="height: 5px;">
                   </div>
@@ -162,6 +166,7 @@ import gameboyimg from '../../img/gameboy.png';
     </div>
   </section>
     `;
+       
 
     const main = document.querySelector('main');
     main.innerHTML = profilepage;

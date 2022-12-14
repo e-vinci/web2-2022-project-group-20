@@ -35,6 +35,10 @@ const membersDB = {
             throw new Error("Error while getting this member from the database.");
         }
     },
+
+
+
+
     getMemberByEmail: async (email) => {
         const query = {
             text: `SELECT id_membre,
