@@ -82,12 +82,13 @@ const membersDB = {
     if (memberFound) return 1;
     const hashedPassword = await bcrypt.hash(body.password, saltRounds);
     const query = {
-      text: `INSERT INTO vinced.membres VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)`,
+      text: `INSERT INTO vinced.membres VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7)`,
       values: [
         body.email,
         body.lastname,
         body.firstname,
         hashedPassword,
+        body.phone,
         '../images/default.jpg',
         false,
       ],

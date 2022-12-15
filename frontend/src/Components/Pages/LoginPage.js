@@ -44,6 +44,10 @@ function loginpagefuntion() {
               <input type="text" id="lastnameFieldR" placeholder="Firstname" />
             </div>
             <div class="input-field">
+            <i class="fas fa-mobile"></i>
+            <input type="email" id="phoneFieldR" placeholder="phone number" />
+           </div>
+            <div class="input-field">
               <i class="fas fa-envelope"></i>
               <input type="email" id="emailFieldR" placeholder="Email" />
             </div>
@@ -51,6 +55,7 @@ function loginpagefuntion() {
               <i class="fas fa-lock"></i>
               <input type="password" id="passwordFieldR" placeholder="Password" />
             </div>
+            
             <input type="submit" id="registerButton" class="btn" value="Sign up" />
             <p class="social-text">Or Sign up with social platforms</p>
             <div class="social-media">
@@ -162,12 +167,13 @@ function ad() {
       e.preventDefault();
       const firstnameField = document.querySelector('#firstnameFieldR');
       const lastnameField = document.querySelector('#lastnameFieldR');
+      const phonenameField = document.querySelector('#phoneFieldR');
       const emailField = document.querySelector('#emailFieldR');
       const passwordField = document.querySelector('#passwordFieldR');
       const alertDiv = document.querySelector("#alertR");
 
       if(!passwordField.value || !emailField.value ||
-         !firstnameField.value || !lastnameField.value){
+         !firstnameField.value || !lastnameField.value || !phonenameField.value){
         alertDiv.className ="alert alert-danger";
         alertDiv.innerHTML= "Check that you've filled all the necessary informations";
         return;
@@ -178,6 +184,7 @@ function ad() {
         body: JSON.stringify({
           firstname: firstnameField.value,
           lastname: lastnameField.value,
+          phone : phonenameField.value,
           email: emailField.value,
           password: passwordField.value,
         }),

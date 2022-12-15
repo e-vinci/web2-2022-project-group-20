@@ -23,12 +23,15 @@ import gameboyimg from '../../img/gameboy.png';
     let response = await fetch(`api/members?id=${idMember}`, request);
     response = await response.json();
     const member = response[0];
-      
-    /*
-    let resd = await fetch(`api/articles/user?id=${idMember}`, request);
+    
+  
+
+  
+   /* let resd = await fetch(`api/articles/user?id=${idMember}`, request);
     resd = await response.json();
     const article = resd[0];
-*/
+    */
+
 
     let profilepage= `
     <section style="background-color: #eee;">
@@ -133,8 +136,12 @@ import gameboyimg from '../../img/gameboy.png';
             </div>
           </div>`
 
-         /* article.forEach(async carte  => { */
-            
+   /* let infos = await fetch(`api/articles/user?id=${idMember}`, request);
+    infos = await infos.json;
+    const item = infos; */
+
+          /* item.forEach(async article => { */
+          
           profilepage += `<div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
@@ -146,24 +153,8 @@ import gameboyimg from '../../img/gameboy.png';
                   <img src="${gameboyimg}" id="id_img" class="d-block w-100" alt="...">
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1"></span> PUBLICATION
-                  </p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                </div>
-                <img src="${gameboyimg}" class="image" alt="" />
-              </div>
-            </div>
-          </div>
-     
-        </div>
-      </div>
-    </div>
-  </section>
     `;
+       
        
 
     const main = document.querySelector('main');
