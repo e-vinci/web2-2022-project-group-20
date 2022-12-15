@@ -180,10 +180,12 @@ const walletpage= `
 /*
 The render function
 */	
- function WalletPage() {
+async function WalletPage() {
 	
-	const member = findMember();
-	if(member.is_admin === true){
+	// const member = findMember();
+	// const local = await JSON.parse(window.localStorage.getItem("member"));
+	const mailMember = "rayan.abarkan@student.vinci.be";
+
 
 		const main = document.querySelector('main');
 		main.innerHTML = walletpage;
@@ -192,10 +194,9 @@ The render function
 		const removeMoney = document.querySelector("#remove-money-btn");
 
 
-		addMoney.addEventListener("click", addOnClick(member)); // ("click", addOnClick, user);
-		removeMoney.addEventListener("click", removeOnClick(member));
+		addMoney.addEventListener("click", addOnClick(mailMember)); // ("click", addOnClick, user);
+		removeMoney.addEventListener("click", removeOnClick(mailMember));
 	
-	} 	
 	
 }
 
@@ -204,24 +205,7 @@ The render function
 /*
 Find the connected member and retrieve it
 */
-async function findMember(){	
-    let idMember = new URLSearchParams(window.location.search).get("idMembre")
-    // eslint-disable-next-line no-console
-    console.log(idMember);
-	
-    if(!idMember) {
-      const local = await JSON.parse(window.localStorage.getItem("member"));
-      idMember = local.id_membre;
-    }
-    const request = {
-      method: "GET"
-    };
-    
-    let response = await fetch(`api/members?id=${idMember}`, request);
-    response = await response.json();
-    const member = response[0];
-	return member;
-}
+// async function findMember(){	}
 
 
 async function addOnClick(member) {

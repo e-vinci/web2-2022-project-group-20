@@ -57,9 +57,12 @@ function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
-        //todo
+
+        
+        <!-- todo : to delete -->
+
         <li class="">
-          <a data-uri="wallet">
+          <a data-uri="/wallet">
             <i class='bx bx-wallet icon' ></i>
             <span class="text nav-text">My wallets</span>
           </a>
@@ -90,7 +93,7 @@ function renderNavbar() {
         </li>
 
         <li class="">
-          <a data-uri="wallet">
+          <a data-uri="/wallet">
             <i class='bx bx-wallet icon' ></i>
             <span class="text nav-text">My wallets</span>
           </a>
