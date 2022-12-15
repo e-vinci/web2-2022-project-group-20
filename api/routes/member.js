@@ -82,22 +82,30 @@ router.post('/login', async (req, res) => {
 /**
  * Update the blance of a member to add credit
  */
-router.put('/:email/addCredits', async (req, res) => {
-  if (!req.body || (req.body.credits && req.body.credits.length === 0)) return res.status(400).end;
+router.post("/addCredits", async function (req, res) {
+  // Send an error code '400 Bad request' if the body parameters are not valid
+  if (
+    !req.body ||
+    (req.body.hasOwnProperty("email") && req.body.email.length === 0) ||
+    (req.body.hasOwnProperty("credits") && req.body.credits.length === 0)
+  )
+    return res.status(400).end();
 
-  try {
-    const member = await memberModel.addCredits(req.params.email, req.body.credits, req.app.pool);
-    if (!member) return res.status(304).end();
-    return res.json(member);
-  } catch (error) {
-    return res.status(420).end();
-  }
+    try {
+      const member = await memberModel.addCredits(req.body.email, req.body.credits, req.app.pool);
+      if (!member) return res.status(304).end();
+      return res.json(member);
+    } catch (error) {
+      return res.status(420).end();
+    }
 });
+
+
 
 /**
  * Update the blance of a member to delete credit
  */
-router.put('/:email/removeCredits', async (req, res) => {
+router.post('/:email/removeCredits', async (req, res) => {
   if (!req.body || (req.body.credits && req.body.credits.length === 0)) return res.status(400).end;
 
   try {
@@ -116,7 +124,7 @@ router.put('/:email/removeCredits', async (req, res) => {
 /**
  * Grant a member to admin
  */
-router.put('/:email/promoteOne', async (req, res) => {
+router.post('/:email/promoteOne', async (req, res) => {
   try {
     const member = await memberModel.promoteOne(req.params.email, req.app.pool);
     if (!member) return res.status(304).end();
@@ -129,7 +137,7 @@ router.put('/:email/promoteOne', async (req, res) => {
 /**
  * Revoke a member to no admin
  */
-router.put('/:email/demoteOne', async (req, res) => {
+router.post('/:email/demoteOne', async (req, res) => {
   try {
     const member = await memberModel.demoteOne(req.params.email,req.app.pool);
     if (!member) return res.status(304).end();
@@ -142,7 +150,7 @@ router.put('/:email/demoteOne', async (req, res) => {
 /**
  * Update a normal member to a ban status
  */
-router.put('/:email/banOne', async (req, res) => {
+router.post('/:email/banOne', async (req, res) => {
   try {
     const member = await memberModel.banOne(req.params.email, req.app.pool);
     if (!member) return res.status(304).end();
@@ -155,7 +163,7 @@ router.put('/:email/banOne', async (req, res) => {
 /**
  * Update a ban member to a normal status
  */
-router.put('/:email/unbanOne', async (req, res) => {
+router.post('/:email/unbanOne', async (req, res) => {
   try {
     const member = await memberModel.unbanOne(req.params.email, req.app.pool);
     if (!member) return res.status(304).end();

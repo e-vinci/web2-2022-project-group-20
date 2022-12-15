@@ -7,47 +7,43 @@ const LIFETIME_JWT = 24 * 60 * 60 * 1000;
 
 const membersDB = {
   getActiveMembers: async () => {
-     
     const query = {
       text: `SELECT id_membre,
       email,
       nom,
       prenom,
       is_admin,
-      image_profil,
+      image_profil
         FROM vinced.membres
         WHERE is_admin = false  
         ORDER BY nom;`
     };
     
     try {
-      console.log( await db.query(query));
       const { rows } = await db.query(query);
       return rows;
     } catch (e) {
-            throw new Error('Error while getting active members from the database.');
+      throw new Error('Error while getting active members from the database.');
     } 
   },
-  getBannedMembers:  async () => {
-     
+  getBannedMembers: async () => {
     const query = {
       text: `SELECT id_membre,
       email,
       nom,
       prenom,
       is_admin,
-      image_profil,
+      image_profil
         FROM vinced.membres
         WHERE is_admin = true  
         ORDER BY nom;`
     };
     
     try {
-      console.log( await db.query(query));
       const { rows } = await db.query(query);
       return rows;
     } catch (e) {
-            throw new Error('Error while getting banned members from the database.');
+      throw new Error('Error while getting active members from the database.');
     } 
   },
   getMemberById: async (id) => {
@@ -165,17 +161,18 @@ const membersDB = {
     return authenticatedMember;
   },
   async addCredits(email, credits, pool) {
-    try {
-      const {
-        rows,
-      } = await pool.query(
-        'UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *',
-        [credits, email],
+    console.log("1");
+    try {// on passe au cach
+      const { rows } = await pool.query(
+        'UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *', [credits, email]
       );
-
-      const result = rows[0] ? rows[0] : null;
-      return result;
+      console.log("2");
+      if (! rows) return;
+    
+      return rows;
     } catch (error) {
+      
+      console.log("3");
       throw new Error(error);
     }
   },

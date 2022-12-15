@@ -74,9 +74,9 @@ async function addAllMembers() {
 	checkbox.forEach(item => {
 	  item.addEventListener('change', function grantOrRevokeOne() {
 		if (this.checked) {
-		   // grantAdmin(this.getAttribute("member"));
+		   grantAdmin(this.getAttribute("member"));
 		} else {
-		   // revokeAdmin(this.getAttribute("member"));
+		   revokeAdmin(this.getAttribute("member"));
 		}
 	  });
 	});
@@ -94,9 +94,6 @@ async function addActiveMembers(div) {
   
 	  const body = document.createElement("tbody");	 
 	  
-	  // todos eslint..
-	  // ? allMembers["members"].forEach(item => {
-	  // ? allMembers["members.email"].forEach(item => {
 	  allMembers.forEach(item => {
 	  addActiveMember(item.email, item.id, body); });
 	  
@@ -109,7 +106,7 @@ async function addActiveMembers(div) {
 Get in back the members with a normal status
 @return all the members find
  */
-async function getAllActiveMembers() {  // error 504
+async function getAllActiveMembers() { 
 	const options = {
 		method: "GET",
         headers: {
@@ -161,7 +158,7 @@ function addActiveMember(member, id, body) {
 	checkAdmin.type = "checkbox";
 	checkAdmin.name = member;
   
-	// checkAdmin.addEventListener("onChange", grantAdmin);
+	checkAdmin.addEventListener("onChange", grantAdmin);
   
 	isAdmin.appendChild(checkAdmin);
 	isAdmin.innerHTML += "Admin";
@@ -181,16 +178,23 @@ function addActiveMember(member, id, body) {
 /*
 Grant an active member to admin only by an admin
 @param member : the member to grant
-
+*/
  
 async function grantAdmin(member) {
-	  const options = {
-		method: "PUT", // *GET, POST, PUT, DELETE, etc.
-	  };
-  
-	  
-	  // const response = await fetch("/api/members/promoteOne/" ${member} , options);
-	  const response = await fetch("/api/members/promoteOne/" + member , options);
+
+	
+	const options = {
+	method: "POST", // *GET, POST, PUT, DELETE, etc.
+		body: JSON.stringify(
+		{
+			email: member.email,
+		}), // body data type must match "Content-Type" header
+		headers: {
+			"Content-Type": "application/json",
+			},
+		};
+		
+	  const response = await fetch("/api/members/promoteOne", options);
 		
 	if (!response.ok) {
 		if (response.status === 400) {
@@ -202,13 +206,21 @@ async function grantAdmin(member) {
 /*
 Revoke an active member only by an admin
 @param member : the member to revoke
- 
+ */
 async function revokeAdmin(member) {
+	
 	const options = {
-	  method: "PUT", // *GET, POST, PUT, DELETE, etc.
-	};
-
-  const response = await fetch("/api/members/demoteOne/" + member, options);
+		method: "POST", // *GET, POST, PUT, DELETE, etc.
+			body: JSON.stringify(
+			{
+				email: member.email,
+			}), // body data type must match "Content-Type" header
+			headers: {
+				"Content-Type": "application/json",
+				},
+			};
+			
+		  const response = await fetch("/api/members/demoteOne", options);
 	  
   if (!response.ok) {
 	  if (response.status === 400) {
@@ -223,15 +235,19 @@ Ban an active user by an admin
 async function banMember() {
 	const member = this.getAttribute("member");
   
-  
-	  // create request
-	  const options = {
-			method: "PUT", // *GET, POST, PUT, DELETE, etc.
-		 };
-
-	  const response = await fetch("/api/members/banOne/" + member,
-		  options); // fetch return a promise => we wait for the response
-  
+  const options = {
+		method: "POST", // *GET, POST, PUT, DELETE, etc.
+			body: JSON.stringify(
+			{
+				email: member.email,
+			}), // body data type must match "Content-Type" header
+			headers: {
+				"Content-Type": "application/json",
+				},
+			};
+			
+		  const response = await fetch("/api/members/banOne", options);
+	  
 	  if (!response.ok) {
 		if (response.status === 400) {
 		  // envoye message
@@ -246,15 +262,19 @@ Unban a banned user by an admin
 async function unbanMember() {
 	const member = this.getAttribute("member");
   
-  
-	  // create request
-	  const options = {
-			method: "PUT", // *GET, POST, PUT, DELETE, etc.
-		 };
-
-	  const response = await fetch("/api/members/unbanOne/" + member,
-		  options); // fetch return a promise => we wait for the response
-  
+  const options = {
+		method: "POST", // *GET, POST, PUT, DELETE, etc.
+			body: JSON.stringify(
+			{
+				email: member.email,
+			}), // body data type must match "Content-Type" header
+			headers: {
+				"Content-Type": "application/json",
+				},
+			};
+			
+		  const response = await fetch("/api/members/unbanOne", options);
+	  
 	  if (!response.ok) {
 		if (response.status === 400) {
 		  // envoye message
@@ -262,7 +282,7 @@ async function unbanMember() {
 	  }
   }
 
-// stop
+
 /*
 Add all members find with a ban status 
  */
@@ -273,9 +293,7 @@ async function addBannedMembers(div) {
 
 	const body = document.createElement("tbody");	 
 	
-	// todos eslint..
-	// ? allMembers["members"].forEach(item => {
-	// ? allMembers["members.email"].forEach(item => {
+
 	allMembers.forEach(item => {
 	addBannedMember(item.email, item.id, body); });
 	
@@ -292,7 +310,6 @@ async function getAllBannedMembers() {
 		method: "GET",
     };
 
-	// ? const response = await fetch("api/members/getActiveMembers", options);
 	const response = await fetch("/api/members/getBannedMembers", options);
 	const allMembers = await response.json();
     // console.log(allMembers);
@@ -323,7 +340,7 @@ function addBannedMember(member, id, body) {
 	unbanButton.setAttribute("member", member);
   
 	
-	// unbanButton.addEventListener("click", unbanOne);
+	// unbanButton.addEventListener("click", unbanOne());
 
 	unban.appendChild(unbanButton);
   
@@ -333,15 +350,9 @@ function addBannedMember(member, id, body) {
 	checkAdmin.className = "form-check-input me-1";
 	checkAdmin.type = "checkbox";
 	checkAdmin.name = member;
-  
-	// checkAdmin.addEventListener("onChange", grantAdmin);
-  
-	isAdmin.appendChild(checkAdmin);
-	isAdmin.innerHTML += "Admin";
-  
+    
 	memberTr.appendChild(name);
 	memberTr.appendChild(unban);
-	memberTr.appendChild(isAdmin);
   
 	body.appendChild(memberTr);
   
