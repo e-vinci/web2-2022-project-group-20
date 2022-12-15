@@ -1,5 +1,7 @@
 const express = require("express");
 const articleModel = require("../models/articles");
+const favoriteModel = require("../models/favorites");
+
 // const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
 
 const router = express.Router();
@@ -13,8 +15,11 @@ router.get("/", async (req, res) => {
         return res.json(articles);
     }
     try {
-        const articles = await articleModel.getAllInfosForAllArticles();
-        return res.json(articles);
+        const articlesResponse = await articleModel.getAllInfosForAllArticles();
+        const favoritesResponse = await favoriteModel.getFavorites(req.query.id_member);
+        const cartes = {articles : articlesResponse, favorites: favoritesResponse };
+        console.log(cartes);
+        return res.json(cartes);
     } catch (e) {
         return res.sendStatus(502);
     }}

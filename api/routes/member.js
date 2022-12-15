@@ -11,7 +11,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const member = await memberModel.getMemberById(req.query.id);
-
     return res.json(member);
   } catch (e) {
     return res.sendStatus(502);
@@ -74,6 +73,8 @@ router.post('/login', async (req, res) => {
     req.session.idMember = authenticatedMember.id_membre;
     req.session.token = authenticatedMember.token;
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log("catch")
     res.status(500);
   }
   return res.json(authenticatedMember);

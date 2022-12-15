@@ -1,3 +1,4 @@
+
 import { clearPage, renderPageTitle } from '../../utils/render';
 import gameboyimg from '../../img/gameboy.png';
 
@@ -44,8 +45,6 @@ import gameboyimg from '../../img/gameboy.png';
                 
             </div>
           </div>
-
-
           <div class="card mb-4 mb-lg-0">
             <div class="card-body p-0">
               <ul class="list-group list-group-flush rounded-3">
@@ -73,7 +72,6 @@ import gameboyimg from '../../img/gameboy.png';
             </div>
           </div>
         </div>
-
   
         <div class="col-lg-8">
           <div class="card mb-4">
@@ -149,7 +147,6 @@ import gameboyimg from '../../img/gameboy.png';
                 </div>
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
