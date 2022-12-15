@@ -11,7 +11,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const member = await memberModel.getMemberById(req.query.id);
-
     return res.json(member);
   } catch (e) {
     return res.sendStatus(502);

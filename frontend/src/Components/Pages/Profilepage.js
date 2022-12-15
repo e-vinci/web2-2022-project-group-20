@@ -1,3 +1,4 @@
+
 import { clearPage, renderPageTitle } from '../../utils/render';
 import gameboyimg from '../../img/gameboy.png';
 
@@ -22,8 +23,13 @@ import gameboyimg from '../../img/gameboy.png';
     let response = await fetch(`api/members?id=${idMember}`, request);
     response = await response.json();
     const member = response[0];
+      
+    /*
+    let resd = await fetch(`api/articles/user?id=${idMember}`, request);
+    resd = await response.json();
+    const article = resd[0];
+*/
 
-  
     let profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
@@ -35,12 +41,10 @@ import gameboyimg from '../../img/gameboy.png';
                 class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3" >${member.prenom} ${member.nom}</h5>
                 <p class="text-muted mb-1">STUDENT</p>
-                <p class="text-muted mb-4">${member.city}   ${member.country} </p>
+                <p class="text-muted mb-4">BRUXELLES</p>
                 
             </div>
           </div>
-
-
           <div class="card mb-4 mb-lg-0">
             <div class="card-body p-0">
               <ul class="list-group list-group-flush rounded-3">
@@ -68,7 +72,6 @@ import gameboyimg from '../../img/gameboy.png';
             </div>
           </div>
         </div>
-
   
         <div class="col-lg-8">
           <div class="card mb-4">
@@ -130,26 +133,20 @@ import gameboyimg from '../../img/gameboy.png';
             </div>
           </div>`
 
-
-    /* let info = await fetch(`/api/articles/user?id=${idMember}`, request);
-    info = await info.json;
-    const items = info; */
-
-          /* items.forEach( article  => { */
-
+         /* article.forEach(async carte  => { */
+            
           profilepage += `<div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1"></span> 
+                  <p class="mb-4"><span class="text-primary font-italic me-1"></span>
                   </p>
                   <div class="progress rounded mb-2" style="height: 5px;">
                   </div>
-                  <img src="" id="id_img" class="d-block w-100" alt="...">
+                  <img src="${gameboyimg}" id="id_img" class="d-block w-100" alt="...">
                 </div>
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
@@ -167,8 +164,7 @@ import gameboyimg from '../../img/gameboy.png';
     </div>
   </section>
     `;
-    
- 
+       
 
     const main = document.querySelector('main');
     main.innerHTML = profilepage;
