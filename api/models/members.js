@@ -23,7 +23,14 @@ const membersDB = {
                           box,
                           city,
                           zip_code,
-                          country
+                          country,
+                          id_annonce,
+                          nom_annonce,
+                          description,
+                          id_vendeur,
+                          date_pub,
+                          a.status,
+                          a.photo
                     FROM vinced.users_infos
                     WHERE id_membre = $1
                     ORDER BY id_membre;`,

@@ -27,6 +27,7 @@ const HomePageRender = async () => {
     likes.push(e.id_annonce)
   })
 
+  // eslint-disable-next-line no-console
   console.log(likes.includes(6));
   let html = `
       <section style="background-color: #eee;">
