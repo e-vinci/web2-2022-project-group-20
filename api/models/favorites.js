@@ -1,7 +1,19 @@
 const db = require("../db/db");
 
 const favoriteDB = {
-
+    getFavorites: async (idMember) => {
+        const query = {
+            text: "SELECT id_annonce FROM vinced.favoris WHERE id_membre = $1",
+            values: [idMember]
+        }
+        try{
+            const {rows} = await db.query(query);
+            console.log(rows);
+            return rows;
+        }catch{
+            throw new Error("Error while getting all the favorites from this member.");
+        }
+    },
     toggleFavorite: async (body) => {
        const query = {
             text: "",
@@ -10,9 +22,6 @@ const favoriteDB = {
         if(await isFavorite(body)){
             // eslint-disable-next-line no-console
             console.log("DELETE FAV");
-            
-            // eslint-disable-next-line no-console
-            console.log(body.id_membre);
             query.text = `DELETE FROM vinced.favoris WHERE id_membre = $1 AND id_annonce = $2;`;
             query.values = [body.id_membre, body.id_article];
         }
@@ -37,7 +46,9 @@ async function isFavorite(body){
         text: `SELECT * FROM vinced.favoris WHERE id_membre = $1 AND id_annonce = $2;`,
         values: [body.id_membre, body.id_article]
     };
-    const row = await db.query(query);
+    const result = await db.query(query);
+    const {rows} = result;
+    const row = rows[0];
     return row;
 }
 
