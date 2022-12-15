@@ -16,8 +16,9 @@ router.get("/", async (req, res) => {
     }
     try {
         const articlesResponse = await articleModel.getAllInfosForAllArticles();
-        const favoritesResponse = favoriteModel.getFavorites(req.query.id_member);
+        const favoritesResponse = await favoriteModel.getFavorites(req.query.id_member);
         const cartes = {articles : articlesResponse, favorites: favoritesResponse };
+        console.log(cartes);
         return res.json(cartes);
     } catch (e) {
         return res.sendStatus(502);

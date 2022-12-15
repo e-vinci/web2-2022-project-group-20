@@ -8,7 +8,6 @@ const favoriteDB = {
         }
         try{
             const {rows} = await db.query(query);
-            console.log(rows);
             return rows;
         }catch{
             throw new Error("Error while getting all the favorites from this member.");
