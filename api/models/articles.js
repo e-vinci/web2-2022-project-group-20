@@ -112,14 +112,14 @@ const articlesDB = {
     getUsersFavoriteArticles : async (id) =>{
         const query = {
             text: `SELECT id_annonce,
-                                nom,
+                                nom_article,
                                 description,
                                 id_acheteur,
                                 id_vendeur,
                                 date_pub,
                                 prix,
                                 status
-                        FROM vinced.annonces
+                        FROM vinced.cartes_articles
                         WHERE id_annonce IN (SELECT id_annonce
                                                 FROM vinced.favoris
                                                 WHERE id_membre = $1)

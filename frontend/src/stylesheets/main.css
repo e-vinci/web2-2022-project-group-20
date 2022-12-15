@@ -940,7 +940,11 @@ form.sign-in-form {
 
 }
 
-
+.likeButton{
+  position:relative; 
+  width:25px;
+  margin-bottom: 13px;
+}
 
 
 /* CSS FOR FOOTER */ 

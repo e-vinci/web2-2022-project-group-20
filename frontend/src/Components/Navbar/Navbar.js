@@ -134,7 +134,7 @@ function renderNavbar() {
   const navbar = document.querySelector('#navbarWrapper');
   navbar.innerHTML = anonymousUserNavbar;
 
-  const navbarElements = document.querySelector('#navbarWrapper').getElementsByTagName('a');
+  const navbarElements = navbar.getElementsByTagName('a');
 
   // eslint-disable-next-line no-restricted-syntax
   for (const element of navbarElements) {
