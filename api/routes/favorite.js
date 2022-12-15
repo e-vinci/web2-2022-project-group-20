@@ -12,6 +12,15 @@ const router = express.Router();
 //     }
 // })
 
+// router.delete("/", async (req, res) => {
+//     if (!req.body ||
+//         (req.body.id_membre && req.body.id_membre === "") ||
+//         (req.body.id_article && req.body.id_article === ""))
+//         return res.status(400);
+//     const favorite = await favoriteModel.toggleFavorite(req.body);
+//     return favorite;
+// })
+
 router.post("/", async (req, res) => {
     try{
         if (!req.body ||

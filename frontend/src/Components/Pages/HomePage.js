@@ -17,17 +17,14 @@ const HomePageRender = async () => {
     method: 'GET',
   };
   let response = await fetch(`api/articles?id_member=${idMember}`, request);
-  // let likes = await fetch('/api/likes)
-  // for cartes : carte if carte.id in likes carte.liked = true
+
   response = await response.json();
   const cartes = response.articles;
-  // eslint-disable-next-line no-unused-vars
   const likes = [];  
   response.favorites.forEach( e => {
     likes.push(e.id_annonce)
   })
 
-  console.log(likes.includes(6));
   let html = `
       <section style="background-color: #eee;">
       <div class="containerhomepage py-5">
@@ -43,7 +40,6 @@ const HomePageRender = async () => {
               <div class="d-flex justify-content-between">
                 <p class="small"><a href="/profile?idMembre=${carte.id_vendeur}" class="text-muted">${carte.prenom_vendeur} ${carte.nom_vendeur}</a> </p>
                 `;
-    // TODO : if article 
     if(likes.includes(carte.id_annonce))
       html += `<div class="likeButton isLiked" id="${carte.id_annonce}">${favIcon}</div>`;
     else 
@@ -99,10 +95,7 @@ const HomePageRender = async () => {
           'Content-Type': 'application/json',
         },
       };
-
-      // eslint-disable-next-line no-console
-      console.log(request.body);
-
+      
       await fetch(`api/favorites`, request);
     });
   }
