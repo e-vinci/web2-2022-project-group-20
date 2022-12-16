@@ -16,7 +16,7 @@ const membersDB = {
       is_banned,
       image_profil
         FROM vinced.membres
-        WHERE is_admin = false  
+        WHERE is_banned = false  
         ORDER BY nom;`,
     };
 
@@ -37,7 +37,7 @@ const membersDB = {
       is_banned,
       image_profil
         FROM vinced.membres
-        WHERE is_admin = true  
+        WHERE is_banned = true  
         ORDER BY nom;`,
     };
 

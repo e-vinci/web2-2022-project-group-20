@@ -1,4 +1,7 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+// import Navigate from '../Router/Navigate'
+// import Navbar from '../Navbar/Navbar';
+
 
 const AdminPage = () => {
     clearPage();
@@ -149,7 +152,39 @@ function addActiveMember(member, id, body) {
 	banButton.innerHTML = "Ban";
 	banButton.setAttribute("member", member);
   
+	
+	banButton.addEventListener('click', async (e) => {
+		 try {
+		  e.preventDefault();	
+		  const request = {
+			method: 'POST',
+			body: JSON.stringify(
+			  {
+			  email: member
+			}),
+			headers: {
+			  'Content-Type': 'application/json',
+			}
+		  };
+		  	
+		  const response = await fetch(`api/members/banOne`, request);
+	
+		  if(response.status !== 200){
+			// todo notification
+				
+		  }
+		  if(response.status === 200){
+			// todo : relancer la page
+			
+		  }
+
+		 } catch (err) {
+			// todo : to delete
+		 }
+	  });
+	
 	ban.appendChild(banButton);
+	
   
 	const isAdmin = document.createElement("td");
 	isAdmin.style = "width: 20%";
@@ -181,26 +216,32 @@ Grant an active member to admin only by an admin
 */
  
 async function grantAdmin(member) {
+		try {
+		 const request = {
+		   method: 'POST',
+		   body: JSON.stringify(
+			 {
+			 email: member
+		   }),
+		   headers: {
+			 'Content-Type': 'application/json',
+		   }
+		 };
+			 
+		 const response = await fetch(`api/members/promoteOne`, request);
+   
+		 if(response.status !== 200){
+		   // todo notification
+			   
+		 }
+		 if(response.status === 200){
+		   // todo : relancer la page
+		   
+		 }
 
-	
-	const options = {
-	method: "POST", // *GET, POST, PUT, DELETE, etc.
-		body: JSON.stringify(
-		{
-			email: member.email,
-		}), // body data type must match "Content-Type" header
-		headers: {
-			"Content-Type": "application/json",
-			},
-		};
-		
-	  const response = await fetch("/api/members/promoteOne", options);
-		
-	if (!response.ok) {
-		if (response.status === 400) {
-			// todo : evoyer un message d'erreur
+		} catch (err) {
+		   // todo : to delete
 		}
-	}
   }
   
 /*
@@ -209,29 +250,37 @@ Revoke an active member only by an admin
  */
 async function revokeAdmin(member) {
 	
-	const options = {
-		method: "POST", // *GET, POST, PUT, DELETE, etc.
-			body: JSON.stringify(
+	try {
+		const request = {
+		  method: 'POST',
+		  body: JSON.stringify(
 			{
-				email: member.email,
-			}), // body data type must match "Content-Type" header
-			headers: {
-				"Content-Type": "application/json",
-				},
-			};
+			email: member
+		  }),
+		  headers: {
+			'Content-Type': 'application/json',
+		  }
+		};
 			
-		  const response = await fetch("/api/members/demoteOne", options);
-	  
-  if (!response.ok) {
-	  if (response.status === 400) {
-		  // todo : evoyer un message d'erreur
-	  }
-  }
+		const response = await fetch(`api/members/demoteOne`, request);
+  
+		if(response.status !== 200){
+		  // todo notification
+			  
+		}
+		if(response.status === 200){
+		  // todo : relancer la page
+		  
+		}
+
+	   } catch (err) {
+		  // todo : to delete
+	   }
 }
 
 /*
 Ban an active user by an admin
-
+*
 async function banMember() {
 	const member = this.getAttribute("member");
   
@@ -253,7 +302,66 @@ async function banMember() {
 		  // envoye message
 		}
 	  }
+
+	  // navial
+
+	  loginBtn.addEventListener('click', async (e) => {
+    try {
+      e.preventDefault();
+      const emailField = document.querySelector('#emailField');
+      const passwordField = document.querySelector('#passwordField');
+      const alertDiv = document.querySelector("#alertL");
+
+      if(!passwordField.value && !emailField.value){
+        alertDiv.className ="alert alert-danger";
+        alertDiv.innerHTML= "The e-mail adress & the password can't be empty";
+        return;
+      }
+      if(!emailField.value){
+        alertDiv.className ="alert alert-danger";
+        alertDiv.innerHTML= "The e-mail adress can't be empty";
+        return;
+      }
+      if(!passwordField.value){
+        alertDiv.className ="alert alert-danger";
+        alertDiv.innerHTML= "The password can't be empty";
+        return;
+      }
+      
+      const request = {
+        method: 'POST',
+        body: JSON.stringify(
+          {
+          email: emailField.value,
+          password: passwordField.value,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      };
+        
+      const response = await fetch(`api/members/login`, request);
+
+      if(response.status !== 200){
+        alertDiv.className ="alert alert-danger";
+        alertDiv.innerHTML= 'Utilisateur inconnu';
+      }
+      if(response.status === 200){
+        alertDiv.className ="alert alert-success";
+        alertDiv.innerHTML= 'You are now connected';
+        
+      }
+      const member = await response.json();
+      window.localStorage.setItem('member', JSON.stringify(member));
+      Navigate('/');
+      Navbar();
+    } catch (err) {
+      console.error('LoginPage::error ', err);
+    }
+  });
   }
+
+  
 
   
 /*
@@ -340,7 +448,35 @@ function addBannedMember(member, id, body) {
 	unbanButton.setAttribute("member", member);
   
 	
-	// unbanButton.addEventListener("click", unbanOne());
+	unbanButton.addEventListener('click', async (e) => {
+		 try {
+			e.preventDefault();	
+			const request = {
+			  method: 'POST',
+			  body: JSON.stringify(
+				{
+				email: member
+			  }),
+			  headers: {
+				'Content-Type': 'application/json',
+			  }
+			};
+				
+			const response = await fetch(`api/members/unbanOne`, request);
+	  
+			if(response.status !== 200){
+			  // todo notification
+				  
+			}
+			if(response.status === 200){
+			  // todo : relancer la page
+			  
+			}
+  
+		   } catch (err) {
+			  // todo : to delete
+		   }
+		});
 
 	unban.appendChild(unbanButton);
   
