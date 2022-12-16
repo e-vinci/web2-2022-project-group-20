@@ -51,6 +51,7 @@ Content-Type: application/json
 }
 
 ### Revoke an active members (mail)
+
 POST http://localhost:3000/members/demoteOne
 Content-Type: application/json
 
@@ -64,7 +65,7 @@ Content-Type: application/json
 POST http://localhost:3000/members/unbanOne
 Content-Type: application/json
 
-{
+{    
     "email":"rayan.abarkan@student.vinci.be"
 }
 
@@ -72,6 +73,6 @@ Content-Type: application/json
 POST http://localhost:3000/members/banOne
 Content-Type: application/json
 
-{
+{    
     "email":"rayan.abarkan@student.vinci.be"
 }
