@@ -13,7 +13,7 @@ const membersDB = {
       nom,
       prenom,
       is_admin,
-      is_ban,
+      is_banned,
       image_profil
         FROM vinced.membres
         WHERE is_admin = false  
@@ -34,7 +34,7 @@ const membersDB = {
       nom,
       prenom,
       is_admin,
-      is_ban,
+      is_banned,
       image_profil
         FROM vinced.membres
         WHERE is_admin = true  
@@ -55,7 +55,7 @@ const membersDB = {
                           nom,
                           prenom,
                           is_admin,
-                          is_ban,
+                          is_banned,
                           phone,
                           image_profil,
                           balance,
@@ -88,7 +88,7 @@ const membersDB = {
                           mdp, 
                           image_profil,
                           is_admin,
-                          is_ban,
+                          is_banned,
                           balance
                     FROM vinced.membres 
                     WHERE email = $1
@@ -221,7 +221,7 @@ const membersDB = {
   banOne: async (body) => {
     try {
       const query = {
-        text: 'UPDATE vinced.membres SET is_ban = true WHERE email = $1 RETURNING *;',
+        text: 'UPDATE vinced.membres SET is_banned = true WHERE email = $1 RETURNING *;',
         values: [body.email],
       };
 
@@ -235,7 +235,7 @@ const membersDB = {
   unbanOne: async (body) => {
     try {
       const query = {
-        text: 'UPDATE vinced.membres SET is_ban = false WHERE email = $1 RETURNING *;',
+        text: 'UPDATE vinced.membres SET is_banned = false WHERE email = $1 RETURNING *;',
         values: [body.email],
       };
 
