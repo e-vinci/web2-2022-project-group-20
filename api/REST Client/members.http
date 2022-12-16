@@ -18,19 +18,31 @@ Content-Type: application/json
     "email":"rayan.abarkan@student.vinci.be",
     "credits":25
 }
+
+
+### Add credit to a member (email, credits)
+POST http://localhost:3000/members/addCredits
+Content-Type: application/json
+
+{
+    "email":"rayan.abarkan@student.vinci.be",
+    "credits":25
+}
 ### Remove credit to a member (email, credits)
 POST http://localhost:3000/members/removeCredits
 Content-Type: application/json
 
-{
-    "credits":25,
-    "email":"rayan.abarkan@student.vinci.be"
+{    
+    "email":"rayan.abarkan@student.vinci.be",
+    "credits":25
 }
 
 
 
+
+
 ### Grant a ban members (mail)
-POST http://localhost:3000/members/promoteOne
+PUT http://localhost:3000/members/:email/promoteOne
 Content-Type: application/json
 
 {
@@ -38,7 +50,25 @@ Content-Type: application/json
 }
 
 ### Revoke an active members (mail)
-POST http://localhost:3000/members/demoteOne
+PUT http://localhost:3000/members/:email/demoteOne
+Content-Type: application/json
+
+{
+    "email":"rayan.abarkan@student.vinci.be"
+}
+
+
+
+### UnBan a members (mail)
+PUT http://localhost:3000/members/:email/unbanOne
+Content-Type: application/json
+
+{
+    "email":"rayan.abarkan@student.vinci.be"
+}
+
+###  Ban a members (mail)
+PUT http://localhost:3000/members/:email/banOne
 Content-Type: application/json
 
 {

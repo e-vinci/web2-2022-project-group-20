@@ -16,15 +16,15 @@ const membersDB = {
       image_profil
         FROM vinced.membres
         WHERE is_admin = false  
-        ORDER BY nom;`
+        ORDER BY nom;`,
     };
-    
+
     try {
       const { rows } = await db.query(query);
       return rows;
     } catch (e) {
       throw new Error('Error while getting active members from the database.');
-    } 
+    }
   },
   getBannedMembers: async () => {
     const query = {
@@ -36,15 +36,15 @@ const membersDB = {
       image_profil
         FROM vinced.membres
         WHERE is_admin = true  
-        ORDER BY nom;`
+        ORDER BY nom;`,
     };
-    
+
     try {
       const { rows } = await db.query(query);
       return rows;
     } catch (e) {
       throw new Error('Error while getting active members from the database.');
-    } 
+    }
   },
   getMemberById: async (id) => {
     const query = {
@@ -135,13 +135,9 @@ const membersDB = {
     };
     await db.query(query);
     const loggedMember = await membersDB.login(body);
-    // eslint-disable-next-line no-console
-    console.log(loggedMember);
     return loggedMember;
   },
   login: async (body) => {
-    // eslint-disable-next-line no-console
-    console.log("LOGIN");
     const memberFound = await membersDB.getMemberByEmail(body.email);
     if (!memberFound) return 0;
     const match = await bcrypt.compare(body.password, memberFound.mdp);
@@ -156,97 +152,85 @@ const membersDB = {
       expiresIn: LIFETIME_JWT,
     });
     authenticatedMember.token = token;
-    
-    // eslint-disable-next-line no-console
-    console.log("LOGIN");
+
     return authenticatedMember;
   },
-  async addCredits(email, credits, pool) {
-    console.log("1");
-    try {// on passe au cach
-      const { rows } = await pool.query(
-        'UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *', [credits, email]
-      );
-      console.log("2");
-      if (! rows) return;
-    
-      return rows;
-    } catch (error) {
-      
-      console.log("3");
-      throw new Error(error);
-    }
-  },
-  async removeCredits(email, credits, pool) {
+  addCredits: async (body) => {
     try {
-      const {
-        rows,
-      } = await pool.query(
-        'UPDATE vinced.membres SET balance = balance - $1 WHERE email = $2 RETURNING *',
-        [credits, email],
-      );
+      // on passe au cache
+      const query = {
+        text: 'UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *',
+        values: [body.credits, body.email],
+      };
 
-      const result = rows[0] ? rows[0] : null;
-      return result;
+      const { rows } = await db.query(query);
+
+      return rows || null;
     } catch (error) {
       throw new Error(error);
     }
   },
-  async promoteOne(email, pool) {
+  removeCredits: async (email, credits) => {
+    const query = {
+      text: 'UPDATE vinced.membres SET balance = balance - $1 WHERE email = $2 RETURNING *',
+      values: [email, credits],
+    };
     try {
-      const {
-        rows,
-      } = await pool.query(
-        'UPDATE vinced.membres SET is_admin = true WHERE email = $1 RETURNING *',
-        [email],
-      );
+      const { rows } = await db.query(query);
 
-      const result = rows[0] ? rows[0] : null;
-      return result;
+      return rows[0] || null;;
     } catch (error) {
       throw new Error(error);
     }
   },
-  async demoteOne(email, pool) {
+  promoteOne: async (email) =>  {
+    const query = {
+      text: 'UPDATE vinced.membres SET is_admin = true WHERE email = $1 RETURNING *;',
+      values: [email],
+    };
     try {
-      const {
-        rows,
-      } = await pool.query(
-        'UPDATE vinced.membres SET is_admin = false WHERE email = $1 RETURNING *',
-        [email],
-      );
+      const { rows } = await db.query(query);
 
-      const result = rows[0] ? rows[0] : null;
-      return result;
+      return rows[0] || null;
     } catch (error) {
       throw new Error(error);
     }
   },
-  async banOne(email, pool) {
+  demoteOne: async (email) => {
+    const query = {
+      text: 'UPDATE vinced.membres SET is_admin = false WHERE email = $1 RETURNING *;',
+      values: [email],
+    };
     try {
-      const {
-        rows,
-      } = await pool.query(
-        'UPDATE vinced.membres SET is_ban = true WHERE email = $1 RETURNING *',
-        [email],
-      );
+      const {rows} = await db.query(query);
 
-      const result = rows[0] ? rows[0] : null;
-      return result;
+      return rows[0] || null;
     } catch (error) {
       throw new Error(error);
     }
-  },async unbanOne(email, pool) {
+  },
+  banOne: async (email) => {
+    const query = {
+      text: 'UPDATE vinced.membres SET is_ban = true WHERE email = $1 RETURNING *',
+      values: [email],
+    };
     try {
-      const {
-        rows,
-      } = await pool.query(
-        'UPDATE vinced.membres SET is_ban = false WHERE email = $1 RETURNING *',
-        [email],
-      );
+      const {rows} = await db.query(query);
 
-      const result = rows[0] ? rows[0] : null;
-      return result;
+      return rows[0] || null;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  unbanOne: async (email) => {
+    const query = {
+      text: 'UPDATE vinced.membres SET is_ban = false WHERE email = $1 RETURNING *',
+      values: [email],
+    };
+    try {
+      const {rows} = await db.query(query);
+
+      return rows[0] || null;
     } catch (error) {
       throw new Error(error);
     }
