@@ -1,8 +1,6 @@
 const express = require('express');
 const memberModel = require('../models/members');
 
-// const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
-
 const router = express.Router();
 
 /**
@@ -69,8 +67,6 @@ router.post('/login', async (req, res) => {
     req.session.idMember = authenticatedMember.id_membre;
     req.session.token = authenticatedMember.token;
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log("catch")
     res.status(500);
   }
   return res.json(authenticatedMember);
@@ -97,7 +93,7 @@ router.post("/addCredits", async (req, res) => {
     }
 });
 
-
+ 
 
 /**
  * Update the blance of a member to delete credit

@@ -51,26 +51,26 @@ const membersDB = {
   getMemberById: async (id) => {
     const query = {
       text: `SELECT id_membre,
-                          email,
-                          nom,
-                          prenom,
-                          is_admin,
-                          is_ban,
-                          phone,
-                          image_profil,
-                          balance,
-                          nbr_annonces_postee,
-                          nbr_annonces_vendues,
-                          street, 
-                          number,
-                          box,
-                          city,
-                          zip_code,
-                          country
-                    FROM vinced.users_infos
-                    WHERE id_membre = $1
-                    ORDER BY id_membre;`,
-      values: [id],
+                    email,
+                    nom,
+                    prenom,
+                    is_admin,
+                    is_banned,
+                    phone,
+                    image_profil,
+                    balance,
+                    nbr_annonces_postee,
+                    nbr_annonces_vendues,
+                    street, 
+                    number,
+                    box,
+                    city,
+                    zip_code,
+                    country
+              FROM vinced.users_infos
+              WHERE id_membre = $1
+              ORDER BY id_membre;`,
+      values: [id]
     };
     try {
       const { rows } = await db.query(query);

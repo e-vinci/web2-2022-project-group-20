@@ -11,8 +11,8 @@ CREATE TABLE vinced.membres (
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
     is_admin BOOLEAN DEFAULT false,
     is_ban BOOLEAN DEFAULT false,
-    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 )
-
+    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 ),
+    is_banned BOOLEAN DEFAULT false
 );
 
 CREATE TABLE vinced.adresses (
@@ -123,7 +123,29 @@ SELECT m.id_membre,
        count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
 FROM  vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur LEFT JOIN vinced.adresses ad ON m.id_membre = ad.id_membre
 GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.is_ban, m.balance,ad.id_adresse;
-$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa  
+
+
+CREATE OR REPLACE VIEW vinced.users_infos AS
+SELECT m.id_membre,
+       m.email,
+       m.nom,
+       m.prenom,
+       m.is_admin,
+       m.is_banned,
+       m.image_profil,
+       m.balance,
+       m.phone,
+       ad.rue AS "street",
+       ad.numero AS "number",
+       ad.boite AS "box",
+       ad.ville AS "city",
+       ad.code_postal AS "zip_code",
+       ad.pays AS "country",
+       ad.id_adresse AS "address_id",
+       count(a.id_annonce) AS "nbr_annonces_postee",
+       count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
+FROM  vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur LEFT JOIN vinced.adresses ad ON m.id_membre = ad.id_membre
+GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.is_banned, m.balance,ad.id_adresse, a.id_annonce, a.date_pub;
     
 -- INSERT INTO MEMBRES
 INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
