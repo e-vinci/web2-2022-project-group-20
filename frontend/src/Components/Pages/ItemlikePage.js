@@ -11,7 +11,7 @@ async function itemlikepagefuntion() {
   // eslint-disable-next-line no-unused-vars
   const idMember = local.id_membre;
 
-  let request = {
+  const request = {
     method: 'GET',
   };
   let response = await fetch(`api/articles/favorite?id=${idMember}`, request);
@@ -89,15 +89,13 @@ async function itemlikepagefuntion() {
 
   const container = document.querySelector(".containeritemlike");
   const removeButtons = container.getElementsByClassName("removeButton");
+  const removeButtonsArray = Array.from(removeButtons);
 
-  // eslint-disable-next-line no-restricted-syntax
-  for (const removeButton of removeButtons) {
-    // eslint-disable-next-line no-loop-func
+  removeButtonsArray.forEach((removeButton) => {
     removeButton.addEventListener('click', async () => {
-
       const idAnnonce = removeButton.id;
 
-      request = {
+      const req = {
         method: 'POST',
         body: JSON.stringify({
           id_membre:  idMember ,
@@ -107,11 +105,10 @@ async function itemlikepagefuntion() {
           'Content-Type': 'application/json',
         }
       };
-      await fetch(`api/favorites`, request);
-      // eslint-disable-next-line no-restricted-globals
-      location.reload();
+      await fetch(`api/favorites`, req);
+      itemlikepagefuntion();
     });
-  }
+  });
 
 }
 export default Itemlikepage;
