@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import { Navbar as BootstrapNavbar } from 'bootstrap';
 import Navigate from '../Router/Navigate';
 import logo from '../../img/logo.png';
 
@@ -117,7 +115,7 @@ function renderNavbar() {
 
     `;
     const member = findMember();
-	  if(member.is_admin === true) {
+    if (member.is_admin === true) {
       anonymousUserNavbar += `
         
         <li class="">
@@ -128,7 +126,6 @@ function renderNavbar() {
         </li>
       `;
     }
-
   } else {
     anonymousUserNavbar += ` </ul></div>
     <div class="bottom-content">
@@ -166,9 +163,9 @@ function renderNavbar() {
   navbar.innerHTML = anonymousUserNavbar;
 
   const navbarElements = navbar.getElementsByTagName('a');
+  const navbarElementsArray = Array.from(navbarElements);
 
-  // eslint-disable-next-line no-restricted-syntax
-  for (const element of navbarElements) {
+  navbarElementsArray.forEach((element) => {
     element.addEventListener('click', async (e) => {
       e.preventDefault();
       const dataUri = element.getAttribute('data-uri');
@@ -194,8 +191,7 @@ function renderNavbar() {
       }
       Navigate(dataUri);
     });
-  }
-
+  });
   const logBtn = document.querySelector('.logBtn');
 
   logBtn.addEventListener('click', (e) => {
@@ -211,24 +207,21 @@ function renderNavbar() {
 /*
 Find the connected member and retrieve it
 */
-async function findMember(){	
-  let idMember = new URLSearchParams(window.location.search).get("idMembre")
-  // eslint-disable-next-line no-console
-  console.log(idMember);
+async function findMember() {
+  let idMember = new URLSearchParams(window.location.search).get('idMembre');
 
-  if(!idMember) {
-    const local = await JSON.parse(window.localStorage.getItem("member"));
+  if (!idMember) {
+    const local = await JSON.parse(window.localStorage.getItem('member'));
     idMember = local.id_membre;
   }
   const request = {
-    method: "GET"
+    method: 'GET',
   };
-  
+
   let response = await fetch(`api/members?id=${idMember}`, request);
   response = await response.json();
   const member = response[0];
   return member;
-  
 }
 
 /* function navbarclick(){
