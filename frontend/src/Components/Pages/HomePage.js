@@ -66,19 +66,21 @@ const HomePageRender = async () => {
 
   const containerhomepage = document.querySelector('.containerhomepage');
   const likeButtons = containerhomepage.getElementsByClassName('likeButton');
-  // eslint-disable-next-line no-restricted-syntax
-  for (const likeButton of likeButtons) {
-    // eslint-disable-next-line no-loop-func
+  const likeButtonsArray = Array.from(likeButtons);
+
+  likeButtonsArray.forEach((likeButton) => {
+
     likeButton.addEventListener('click', async () => {
 
       const isLiked = likeButton.classList.contains("isLiked");
+      const lb = likeButton;
       if (isLiked){
-        likeButton.innerHTML = notFavIcon;
+        lb.innerHTML = notFavIcon;
         likeButton.classList.remove("isLiked");
         likeButton.classList.add("notLiked")
       } 
       else{
-        likeButton.innerHTML = favIcon;
+        lb.innerHTML = favIcon;
         likeButton.classList.remove("notLiked");
         likeButton.classList.add("isLiked")
       }
@@ -98,7 +100,7 @@ const HomePageRender = async () => {
       
       await fetch(`api/favorites`, request);
     });
-  }
+  })
 };
 
 const HomePage = () => {
