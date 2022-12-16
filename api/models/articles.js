@@ -95,7 +95,8 @@ const articlesDB = {
                                 id_vendeur,
                                 date_pub,
                                 prix,
-                                status
+                                status,
+                                photo 
                         FROM vinced.annonces
                         WHERE id_vendeur = $1
                         ORDER BY id_annonce DESC`,

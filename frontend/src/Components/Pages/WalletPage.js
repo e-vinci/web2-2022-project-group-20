@@ -5,6 +5,7 @@
 // import { loadUser } from "../../utils/loadUser"; 
 
 const walletpage= `
+
     <section class="h-100 gradient-custom">
 	<div class="containerwallet">
 		<!--  Money row  -->
@@ -156,7 +157,7 @@ const walletpage= `
 					<div class="card-body"> + 302 € </div>
           
 				</div>
-        <div class="card mb-4" >
+       			 <div class="card mb-4" >
 					<div class="card-header py-3" style="background-color:rgba(250, 228, 234, 0.8);">
 						<h5 class="mb-0">
 							Dépance du mois : 
@@ -168,49 +169,147 @@ const walletpage= `
 			</div>
 		</div>
 	</div>
+	
+	<div class="alert" id="message" role="alert">
+	</div>
 	<!-- end justify  -->
 </div>
 </section>
     `;
 
+/*
+The render function
+*/	
+async function WalletPage() {
 	
-function WalletPage() {
-    const main = document.querySelector('main');
-    main.innerHTML = walletpage;
+	// const member = findMember();
+	// const local = await JSON.parse(window.localStorage.getItem("member"));
+	const mailMember = "rayan.abarkan@student.vinci.be";
 
-	const addMoney  = document.querySelector("#add-money-btn");
-	const removeMoney = document.querySelector("#remove-money-btn");
+
+		const main = document.querySelector('main');
+		main.innerHTML = walletpage;
+
+		const addMoney  = document.querySelector("#add-money-btn");
+		const removeMoney = document.querySelector("#remove-money-btn");
+
+
+		addMoney.addEventListener("click", addOnClick(mailMember)); // ("click", addOnClick, user);
+		removeMoney.addEventListener("click", removeOnClick(mailMember));
 	
-	/*
-	const user = loadUser("user");
-	if (!user) {
-		*/
-		addMoney.addEventListener("click", addOnClick); // ("click", addOnClick, user);
-		removeMoney.addEventListener("click", removeOnClick);
-	/*
-	} else {
-		
-			Navbar();
-			Redirect("/");
-		
+	
+}
+
+
+
+/*
+Find the connected member and retrieve it
+*/
+// async function findMember(){	}
+
+
+async function addOnClick(member) {
+	const credits = document.getElementById("Crédits à ajouter").value;
+	if (credits === ""){
+		errorMessage("Combien de crédits voulez-vous ajouter ?");
+		return;
 	}
-	*/
+
+	try {
+		const options = {
+		method: "PUT", // *GET, POST, PUT, DELETE, etc.
+		body: JSON.stringify(
+		{
+			credits: credits.value,
+			email: member.email,
+		}), // body data type must match "Content-Type" header
+		headers: {
+			"Content-Type": "application/json",
+		},
+		};
+		
+		const response = await fetch("/api/users/addCredits", options); // fetch return a promise => we wait for the response
+
+		if (!response.ok) {
+			if (response.status === 304) errorMessage("Crédits non-ajoutés");
+			if (response.status === 420) errorMessage("Paramètres invalides");
+			else errorMessage("Erreur lors de l'ajout");
+			throw new Error(response.status +  response.statusText
+			);
+		}
+		// const memberUpdate = await response.json(); // json() returns a promise => we wait for the data
+		// console.log(memberUpdate);
+
+		await WalletPage();
+
+		notificationMessage("Ajout réussi !");
+
+	} catch (error) {		
+		errorMessage("Un probleme est survenu lors de l'ajout");
+	}
+}
+
+
+
+async function removeOnClick(member) {
+		const credits = document.getElementById("Crédits à retier").value;
+		if (credits === ""){
+			errorMessage("Combien de crédits voulez-vous retirer ?");
+			return;
+		}
+		if(member.balance >= credits.value){
+			errorMessage("Vous ne pouvez pas retirer cette somme.");
+			return;
+		}
 	
+		try {
+			const options = {
+			method: "PUT", // *GET, POST, PUT, DELETE, etc.
+			body: JSON.stringify(
+			{
+				credits: credits.value,
+				email: member.email,
+			}), // body data type must match "Content-Type" header
+			headers: {
+				"Content-Type": "application/json",
+			},
+			};
+			
+			const response = await fetch("/api/users/removeCredits", options); // fetch return a promise => we wait for the response
+	
+			if (!response.ok) {
+				if (response.status === 304) errorMessage("Crédits non-retirés");
+				if (response.status === 420) errorMessage("Paramètres invalides");
+				else errorMessage("Erreur lors du retrait");
+				throw new Error(response.status +  response.statusText
+				);
+			}
+			// const memberUpdate = await response.json(); // json() returns a promise => we wait for the data
+			// console.log(memberUpdate);
+	
+			await WalletPage();
+	
+			notificationMessage("Retrait réussi !");
+	
+		} catch (error) {		
+			errorMessage("Un probleme est survenu lors du retrait");
+		}
+	}	
+
+function errorMessage(message) {
+	const alertDiv = document.getElementById("message");
+	
+	alertDiv.className ="alert alert-danger";
+	alertDiv.innerHTML= message;
+	// throw new Error("fetch error");
 }
-
-
-
-async function addOnClick(e) {
-	e.preventDefault();
-}
-
-
-
-async function removeOnClick(e){
-	e.preventDefault();
-}	
-
-
+  
+function notificationMessage(message){
+	const alertDiv = document.getElementById("message");
+	
+	alertDiv.className ="alert alert-success";
+	alertDiv.innerHTML= message;
+  }
 
 
 export default WalletPage;

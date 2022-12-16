@@ -57,6 +57,24 @@ function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
+
+        
+        <!-- todo : to delete -->
+
+        <li class="">
+          <a data-uri="/wallet">
+            <i class='bx bx-wallet icon' ></i>
+            <span class="text nav-text">My wallets</span>
+          </a>
+        </li>
+        
+        
+        <li class="">
+          <a data-uri="/admin">
+            <i class='bx bx-shield  icon' ></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
 `;
   if (window.localStorage.getItem('member') !== null) {
     anonymousUserNavbar += `
@@ -75,7 +93,7 @@ function renderNavbar() {
         </li>
 
         <li class="">
-          <a data-uri="wallet">
+          <a data-uri="/wallet">
             <i class='bx bx-wallet icon' ></i>
             <span class="text nav-text">My wallets</span>
           </a>
@@ -98,6 +116,19 @@ function renderNavbar() {
     </li>
 
     `;
+    const member = findMember();
+	  if(member.is_admin === true) {
+      anonymousUserNavbar += `
+        
+        <li class="">
+          <a data-uri="/admin">
+            <i class='bx bx-shield  icon' ></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
+      `;
+    }
+
   } else {
     anonymousUserNavbar += ` </ul></div>
     <div class="bottom-content">
@@ -175,6 +206,29 @@ function renderNavbar() {
     Navigate('/login');
     Navbar();
   });
+}
+
+/*
+Find the connected member and retrieve it
+*/
+async function findMember(){	
+  let idMember = new URLSearchParams(window.location.search).get("idMembre")
+  // eslint-disable-next-line no-console
+  console.log(idMember);
+
+  if(!idMember) {
+    const local = await JSON.parse(window.localStorage.getItem("member"));
+    idMember = local.id_membre;
+  }
+  const request = {
+    method: "GET"
+  };
+  
+  let response = await fetch(`api/members?id=${idMember}`, request);
+  response = await response.json();
+  const member = response[0];
+  return member;
+  
 }
 
 /* function navbarclick(){

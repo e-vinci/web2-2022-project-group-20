@@ -1,2 +1,46 @@
 ### GET member by id
 GET http://localhost:3000/members/1
+
+### GET all active members
+GET http://localhost:3000/members/getActiveMembers
+
+### GET all banned members
+GET http://localhost:3000/members/getbannedMembers
+
+
+
+
+### Add credit to a member (email, credits)
+POST http://localhost:3000/members/addCredits
+Content-Type: application/json
+
+{
+    "email":"rayan.abarkan@student.vinci.be",
+    "credits":25
+}
+### Remove credit to a member (email, credits)
+POST http://localhost:3000/members/removeCredits
+Content-Type: application/json
+
+{
+    "credits":25,
+    "email":"rayan.abarkan@student.vinci.be"
+}
+
+
+
+### Grant a ban members (mail)
+POST http://localhost:3000/members/promoteOne
+Content-Type: application/json
+
+{
+    "email":"rayan.abarkan@student.vinci.be"
+}
+
+### Revoke an active members (mail)
+POST http://localhost:3000/members/demoteOne
+Content-Type: application/json
+
+{
+    "email":"rayan.abarkan@student.vinci.be"
+}

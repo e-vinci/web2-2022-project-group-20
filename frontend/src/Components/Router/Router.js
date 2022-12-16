@@ -8,6 +8,7 @@ import SellPage from '../Pages/SellProductPage';
 import WalletPage from '../Pages/WalletPage';
 import Itemlikepage from '../Pages/ItemlikePage';
 import AdressPage from '../Pages/AdressPage';
+import AdminPage from '../Pages/AdminPage';
 
  
 const routes = {
@@ -21,6 +22,7 @@ const routes = {
   '/wallet' : WalletPage,
   '/myitem' : Itemlikepage,
   '/myadress' : AdressPage,
+  '/admin' : AdminPage,
   
 };
 
