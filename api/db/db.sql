@@ -91,9 +91,6 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
         LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur )
         JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre;
 
-
-        
-
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infos AS
 SELECT m.id_membre,

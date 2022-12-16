@@ -3,14 +3,10 @@ const favoriteModel = require("../models/favorites");
 
 const router = express.Router();
 
-// router.get("/", async (req, res) => {
-//     try{
-//         const articles = await favoriteModel.getAllLikeByMemberId(req.query.id);
-//         return res.json(articles);
-//     }catch{
-
-//     }
-// })
+router.get("/", async (req, res) => {
+    const articles = await favoriteModel.isFavorite(req.query.id_membre, req.query.id_article);
+    return res.json(articles); 
+})
 
 // router.delete("/", async (req, res) => {
 //     if (!req.body ||
