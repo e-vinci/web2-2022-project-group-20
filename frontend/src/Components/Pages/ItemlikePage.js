@@ -8,7 +8,6 @@ const Itemlikepage = () => {
 
 async function itemlikepagefuntion() {
   const local = await JSON.parse(window.localStorage.getItem('member'));
-  // eslint-disable-next-line no-unused-vars
   const idMember = local.id_membre;
 
   const request = {

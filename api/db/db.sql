@@ -7,7 +7,7 @@ CREATE TABLE vinced.membres (
 	email VARCHAR(50) NOT NULL UNIQUE  CHECK ( email <> '' ),
 	nom VARCHAR(50) NOT NULL CHECK (nom<>''),
 	prenom VARCHAR(50) NOT NULL CHECK (prenom<>''),
-	mdp VARCHAR(50) NOT NULL CHECK ( mdp <> '' ),
+	mdp VARCHAR(60) NOT NULL CHECK ( mdp <> '' ),
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
     is_admin BOOLEAN DEFAULT false,
     balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 )
