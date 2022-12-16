@@ -10,6 +10,7 @@ CREATE TABLE vinced.membres (
 	mdp VARCHAR(50) NOT NULL CHECK ( mdp <> '' ),
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
     is_admin BOOLEAN DEFAULT false,
+    is_ban BOOLEAN DEFAULT false,
     balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 )
 
 );
@@ -100,6 +101,7 @@ SELECT m.id_membre,
        m.nom,
        m.prenom,
        m.is_admin,
+       m.is_ban,
        m.image_profil,
        m.balance,
        ad.rue AS "street",
@@ -120,20 +122,20 @@ SELECT m.id_membre,
        count(a.id_annonce) AS "nbr_annonces_postee",,
        count(CASE WHEN a.status = 'Vendue' THEN a.id_annonce END) AS "nbr_annonces_vendues"
 FROM  vinced.membres m LEFT JOIN vinced.annonces a ON m.id_membre = a.id_vendeur LEFT JOIN vinced.adresses ad ON m.id_membre = ad.id_membre
-GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.balance,ad.id_adresse;
+GROUP BY m.id_membre, m.nom, m.prenom, m.is_admin, m.is_ban, m.balance,ad.id_adresse;
 $2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa  
     
 -- INSERT INTO MEMBRES
-INSERT into vinced.membres VALUES ('true', 'victor.denis@student.vinci.be', 'DENIS','Victor', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES ('true', 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'rayan.abarkan@student.vinci.be', 'ABARKAN','Rayan', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES ('true', 'antoine.pirelot@student.vinci.be', 'PIRELOT','Antoine', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES ('true', 'clement.coegniet@student.vinci.be', 'COEUGNIET','Clément', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'luis.brunard@student.vinci.be', 'BRUNARD','Luis', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'elie.debacker@student.vinci.be', 'DeBacker','Elie', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be', 'BOGEARTS','Olivier', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'victor.denis@student.vinci.be', 'DENIS','Victor', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'mehdi.bouchbouk@student.vinci.be', 'BOUCHBOUK','Mehdi', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'rayan.abarkan@student.vinci.be', 'ABARKAN','Rayan', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'antoine.pirelot@student.vinci.be', 'PIRELOT','Antoine', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'clement.coegniet@student.vinci.be', 'COEUGNIET','Clément', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'luis.brunard@student.vinci.be', 'BRUNARD','Luis', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'elie.debacker@student.vinci.be', 'DeBacker','Elie', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
+INSERT into vinced.membres VALUES (DEFAULT, 'olivier.bogearts@student.vinci.be', 'BOGEARTS','Olivier', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
 INSERT into vinced.membres VALUES (DEFAULT, 'ferdinand.rouxdebezieux@student.vinci.be', 'Roux De Bézieux','Ferdinand', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
-INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg');
+INSERT into vinced.membres VALUES (DEFAULT, 'arthur.demurger@student.vinci.be', 'DEMURGER','Arthur', '$2b$10$Gr3.RBDMEwPNerw6tscL6.WbGInic/x2Ni3wr2MAg8A.G0w7L3UCa', '../images/default.jpg', DEFAULT, DEFAULT, DEFAULT);
 
 -- INSERT INTO ADRESSES
 INSERT INTO vinced.adresses VALUES (DEFAULT, 1, 'Rue de l''abricot', '25', null, 'Bruxelles', '1190', 'Belgique');

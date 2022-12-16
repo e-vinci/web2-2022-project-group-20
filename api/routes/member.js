@@ -18,10 +18,6 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * GET member adresse
- */
-
-/**
  * GET all members who fav an article by its id
  */
 router.get('/article/:id', async (req, res) => {
@@ -106,40 +102,56 @@ router.post("/addCredits", async (req, res) => {
 /**
  * Update the blance of a member to delete credit
  */
-router.post('/:email/removeCredits', async (req, res) => {
-  if (!req.body || (req.body.credits && req.body.credits.length === 0)) return res.status(400).end;
+router.post("/removeCredits", async (req, res) => {
+  // Send an error code '400 Bad request' if the body parameters are not valid
+  if (
+    !req.body ||
+    (req.body.email && req.body.email.length === 0) ||
+    (req.body.credits && req.body.credits.length === 0)
+  )
+    return res.status(400).end();
 
-  try {
-    const member = await memberModel.removeCredits(
-      req.params.email,
-      req.body.credits
-    );
-    if (!member) return res.status(304).end();
-    return res.json(member);
-  } catch (error) {
-    return res.status(420).end();
-  }
+    try {
+      const member = await memberModel.removeCredits(req.body);
+      if (!member) return res.status(304).end();
+      return res.json(member);
+    } catch (error) {
+      return res.status(420).end();
+    }
 });
 
 /**
  * Grant a member to admin
  */
-router.post('/:email/promoteOne', async (req, res) => {
-  try {
-    const member = await memberModel.promoteOne(req.params.email);
-    if (!member) return res.status(304).end();
-    return res.json(member);
-  } catch (error) {
-    return res.status(420).end();
-  }
+router.post("/promoteOne", async (req, res) => {
+  if (
+    !req.body ||
+    (req.body.email && req.body.email.length === 0) 
+  )
+    return res.status(400).end();
+
+    try {
+      const member = await memberModel.promoteOne(req.body);
+      if (!member) return res.status(304).end();
+      return res.json(member);
+    } catch (error) {
+      return res.status(420).end();
+    }
 });
 
 /**
  * Revoke a member to no admin
  */
-router.post('/:email/demoteOne', async (req, res) => {
+router.post("/demoteOne", async (req, res) => {
+
+  if (
+    !req.body ||
+    (req.body.email && req.body.email.length === 0) 
+  )
+    return res.status(400).end();
+
   try {
-    const member = await memberModel.demoteOne(req.params.email);
+    const member = await memberModel.demoteOne(req.body);
     if (!member) return res.status(304).end();
     return res.json(member);
   } catch (error) {
@@ -147,12 +159,20 @@ router.post('/:email/demoteOne', async (req, res) => {
   }
 });
 
+
 /**
  * Update a normal member to a ban status
  */
-router.post('/:email/banOne', async (req, res) => {
+router.post("/banOne", async (req, res) => {
+  if (
+      !req.body ||
+      (req.body.email && req.body.email.length === 0) 
+    )
+      return res.status(400).end();
+      
+  
   try {
-    const member = await memberModel.banOne(req.params.email);
+    const member = await memberModel.banOne(req.body);
     if (!member) return res.status(304).end();
     return res.json(member);
   } catch (error) {
@@ -163,9 +183,15 @@ router.post('/:email/banOne', async (req, res) => {
 /**
  * Update a ban member to a normal status
  */
-router.post('/:email/unbanOne', async (req, res) => {
+router.post("/unbanOne", async (req, res) => {
+  if (
+    !req.body ||
+    (req.body.email && req.body.email.length === 0) 
+  )
+    return res.status(400).end();
+    
   try {
-    const member = await memberModel.unbanOne(req.params.email);
+    const member = await memberModel.unbanOne(req.body);
     if (!member) return res.status(304).end();
     return res.json(member);
   } catch (error) {
@@ -176,6 +202,7 @@ router.post('/:email/unbanOne', async (req, res) => {
 /**
  * GET all member with a normal status
  */
+
 router.get("/getActiveMembers", async (req, res) => {
   try {
     const membersFound = await memberModel.getActiveMembers();

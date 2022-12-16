@@ -42,7 +42,8 @@ Content-Type: application/json
 
 
 ### Grant a ban members (mail)
-PUT http://localhost:3000/members/:email/promoteOne
+
+POST http://localhost:3000/members/promoteOne
 Content-Type: application/json
 
 {
@@ -50,7 +51,7 @@ Content-Type: application/json
 }
 
 ### Revoke an active members (mail)
-PUT http://localhost:3000/members/:email/demoteOne
+POST http://localhost:3000/members/demoteOne
 Content-Type: application/json
 
 {
@@ -60,7 +61,7 @@ Content-Type: application/json
 
 
 ### UnBan a members (mail)
-PUT http://localhost:3000/members/:email/unbanOne
+POST http://localhost:3000/members/unbanOne
 Content-Type: application/json
 
 {
@@ -68,7 +69,7 @@ Content-Type: application/json
 }
 
 ###  Ban a members (mail)
-PUT http://localhost:3000/members/:email/banOne
+POST http://localhost:3000/members/banOne
 Content-Type: application/json
 
 {
