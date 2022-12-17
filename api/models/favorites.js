@@ -18,15 +18,11 @@ const favoriteDB = {
             text: "",
             values: []
         };
-        if(await isFavorite(body)){
-            // eslint-disable-next-line no-console
-            console.log("DELETE FAV");
+        if(await favoriteDB.isFavorite(body.id_membre, body.id_article)){
             query.text = `DELETE FROM vinced.favoris WHERE id_membre = $1 AND id_annonce = $2;`;
             query.values = [body.id_membre, body.id_article];
         }
         else{
-            // eslint-disable-next-line no-console
-            console.log("ADD FAV");
             query.text =  `INSERT INTO vinced.favoris VALUES ($1, $2)`;
             query.values = [body.id_membre, body.id_article];
         }
@@ -37,18 +33,17 @@ const favoriteDB = {
         catch (e) {
             throw new Error("Error while creating this favorite in the database.");
         }
+    },
+    isFavorite: async (idMembre, idArticle) => {
+        const query = {
+            text: `SELECT * FROM vinced.favoris WHERE id_membre = $1 AND id_annonce = $2;`,
+            values: [idMembre, idArticle]
+        };
+        const result = await db.query(query);
+        
+        const {rows} = result;
+        return rows[0] || false;
     }
-}
-
-async function isFavorite(body){
-    const query = {
-        text: `SELECT * FROM vinced.favoris WHERE id_membre = $1 AND id_annonce = $2;`,
-        values: [body.id_membre, body.id_article]
-    };
-    const result = await db.query(query);
-    const {rows} = result;
-    const row = rows[0];
-    return row;
 }
 
 module.exports = favoriteDB;

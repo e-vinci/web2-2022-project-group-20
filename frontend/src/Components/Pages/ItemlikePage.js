@@ -1,4 +1,5 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import img from '../../img/No-Image-Found.png';
 
 const Itemlikepage = () => {
   clearPage();
@@ -18,9 +19,9 @@ async function itemlikepagefuntion() {
 
   const items = response;
   let html = `
-    <section style="background-color: #eee;">
+    <section>
       <div class="containeritemlike py-5">
-        <h1> <i class="far fa-smile-beam fa-spin fa2x"></i> MY WISHLIST<i class="far fa-smile-beam fa-spin fa2x"></i> </h1>`;
+        <h1> Articles I liked </h1> <hr>`;
 
   items.forEach((article) => {
     const date = new Date(article.date_pub);
@@ -37,7 +38,7 @@ async function itemlikepagefuntion() {
           <div class="row">
             <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
               <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(4).webp"
+                <img src="${img}"
                   class="w-100" />
                 <a href="#!">
                   <div class="hover-overlay">
@@ -65,11 +66,13 @@ async function itemlikepagefuntion() {
                 <h4 class="mb-1 me-1">${article.prix}€</h4>
               </div>
               <div class="d-flex flex-column mt-4">
-                <button class="btn btn-primary btn-sm" type="button">Details</button>
                 <div id="${article.id_annonce}" class="removeButton btn btn-outline-primary btn-sm mt-2" type="button">
                   Remove from wishlist
-                </div>
-              </div>
+                </div>`;
+    if (article.id_acheteur) {
+      html += `<span class="badge bg-danger" style="width:150px" >SOLD</span>`;
+    }
+    html += `</div>
             </div>
           </div>
         </div> <hr>`;
@@ -86,8 +89,8 @@ async function itemlikepagefuntion() {
   const main = document.querySelector('main');
   main.innerHTML = html;
 
-  const container = document.querySelector(".containeritemlike");
-  const removeButtons = container.getElementsByClassName("removeButton");
+  const container = document.querySelector('.containeritemlike');
+  const removeButtons = container.getElementsByClassName('removeButton');
   const removeButtonsArray = Array.from(removeButtons);
 
   removeButtonsArray.forEach((removeButton) => {
@@ -97,17 +100,16 @@ async function itemlikepagefuntion() {
       const req = {
         method: 'POST',
         body: JSON.stringify({
-          id_membre:  idMember ,
+          id_membre: idMember,
           id_article: idAnnonce,
         }),
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       };
       await fetch(`api/favorites`, req);
       itemlikepagefuntion();
     });
   });
-
 }
 export default Itemlikepage;

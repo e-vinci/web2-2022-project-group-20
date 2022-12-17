@@ -85,7 +85,7 @@ router.post("/addCredits", async (req, res) => {
     return res.status(400).end();
 
     try {
-      const member = await memberModel.addCredits(req.body);
+      const member = await memberModel.addCredits(req.body.credits, req.body.email);
       if (!member) return res.status(304).end();
       return res.json(member);
     } catch (error) {
@@ -194,6 +194,20 @@ router.post("/unbanOne", async (req, res) => {
     return res.status(420).end();
   }
 });
+
+/**
+ * GET all member with a normal status
+ */
+
+router.get("/getAdminMembers", async (req, res) => {
+  try {
+    const membersFound = await memberModel.getAdminMembers();
+    return res.json(membersFound);
+  } catch (e) {
+    return res.sendStatus(502);
+  }
+},
+);
 
 /**
  * GET all member with a normal status

@@ -10,11 +10,11 @@ import logo from '../../img/logo.png';
 
 const Navbar = () => {
   renderNavbar();
-  darkmode();
+  // darkmode();
 };
 
-function renderNavbar() {
-  let anonymousUserNavbar = `
+async function renderNavbar() {
+  let navbarHtml = `
   <nav class = "sidebar close">
     <header>
       <div class ="image-text">
@@ -40,42 +40,17 @@ function renderNavbar() {
             <i class='bx bx-home-alt icon' ></i>
             <span class="text nav-text">Home page</span>
           </a>
-        </li>
-        </li>
-        <li class="">
-          <a data-uri="/panier">
-            <i class='bx bx-basket icon'></i>
-            <span class="text nav-text">Basket</span>
-          </a>
-        </li>
-    
+        </li>    
         <li class="">
           <a data-uri="contact">
             <i class='bx bx-mail-send icon'></i>
             <span class="text nav-text">Contact</span>
           </a>
         </li>
-
-        
-        <!-- todo : to delete -->
-
-        <li class="">
-          <a data-uri="/wallet">
-            <i class='bx bx-wallet icon' ></i>
-            <span class="text nav-text">My wallets</span>
-          </a>
-        </li>
-        
-        
-        <li class="">
-          <a data-uri="/admin">
-            <i class='bx bx-shield  icon' ></i>
-            <span class="text nav-text">Admin</span>
-          </a>
-        </li>
+    
 `;
   if (window.localStorage.getItem('member') !== null) {
-    anonymousUserNavbar += `
+    navbarHtml += `
       <li class="">
             <a data-uri="sell">
                 <i class='bx bx-purchase-tag-alt icon'></i>
@@ -113,10 +88,11 @@ function renderNavbar() {
         </a>
     </li>
 
-    `;
-    const member = findMember();
-    if (member.is_admin === true) {
-      anonymousUserNavbar += `
+    `;  
+    const local = await JSON.parse(window.localStorage.getItem('member'));
+    const isAdmin = local.is_admin;
+    if (isAdmin) {
+      navbarHtml += `
         
         <li class="">
           <a data-uri="/admin">
@@ -126,22 +102,11 @@ function renderNavbar() {
         </li>
       `;
     }
-  } else {
-    anonymousUserNavbar += ` </ul></div>
-    <div class="bottom-content">
-
-    <li >
-        <a href="/loginPage"  class="logBtn" id="login">
-            <i class='bx bx-log-in icon' ></i>
-            <span class="text nav-text">LOG IN </span>
-        </a>
-    </li>
-`;
   }
 
-  anonymousUserNavbar += `
+  navbarHtml += `
 
-    <li class="mode">
+    <!-- <li class="mode">
         <div class="sun-moon">
             <i class='bx bx-moon icon moon'></i>
             <i class='bx bx-sun icon sun'></i>
@@ -151,7 +116,7 @@ function renderNavbar() {
         <div class="toggle-switch">
             <span class="switch"></span>
         </div>
-    </li>
+    </li>--> 
     
 </div>
 </div>
@@ -160,7 +125,7 @@ function renderNavbar() {
 `;
 
   const navbar = document.querySelector('#navbarWrapper');
-  navbar.innerHTML = anonymousUserNavbar;
+  navbar.innerHTML = navbarHtml;
 
   const navbarElements = navbar.getElementsByTagName('a');
   const navbarElementsArray = Array.from(navbarElements);
@@ -207,22 +172,10 @@ function renderNavbar() {
 /*
 Find the connected member and retrieve it
 */
-async function findMember() {
-  let idMember = new URLSearchParams(window.location.search).get('idMembre');
-
-  if (!idMember) {
-    const local = await JSON.parse(window.localStorage.getItem('member'));
-    idMember = local.id_membre;
-  }
-  const request = {
-    method: 'GET',
-  };
-
-  let response = await fetch(`api/members?id=${idMember}`, request);
-  response = await response.json();
-  const member = response[0];
-  return member;
-}
+// async function findMember() {
+//   const local = await JSON.parse(window.localStorage.getItem('member'));
+//   idMember = local.id_membre;
+// }
 
 /* function navbarclick(){
   const body = document.querySelector("body");
@@ -234,19 +187,19 @@ async function findMember() {
   });
 } */
 
-function darkmode() {
-  const body = document.querySelector('body');
-  const modeSwitch = body.querySelector('.toggle-switch');
-  const modeText = body.querySelector('.mode-text');
+// function darkmode() {
+//   const body = document.querySelector('body');
+//   const modeSwitch = body.querySelector('.toggle-switch');
+//   const modeText = body.querySelector('.mode-text');
 
-  modeSwitch.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    if (body.classList.contains('dark')) {
-      modeText.innerText = 'Light mode';
-    } else {
-      modeText.innerText = 'Dark mode';
-    }
-  });
-}
+//   modeSwitch.addEventListener('click', () => {
+//     body.classList.toggle('dark');
+//     if (body.classList.contains('dark')) {
+//       modeText.innerText = 'Light mode';
+//     } else {
+//       modeText.innerText = 'Dark mode';
+//     }
+//   });
+// }
 
 export default Navbar;

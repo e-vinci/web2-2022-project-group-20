@@ -11,7 +11,7 @@ CREATE TABLE vinced.membres (
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
     is_admin BOOLEAN DEFAULT false,
     is_ban BOOLEAN DEFAULT false,
-    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 ),
+    balance DOUBLE PRECISION DEFAULT 100 NOT NULL CHECK ( balance >= 0 ),
     is_banned BOOLEAN DEFAULT false
 );
 
@@ -90,9 +90,6 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
     FROM ( (vinced.annonces a LEFT JOIN vinced.categories c on a.id_categorie = c.id_categorie )
         LEFT JOIN vinced.membres ma ON ma.id_membre = a.id_acheteur )
         JOIN vinced.membres mv ON a.id_vendeur = mv.id_membre;
-
-
-        
 
 -- VUE POUR AVOIR TOUTES LES INFOS D'UN MEMBRE + DES PETITES STATS
 CREATE OR REPLACE VIEW vinced.users_infos AS
