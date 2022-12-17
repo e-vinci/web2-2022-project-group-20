@@ -23,6 +23,17 @@ async function renderadmin() {
 			<div class="accordion-item">
 			  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
 				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+				  <strong>Admin members :</strong>
+				</button>
+			  </h2>
+			  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+				<div class="accordion-body" id="adminMembers">
+				</div>
+			  </div>
+			</div><br>
+			<div class="accordion-item">
+			  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
 				  <strong>Active members :</strong>
 				</button>
 			  </h2>
@@ -62,6 +73,10 @@ async function renderadmin() {
 Add all member find of all stats and all role
  */
 async function addAllMembers() {
+	
+	const adminMembers = document.querySelector("#adminMembers");
+	await addAdminMembers(adminMembers);  
+
 	const activeMembers = document.querySelector("#activeMembers");
 	await addActiveMembers(activeMembers); 
 
@@ -69,24 +84,172 @@ async function addAllMembers() {
 	const bannedMembers = document.querySelector("#bannedMembers");
 	await addBannedMembers(bannedMembers); 
   
+}
+
+
+
+
+
+
+// Admin zone
+/*
+Add all members find with a normal status 
+ */
+async function addAdminMembers(div) {
+	const allMembers = await getAllAdminMembers();
+	const table = document.createElement("table");
+	table.className = "table";
+
+	const body = document.createElement("tbody");	 
+	
+	allMembers.forEach(item => {
+	addAdminMember(item.email, item.id, body); });
+	
+	table.appendChild(body);
+	div.appendChild(table);
+}
+
+
+/* 
+Get in back the members with a normal status
+@return all the members find
+*/
+async function getAllAdminMembers() { 
+  const options = {
+	  method: "GET",
+	  headers: {
+		'Content-Type': 'application/json',
+	  }
+  };
+
+
+  const response = await fetch("api/members/getAdminMembers", options);
+ 
+  // const response = await fetch("api/members/getActiveMembers", options);
+  const allMembers = await response.json();
   
-	 
-	const checkbox = document.querySelectorAll("input[name=checkbox]");
+  return allMembers;
+}
+
+
+/* 
+Add the member with normal status in a tr
+@param member : the member
+@param id : id of the member
+*/
+function addAdminMember(member, id, body) {
+  const memberTr = document.createElement("tr");
+  const name = document.createElement("td");
+  name.style = "width: 20%";
+  const nameP = document.createElement("a");
+  nameP.className = "nav-link"
+  nameP.innerText = member;
+  name.appendChild(nameP);
+
+
+  const ban = document.createElement("td");
+  ban.style = "width: 30%";
+  const banButton = document.createElement("button");
+  banButton.className = "btn btn-outline-danger";
+  banButton.innerHTML = "Ban";
+  banButton.setAttribute("member", member);
+
   
-	// grant revoque 
-	checkbox.forEach(item => {
-	  item.addEventListener('change', function grantOrRevokeOne() {
-		if (this.checked) {
-		   grantAdmin(this.getAttribute("member"));
-		} else {
-		   revokeAdmin(this.getAttribute("member"));
+  banButton.addEventListener('click', async (e) => {
+	   try {
+		e.preventDefault();	
+		const request = {
+		  method: 'POST',
+		  body: JSON.stringify(
+			{
+			email: member
+		  }),
+		  headers: {
+			'Content-Type': 'application/json',
+		  }
+		};
+			
+		const response = await fetch(`api/members/banOne`, request);
+  
+		if(response.status !== 200){
+		  // todo notification
+			  
 		}
-	  });
+		if(response.status === 200){
+		  // todo : relancer la page
+		  
+		}
+
+	   } catch (err) {
+		  // todo : to delete
+	   }
 	});
+  
+  ban.appendChild(banButton);
+  
+
+  
+// revoke begining	
+const revoke = document.createElement("td");
+revoke.style = "width: 30%";
+const revokeButton = document.createElement("button");
+revokeButton.className = "btn btn-outline-danger";
+revokeButton.innerHTML = "revoke";
+revokeButton.setAttribute("member", member);
+
+
+revokeButton.addEventListener('click',async (e) => {
+  try {
+   e.preventDefault();	
+   const request = {
+	 method: 'POST',
+	 body: JSON.stringify(
+	   {
+	   email: member
+	 }),
+	 headers: {
+	   'Content-Type': 'application/json',
+	 }
+   };
+	   
+   const response = await fetch(`api/members/demoteOne`, request);
+
+   if(response.status !== 200){
+	 // todo notification
+		 
+   }
+   if(response.status === 200){
+	 // todo : relancer la page
+	 
+   }
+
+  } catch (err) {
+	 // todo : to delete
+  }
+});
+revoke.appendChild(revokeButton);
+
+// grant end
+
+
+  memberTr.appendChild(name);
+  memberTr.appendChild(revoke);
+  memberTr.appendChild(ban);
+
+  body.appendChild(memberTr);
 
 }
 
 
+
+
+
+
+
+
+
+
+// Active zone
 /*
 Add all members find with a normal status 
  */
@@ -117,15 +280,9 @@ async function getAllActiveMembers() {
         }
     };
 
-	
-	// console.log("avant :");	
-    // console.log(options);
 	const response = await fetch("api/members/getActiveMembers", options);
 	const allMembers = await response.json();
 	
-    // console.log("apres : ")
-    // console.log(allMembers);
-
 	return allMembers;
   }
 
@@ -185,35 +342,185 @@ function addActiveMember(member, id, body) {
 	
 	ban.appendChild(banButton);
 	
-  
-	const isAdmin = document.createElement("td");
-	isAdmin.style = "width: 20%";
-	const checkAdmin = document.createElement("input");
-	checkAdmin.className = "form-check-input me-1";
-	checkAdmin.type = "checkbox";
-	checkAdmin.name = member;
-  
-	checkAdmin.addEventListener("onChange", grantAdmin);
-  
-	isAdmin.appendChild(checkAdmin);
-	isAdmin.innerHTML += "Admin";
+
+	
+// grant begining	
+const grant = document.createElement("td");
+grant.style = "width: 30%";
+const grantButton = document.createElement("button");
+grantButton.className = "btn btn-outline-danger";
+grantButton.innerHTML = "grant";
+grantButton.setAttribute("member", member);
+
+
+grantButton.addEventListener('click',async (e) => {
+	try {
+	 e.preventDefault();	
+	 const request = {
+	   method: 'POST',
+	   body: JSON.stringify(
+		 {
+		 email: member
+	   }),
+	   headers: {
+		 'Content-Type': 'application/json',
+	   }
+	 };
+		 
+	 const response = await fetch(`api/members/promoteOne`, request);
+
+	 if(response.status !== 200){
+	   // todo notification
+		   
+	 }
+	 if(response.status === 200){
+	   // todo : relancer la page
+	   
+	 }
+
+	} catch (err) {
+	   // todo : to delete
+	}
+ });
+grant.appendChild(grantButton);
+
+// grant end
+
   
 	memberTr.appendChild(name);
+	memberTr.appendChild(grant);
 	memberTr.appendChild(ban);
-	memberTr.appendChild(isAdmin);
   
 	body.appendChild(memberTr);
   
   }
 
   
+
+
+
+
+
+
+
+
+
+
+// Banned zone
 /*
+Add all members find with a ban status 
+ */
+async function addBannedMembers(div) {
+	const allMembers = await getAllBannedMembers();
+	const table = document.createElement("table");
+	table.className = "table";
+
+	const body = document.createElement("tbody");	 
+	
+
+	allMembers.forEach(item => {
+	addBannedMember(item.email, item.id, body); });
+	
+	table.appendChild(body);
+	div.appendChild(table);
+}
+
+  /* 
+Get in back the members with a ban status
+@return all the members find
+ */
+async function getAllBannedMembers() {  
+	const options = {
+		method: "GET",
+    };
+
+	const response = await fetch("/api/members/getBannedMembers", options);
+	const allMembers = await response.json();
+	
+	return allMembers;
+  }
+
+
+/* 
+Add the member with ban status in a tr
+@param member : the member
+@param id : id of the member
+ */
+function addBannedMember(member, id, body) {
+	const memberTr = document.createElement("tr");
+	const name = document.createElement("td");
+	name.style = "width: 20%";
+	const nameP = document.createElement("a");
+	nameP.className = "nav-link"
+	nameP.innerText = member;
+	name.appendChild(nameP);
+  
+  
+	const unban = document.createElement("td");
+	unban.style = "width: 30%";
+	const unbanButton = document.createElement("button");
+	unbanButton.className = "btn btn-outline-success";
+	unbanButton.innerHTML = "Unban";
+	unbanButton.setAttribute("member", member);
+  
+	
+	unbanButton.addEventListener('click',async (e) => {
+		try {
+		 e.preventDefault();	
+		 const request = {
+		   method: 'POST',
+		   body: JSON.stringify(
+			 {
+			 email: member
+		   }),
+		   headers: {
+			 'Content-Type': 'application/json',
+		   }
+		 };
+			 
+		 const response = await fetch(`api/members/unbanOne`, request);
+   
+		 if(response.status !== 200){
+		   // todo notification
+			   
+		 }
+		 if(response.status === 200){
+		   // todo : relancer la page
+		   
+		 }
+
+		} catch (err) {
+		   // todo : to delete
+		}
+	 });
+	unban.appendChild(unbanButton);
+  
+	   
+	 
+
+	memberTr.appendChild(name);
+	memberTr.appendChild(unban);
+	body.appendChild(memberTr);
+  
+  }
+
+
+
+
+
+
 
 
 /*
 Grant an active member to admin only by an admin
 @param member : the member to grant
 */
+ 
+// Other
+/*
+Grant an active member to admin only by an admin
+@param member : the member to grant
+
  
 async function grantAdmin(member) {
 		try {
@@ -247,7 +554,7 @@ async function grantAdmin(member) {
 /*
 Revoke an active member only by an admin
 @param member : the member to revoke
- */
+ 
 async function revokeAdmin(member) {
 	
 	try {
@@ -278,6 +585,7 @@ async function revokeAdmin(member) {
 	   }
 }
 
+*/
 /*
 Ban an active user by an admin
 *
@@ -389,110 +697,7 @@ async function unbanMember() {
 		}
 	  }
   }
-
-
-/*
-Add all members find with a ban status 
- */
-async function addBannedMembers(div) {
-	const allMembers = await getAllBannedMembers();
-	const table = document.createElement("table");
-	table.className = "table";
-
-	const body = document.createElement("tbody");	 
-	
-
-	allMembers.forEach(item => {
-	addBannedMember(item.email, item.id, body); });
-	
-	table.appendChild(body);
-	div.appendChild(table);
-}
-
-  /* 
-Get in back the members with a ban status
-@return all the members find
- */
-async function getAllBannedMembers() {  
-	const options = {
-		method: "GET",
-    };
-
-	const response = await fetch("/api/members/getBannedMembers", options);
-	const allMembers = await response.json();
-    // console.log(allMembers);
-	return allMembers;
-  }
-
-
-/* 
-Add the member with ban status in a tr
-@param member : the member
-@param id : id of the member
- */
-function addBannedMember(member, id, body) {
-	const memberTr = document.createElement("tr");
-	const name = document.createElement("td");
-	name.style = "width: 20%";
-	const nameP = document.createElement("a");
-	nameP.className = "nav-link"
-	nameP.innerText = member;
-	name.appendChild(nameP);
-  
-  
-	const unban = document.createElement("td");
-	unban.style = "width: 30%";
-	const unbanButton = document.createElement("button");
-	unbanButton.className = "btn btn-outline-success";
-	unbanButton.innerHTML = "Unban";
-	unbanButton.setAttribute("member", member);
-  
-	
-	unbanButton.addEventListener('click', async (e) => {
-		 try {
-			e.preventDefault();	
-			const request = {
-			  method: 'POST',
-			  body: JSON.stringify(
-				{
-				email: member
-			  }),
-			  headers: {
-				'Content-Type': 'application/json',
-			  }
-			};
-				
-			const response = await fetch(`api/members/unbanOne`, request);
-	  
-			if(response.status !== 200){
-			  // todo notification
-				  
-			}
-			if(response.status === 200){
-			  // todo : relancer la page
-			  
-			}
-  
-		   } catch (err) {
-			  // todo : to delete
-		   }
-		});
-
-	unban.appendChild(unbanButton);
-  
-	const isAdmin = document.createElement("td");
-	isAdmin.style = "width: 20%";
-	const checkAdmin = document.createElement("input");
-	checkAdmin.className = "form-check-input me-1";
-	checkAdmin.type = "checkbox";
-	checkAdmin.name = member;
-    
-	memberTr.appendChild(name);
-	memberTr.appendChild(unban);
-  
-	body.appendChild(memberTr);
-  
-  }
+*/
 
 
 export default AdminPage;
