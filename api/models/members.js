@@ -6,6 +6,28 @@ const saltRounds = 10;
 const LIFETIME_JWT = 24 * 60 * 60 * 1000;
 
 const membersDB = {
+  getAdminMembers: async () => {
+    const query = {
+      text: `SELECT id_membre,
+      email,
+      nom,
+      prenom,
+      is_admin,
+      is_banned,
+      image_profil
+        FROM vinced.membres
+        WHERE is_banned = false 
+        AND is_admin = true 
+        ORDER BY nom;`,
+    };
+
+    try {
+      const { rows } = await db.query(query);
+      return rows;
+    } catch (e) {
+      throw new Error('Error while getting active members from the database.');
+    }
+  },
   getActiveMembers: async () => {
     const query = {
       text: `SELECT id_membre,
@@ -16,7 +38,8 @@ const membersDB = {
       is_banned,
       image_profil
         FROM vinced.membres
-        WHERE is_admin = false  
+        WHERE is_banned = false  
+        AND is_admin = false 
         ORDER BY nom;`,
     };
 
@@ -37,7 +60,7 @@ const membersDB = {
       is_banned,
       image_profil
         FROM vinced.membres
-        WHERE is_admin = true  
+        WHERE is_banned = true  
         ORDER BY nom;`,
     };
 
@@ -224,10 +247,17 @@ const membersDB = {
         text: 'UPDATE vinced.membres SET is_banned = true WHERE email = $1 RETURNING *;',
         values: [body.email],
       };
+      const query2 = {
+        text: 'UPDATE vinced.membres SET is_admin = false WHERE email = $1 RETURNING *;',
+        values: [body.email],
+      };
 
+      
       const { rows } = await db.query(query);
 
-      return rows || null;
+      const { rows2 } = await db.query(query2);
+
+      return (rows || null) && (rows2 || null) ;
     } catch (error) {
       throw new Error(error);
     }

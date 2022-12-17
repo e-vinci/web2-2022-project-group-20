@@ -199,6 +199,20 @@ router.post("/unbanOne", async (req, res) => {
  * GET all member with a normal status
  */
 
+router.get("/getAdminMembers", async (req, res) => {
+  try {
+    const membersFound = await memberModel.getAdminMembers();
+    return res.json(membersFound);
+  } catch (e) {
+    return res.sendStatus(502);
+  }
+},
+);
+
+/**
+ * GET all member with a normal status
+ */
+
 router.get("/getActiveMembers", async (req, res) => {
   try {
     const membersFound = await memberModel.getActiveMembers();
