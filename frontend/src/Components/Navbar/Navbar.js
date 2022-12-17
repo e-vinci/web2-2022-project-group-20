@@ -14,7 +14,7 @@ const Navbar = () => {
 };
 
 async function renderNavbar() {
-  let navbarHtml = `
+  let anonymousUserNavbar = `
   <nav class = "sidebar close">
     <header>
       <div class ="image-text">
@@ -47,13 +47,10 @@ async function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
-        
-        
-  
     
 `;
   if (window.localStorage.getItem('member') !== null) {
-    navbarHtml += `
+    anonymousUserNavbar += `
       <li class="">
             <a data-uri="sell">
                 <i class='bx bx-purchase-tag-alt icon'></i>
@@ -83,7 +80,6 @@ async function renderNavbar() {
     </ul>
     </div>
     <div class="bottom-content">
-  
 
     <li  >
         <a class="logBtn" data-uri="/login" id="logout">
@@ -95,8 +91,9 @@ async function renderNavbar() {
     `;  
     const local = await JSON.parse(window.localStorage.getItem('member'));
     const isAdmin = local.is_admin;
+    console.log(isAdmin);
     if (isAdmin) {
-      navbarHtml += `
+      anonymousUserNavbar += `
         
         <li class="">
           <a data-uri="/admin">
@@ -106,31 +103,33 @@ async function renderNavbar() {
         </li>
       `;
     }
-  } else{
-    navbarHtml += `
+  } else {
+    anonymousUserNavbar += ` </ul></div>
     <div class="bottom-content">
+
     <li >
         <a href="/loginPage"  class="logBtn" id="login">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG IN </span>
         </a>
     </li>
-    </div>
-    `;
+`;
   }
 
-  navbarHtml += `
+  anonymousUserNavbar += `
 
-     <li class="mode">
+    <li class="mode">
         <div class="sun-moon">
             <i class='bx bx-moon icon moon'></i>
             <i class='bx bx-sun icon sun'></i>
         </div>
         <span class="mode-text text">Dark mode</span>
+
         <div class="toggle-switch">
             <span class="switch"></span>
         </div>
     </li>
+    
 </div>
 </div>
 
@@ -138,7 +137,7 @@ async function renderNavbar() {
 `;
 
   const navbar = document.querySelector('#navbarWrapper');
-  navbar.innerHTML = navbarHtml;
+  navbar.innerHTML = anonymousUserNavbar;
 
   const navbarElements = navbar.getElementsByTagName('a');
   const navbarElementsArray = Array.from(navbarElements);
@@ -190,29 +189,29 @@ Find the connected member and retrieve it
 //   idMember = local.id_membre;
 // }
 
-/* function navbarclick(){
-  const body = document.querySelector("body");
-  const sidebar = body.querySelector(".sidebar");
-  const toggle = body.querySelector(".toggle");
+// /* function navbarclick(){
+//   const body = document.querySelector("body");
+//   const sidebar = body.querySelector(".sidebar");
+//   const toggle = body.querySelector(".toggle");
 
-  toggle.addEventListener("click", () =>{
-    sidebar.classList.toggle("close");
-  });
-} */
+//   toggle.addEventListener("click", () =>{
+//     sidebar.classList.toggle("close");
+//   });
+// } */
 
- function darkmode() {
-   const body = document.querySelector('body');
-   const modeSwitch = body.querySelector('.toggle-switch');
-   const modeText = body.querySelector('.mode-text');
+function darkmode() {
+  const body = document.querySelector('body');
+  const modeSwitch = body.querySelector('.toggle-switch');
+  const modeText = body.querySelector('.mode-text');
 
-   modeSwitch.addEventListener('click', () => {
-     body.classList.toggle('dark');
-     if (body.classList.contains('dark')) {
+  modeSwitch.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if (body.classList.contains('dark')) {
       modeText.innerText = 'Light mode';
     } else {
-       modeText.innerText = 'Dark mode';
-     }
-   });
- }
+      modeText.innerText = 'Dark mode';
+    }
+  });
+}
 
 export default Navbar;
