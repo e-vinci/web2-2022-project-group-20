@@ -11,7 +11,7 @@ CREATE TABLE vinced.membres (
 	image_profil VARCHAR(100), -- TODO: Mettre le path pour l'image par défaut
     is_admin BOOLEAN DEFAULT false,
     is_ban BOOLEAN DEFAULT false,
-    balance DOUBLE PRECISION DEFAULT 0 NOT NULL CHECK ( balance >= 0 ),
+    balance DOUBLE PRECISION DEFAULT 100 NOT NULL CHECK ( balance >= 0 ),
     is_banned BOOLEAN DEFAULT false
 );
 

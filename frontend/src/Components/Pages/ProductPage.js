@@ -66,7 +66,7 @@ async function renderhomepage() {
   else html += `<div class="likeButton notLiked" id="${product.id_annonce}">${notFavIcon}</div>`;
 
   if (!product.id_acheteur) {
-    html += `<button type="button" id="${product.id_annonce}" class="btn btn-secondary disable" style="max-heigth: 25px;">Buy now</button>`;
+    html += `<button type="button" id="${product.id_annonce}" class="btn btn-secondary disable buyButton">Buy now</button>`;
   } else {
     html += `
     <span class="badge bg-danger" style="width:100px" >SOLD</span>`;

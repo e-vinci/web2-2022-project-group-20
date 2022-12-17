@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const memberModel = require('./members');
 
 const articlesDB = {
   getAllArticles: async () => {
@@ -64,6 +65,7 @@ const articlesDB = {
     }
   },
   getArticleById: async (id) => {
+    console.log(`gef art ${id}`);
     const query = {
       text: `SELECT id_annonce,
                               nom,
@@ -79,7 +81,7 @@ const articlesDB = {
     };
     try {
       const { rows } = await db.query(query);
-      return rows;
+      return rows[0] || null;
     } catch (e) {
       throw new Error('Error while getting this article from the database.');
     }
@@ -195,24 +197,32 @@ const articlesDB = {
     return rows;
   },
   buyArticle: async (idMembre, idArticle) => {
-    if (isBuyed(idArticle)) {
-      console.log('not buyed');
-      const query = {
-        text: `UPDATE vinced.annonces
+    try {
+      if (isNotBuyed(idArticle)) {
+        const memberResponse = await memberModel.getMemberById(idMembre);
+        const member = memberResponse[0];
+        const article = await articlesDB.getArticleById(idArticle);
+        console.log(member.balance);
+        if(member.balance - article.prix <0) return;
+
+        await memberModel.removeCredits(article.prix, article.id_acheteur);
+        await memberModel.addCredits(article.prix, article.id_vendeur);
+
+        const query = {
+          text: `UPDATE vinced.annonces
                 SET id_acheteur = $1
                 WHERE id_annonce = $2;`,
-        values: [idMembre, idArticle],
-      };
-      const { rows } = await db.query(query);
-      return rows;
+          values: [idMembre, idArticle],
+        };
+        await db.query(query);
+      }
+    } catch {
+      throw new Error("Une erreur est parvenue pendant la transaction")
     }
-
-    console.log('already buyed');
-    return null;
   },
 };
 
-async function isBuyed(idArticle) {
+async function isNotBuyed(idArticle) {
   const query = {
     text: `SELECT id_acheteur 
         FROM vinced.annonces

@@ -93,6 +93,7 @@ router.post('/', async (req, res) => {
 router.post('/buy', async (req, res) => {
   try {
     const response = await articleModel.buyArticle(req.body.id_membre, req.body.id_article);
+
     return res.json(response);
   } catch {
     return res.status(502);

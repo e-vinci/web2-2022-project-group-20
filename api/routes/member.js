@@ -85,7 +85,7 @@ router.post("/addCredits", async (req, res) => {
     return res.status(400).end();
 
     try {
-      const member = await memberModel.addCredits(req.body);
+      const member = await memberModel.addCredits(req.body.credits, req.body.email);
       if (!member) return res.status(304).end();
       return res.json(member);
     } catch (error) {

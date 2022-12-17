@@ -148,7 +148,6 @@ const membersDB = {
     const memberFound = await membersDB.getMemberByEmail(body.email);
     if (memberFound) return 1;
     const hashedPassword = await bcrypt.hash(body.password, saltRounds);
-    // text: `INSERT INTO vinced.membres VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, DEFAULT, DEFAULT, DEFAULT)`,
     const query = {
       text: `INSERT INTO vinced.membres VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7)`,
       values: [
@@ -183,12 +182,25 @@ const membersDB = {
 
     return authenticatedMember;
   },
-  addCredits: async (body) => {
+  addCredits: async (credits, idMember) => {
     try {
-      // on passe au cache
       const query = {
-        text: 'UPDATE vinced.membres SET balance = balance + $1 WHERE email = $2 RETURNING *',
-        values: [body.credits, body.email],
+        text: 'UPDATE vinced.membres SET balance = balance + $1 WHERE id_membre = $2 RETURNING *',
+        values: [credits, idMember],
+      };
+
+      const { rows } = await db.query(query);
+ 
+      return rows || null;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  removeCredits: async (credits, idMember) => {
+    try {
+      const query = {
+        text: 'UPDATE vinced.membres SET balance = balance - $1 WHERE id_membre = $2 RETURNING *',
+        values: [credits, idMember],
       };
 
       const { rows } = await db.query(query);
@@ -197,22 +209,7 @@ const membersDB = {
     } catch (error) {
       throw new Error(error);
     }
-  },
-  removeCredits: async (body) => {
-    try {
-      // on passe au cache
-      const query = {
-        text: 'UPDATE vinced.membres SET balance = balance - $1 WHERE email = $2 RETURNING *',
-        values: [body.credits, body.email],
-      };
-
-      const { rows } = await db.query(query);
-
-      return rows || null;
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
+  }, 
   promoteOne: async (body) => {
     try {
       const query = {
@@ -244,20 +241,12 @@ const membersDB = {
   banOne: async (body) => {
     try {
       const query = {
-        text: 'UPDATE vinced.membres SET is_banned = true WHERE email = $1 RETURNING *;',
+        text: 'UPDATE vinced.membres SET is_banned = true AND is_admin = false WHERE email = $1 RETURNING *;',
         values: [body.email],
       };
-      const query2 = {
-        text: 'UPDATE vinced.membres SET is_admin = false WHERE email = $1 RETURNING *;',
-        values: [body.email],
-      };
-
-      
       const { rows } = await db.query(query);
 
-      const { rows2 } = await db.query(query2);
-
-      return (rows || null) && (rows2 || null) ;
+      return (rows || null);
     } catch (error) {
       throw new Error(error);
     }
