@@ -18,7 +18,7 @@ const favoriteDB = {
             text: "",
             values: []
         };
-        if(await favoriteDB.isFavorite(body)){
+        if(await favoriteDB.isFavorite(body.id_membre, body.id_article)){
             query.text = `DELETE FROM vinced.favoris WHERE id_membre = $1 AND id_annonce = $2;`;
             query.values = [body.id_membre, body.id_article];
         }
@@ -40,6 +40,7 @@ const favoriteDB = {
             values: [idMembre, idArticle]
         };
         const result = await db.query(query);
+        
         const {rows} = result;
         return rows[0] || false;
     }

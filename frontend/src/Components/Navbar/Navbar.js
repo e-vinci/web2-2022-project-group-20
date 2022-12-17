@@ -40,15 +40,7 @@ function renderNavbar() {
             <i class='bx bx-home-alt icon' ></i>
             <span class="text nav-text">Home page</span>
           </a>
-        </li>
-        </li>
-        <li class="">
-          <a data-uri="/panier">
-            <i class='bx bx-basket icon'></i>
-            <span class="text nav-text">Basket</span>
-          </a>
-        </li>
-    
+        </li>    
         <li class="">
           <a data-uri="contact">
             <i class='bx bx-mail-send icon'></i>
