@@ -27,6 +27,7 @@ const articlesDB = {
                         categorie,
                         photo,
                         id_vendeur,
+                        id_acheteur,
                         nom_vendeur,
                         prenom_vendeur
                 FROM vinced.cartes_articles`;
@@ -188,8 +189,37 @@ const articlesDB = {
             const {rows} = await db.query(query);
             return rows;
 
+    },
+    buyArticle: async (idMembre, idArticle) => {
+        if(isBuyed(idArticle)){
+            console.log("not buyed");
+            const query = {
+                text: `UPDATE vinced.annonces
+                SET id_acheteur = $1
+                WHERE id_annonce = $2;`,
+                values: [idMembre, idArticle]
+            };  
+            const {rows} = await db.query(query);
+            return rows;
+        }
+         
+        console.log("already buyed");
+            return null; 
     }
 }
+
+async function isBuyed(idArticle){
+    const query = {
+        text: `SELECT id_acheteur 
+        FROM vinced.annonces
+        WHERE id_annonce = $1;`,
+        values: [idArticle]
+    };
+    const result = await db.query(query);
+        
+    const {rows} = result;
+    return rows[0].id_acheteur !== null;
+} 
 
 module.exports = articlesDB;
 

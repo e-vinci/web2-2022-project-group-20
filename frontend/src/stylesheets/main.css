@@ -807,9 +807,6 @@ form.sign-in-form {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.button input[type="button"]:hover{
-  background: #5029bc;
-}
 
 @media (max-width: 950px) {
   .containercontact{
@@ -885,8 +882,8 @@ form.sign-in-form {
 
 .cardHomePage{
   margin: 0.5rem;
-  height: 300px;
-  width: 18rem;
+  height: 350px;
+  width: 20;
 }
 
 #cardProductPage{

@@ -2,8 +2,6 @@ const express = require("express");
 const articleModel = require("../models/articles");
 const favoriteModel = require("../models/favorites");
 
-// const {authorizeUser, authorizeAdmin} = require("../utils/authorize");
-
 const router = express.Router();
 /**
  * GET all articles or articles by id
@@ -23,44 +21,6 @@ router.get("/", async (req, res) => {
         return res.sendStatus(502);
     }}
 );
-
-/**
- * GET one articleby its id
- */
-
-// à supprimer cest uselless jle laisse juste au cas ou ( en plus ca niquais tout)
-// router.get("/:id", async (req, res) => {
-//     if(req.params.id > 0){
-//         try {
-//             const articles = await articleModel.getAllInfosForArticleById(req.query.id);
-//             return res.json(articles);
-//         } catch (e) {
-//             return res.sendStatus(502);
-//         }
-//     }else{
-//         try {
-//             const cartes = await articleModel.getAllInfosForAllArticles();
-//             return res.json(cartes);
-//         } catch (e) {
-        
-//             return res.sendStatus(502);
-//         }
-//     }
-// });
-
-// /**
-//  * GET all articles with all infos for cards
-//  */
-// router.get('/cartes', async (req, res) => {
-//     try {
-//       const cartes = await articleModel.getAllInfosForAllArticles();
-//       return res.json(cartes);
-//     } catch (e) {
-      
-//       return res.sendStatus(502);
-//     }
-//   });
-  
 
 /**
  * GET all articles by user id
@@ -127,7 +87,6 @@ router.post("/", async (req, res) => {
             prix: req.body.prix,
             photo: req.body.photo
         };
-        // eslint-disable-next-line no-console
         const createArticle = await articleModel.createArticle(article);
         return res.json(createArticle);
         }
@@ -136,7 +95,13 @@ router.post("/", async (req, res) => {
     }
 });
 
-        
-
+router.post("/buy", async (req, res) => {
+    try{
+        const response = await articleModel.buyArticle(req.body.id_membre, req.body.id_article);
+        return res.json(response);
+    }catch{
+        return res.status(502);
+    }
+});
 
 module.exports = router;

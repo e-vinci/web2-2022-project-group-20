@@ -105,15 +105,10 @@ form.addEventListener("submit", async (e)=>{
     const response = await request;
     // eslint-disable-next-line no-unused-vars
     const json = await response.json();
-    // eslint-disable-next-line no-console
-    console.log(response);
 
     form.elements.photo.value = json.data.link;
 
     form.submit();
-    // eslint-disable-next-line no-unused-vars
-
-
 })
 
 }

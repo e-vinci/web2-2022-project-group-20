@@ -37,7 +37,7 @@ async function renderhomepage() {
             data-mdb-ripple-color="light">
           
             <img src="${img}"
-            style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px; width" class="img-fluid"
             alt="Laptop" />
         
             
@@ -65,8 +65,13 @@ async function renderhomepage() {
     html += `<div class="likeButton isLiked" id="${product.id_annonce}" style="margin-left: auto; margin-right: auto; ">${favIcon}</div>`;
   else html += `<div class="likeButton notLiked" id="${product.id_annonce}">${notFavIcon}</div>`;
 
+  if (!product.id_acheteur) {
+    html += `<button type="button" id="${product.id_annonce}" class="btn btn-secondary disable" style="max-heigth: 25px;">Buy now</button>`;
+  } else {
+    html += `
+    <span class="badge bg-danger" style="width:100px" >SOLD</span>`;
+  }
   html += `
-              <button type="button" class="btn btn-primary">Buy now</button>
             </div>
             </div>
           </div>
@@ -86,8 +91,6 @@ async function renderhomepage() {
     </div>
   </div>
 </section>
-
-            
 `;
   const main = document.querySelector('main');
   main.innerHTML = html;
@@ -122,6 +125,26 @@ async function renderhomepage() {
 
     await fetch(`api/favorites`, request);
   });
+
+  const buyButton = document.querySelector('.buyButton');
+  if (buyButton) {
+    buyButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+      request = {
+        method: 'POST',
+        body: JSON.stringify({
+          id_membre: idMember,
+          id_article: product.id_annonce,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      await fetch(`api/articles/buy`, request);
+      await renderhomepage();
+    });
+  }
 }
 
 /* 
