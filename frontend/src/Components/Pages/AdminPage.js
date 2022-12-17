@@ -5,11 +5,8 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 
 const AdminPage = () => {
     clearPage();
-    renderPageTitle("test AdminPage");
+    renderPageTitle("AdminPage");
     renderadmin();
-
-	
-    
   };
 
 async function renderadmin() {
@@ -170,7 +167,7 @@ function addAdminMember(member, id, body) {
 		};
 			
 		const response = await fetch(`api/members/banOne`, request);
-  
+		renderadmin();
 		if(response.status !== 200){
 		  // todo notification
 			  
@@ -213,7 +210,7 @@ revokeButton.addEventListener('click',async (e) => {
    };
 	   
    const response = await fetch(`api/members/demoteOne`, request);
-
+   renderadmin();
    if(response.status !== 200){
 	 // todo notification
 		 
@@ -325,6 +322,7 @@ function addActiveMember(member, id, body) {
 		  };
 		  	
 		  const response = await fetch(`api/members/banOne`, request);
+		  renderadmin();
 	
 		  if(response.status !== 200){
 			// todo notification
@@ -368,6 +366,7 @@ grantButton.addEventListener('click',async (e) => {
 	 };
 		 
 	 const response = await fetch(`api/members/promoteOne`, request);
+	 renderadmin();
 
 	 if(response.status !== 200){
 	   // todo notification
@@ -479,6 +478,7 @@ function addBannedMember(member, id, body) {
 		 };
 			 
 		 const response = await fetch(`api/members/unbanOne`, request);
+		 renderadmin();
    
 		 if(response.status !== 200){
 		   // todo notification
