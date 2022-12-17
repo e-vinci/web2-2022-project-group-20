@@ -122,7 +122,6 @@ async function renderNavbar() {
             <i class='bx bx-sun icon sun'></i>
         </div>
         <span class="mode-text text">Dark mode</span>
-
         <div class="toggle-switch">
             <span class="switch"></span>
         </div>
@@ -196,6 +195,7 @@ Find the connected member and retrieve it
     sidebar.classList.toggle("close");
   });
 } */
+
 
 function darkmode() {
   const body = document.querySelector('body');
