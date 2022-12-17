@@ -10,7 +10,7 @@ import logo from '../../img/logo.png';
 
 const Navbar = () => {
   renderNavbar();
-  // darkmode();
+  darkmode();
 };
 
 async function renderNavbar() {
@@ -47,6 +47,14 @@ async function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
+        <div class="bottom-content">
+        <li >
+            <a href="/loginPage"  class="logBtn" id="login">
+                <i class='bx bx-log-in icon' ></i>
+                <span class="text nav-text">LOG IN </span>
+            </a>
+        </li>
+  
     
 `;
   if (window.localStorage.getItem('member') !== null) {
@@ -106,7 +114,7 @@ async function renderNavbar() {
 
   navbarHtml += `
 
-    <!-- <li class="mode">
+     <li class="mode">
         <div class="sun-moon">
             <i class='bx bx-moon icon moon'></i>
             <i class='bx bx-sun icon sun'></i>
@@ -116,7 +124,7 @@ async function renderNavbar() {
         <div class="toggle-switch">
             <span class="switch"></span>
         </div>
-    </li>--> 
+    </li>
     
 </div>
 </div>
@@ -187,19 +195,19 @@ Find the connected member and retrieve it
   });
 } */
 
-// function darkmode() {
-//   const body = document.querySelector('body');
-//   const modeSwitch = body.querySelector('.toggle-switch');
-//   const modeText = body.querySelector('.mode-text');
+ function darkmode() {
+   const body = document.querySelector('body');
+   const modeSwitch = body.querySelector('.toggle-switch');
+   const modeText = body.querySelector('.mode-text');
 
-//   modeSwitch.addEventListener('click', () => {
-//     body.classList.toggle('dark');
-//     if (body.classList.contains('dark')) {
-//       modeText.innerText = 'Light mode';
-//     } else {
-//       modeText.innerText = 'Dark mode';
-//     }
-//   });
-// }
+   modeSwitch.addEventListener('click', () => {
+     body.classList.toggle('dark');
+     if (body.classList.contains('dark')) {
+      modeText.innerText = 'Light mode';
+    } else {
+       modeText.innerText = 'Dark mode';
+     }
+   });
+ }
 
 export default Navbar;

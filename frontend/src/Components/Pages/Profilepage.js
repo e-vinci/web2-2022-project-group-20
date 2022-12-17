@@ -131,7 +131,8 @@ import gameboyimg from '../../img/gameboy.png';
           infos = await infos.json();
           const items = infos;
           items.forEach( article => {
-          profilepage += `<div class="row">
+          profilepage += `
+          <div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
