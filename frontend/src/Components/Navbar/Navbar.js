@@ -47,6 +47,9 @@ async function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
+        
+        
+  
     
 `;
   if (window.localStorage.getItem('member') !== null) {
@@ -80,6 +83,7 @@ async function renderNavbar() {
     </ul>
     </div>
     <div class="bottom-content">
+  
 
     <li  >
         <a class="logBtn" data-uri="/login" id="logout">
@@ -102,8 +106,8 @@ async function renderNavbar() {
         </li>
       `;
     }
-  } else {
-    navbarHtml += ` </ul></div>
+  } else{
+    navbarHtml += `
     <div class="bottom-content">
     <li >
         <a href="/loginPage"  class="logBtn" id="login">
@@ -111,12 +115,13 @@ async function renderNavbar() {
             <span class="text nav-text">LOG IN </span>
         </a>
     </li>
-`;
+    </div>
+    `;
   }
 
   navbarHtml += `
 
-    <li class="mode">
+     <li class="mode">
         <div class="sun-moon">
             <i class='bx bx-moon icon moon'></i>
             <i class='bx bx-sun icon sun'></i>
@@ -126,7 +131,6 @@ async function renderNavbar() {
             <span class="switch"></span>
         </div>
     </li>
-    
 </div>
 </div>
 
@@ -196,20 +200,19 @@ Find the connected member and retrieve it
   });
 } */
 
+ function darkmode() {
+   const body = document.querySelector('body');
+   const modeSwitch = body.querySelector('.toggle-switch');
+   const modeText = body.querySelector('.mode-text');
 
-function darkmode() {
-  const body = document.querySelector('body');
-  const modeSwitch = body.querySelector('.toggle-switch');
-  const modeText = body.querySelector('.mode-text');
-
-  modeSwitch.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    if (body.classList.contains('dark')) {
+   modeSwitch.addEventListener('click', () => {
+     body.classList.toggle('dark');
+     if (body.classList.contains('dark')) {
       modeText.innerText = 'Light mode';
     } else {
-      modeText.innerText = 'Dark mode';
-    }
-  });
-}
+       modeText.innerText = 'Dark mode';
+     }
+   });
+ }
 
 export default Navbar;
