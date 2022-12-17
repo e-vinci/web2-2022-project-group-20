@@ -946,7 +946,9 @@ form.sign-in-form {
   margin-bottom: 13px;
 }
 
-
+.favSvg{
+  fill:crimson;
+}
 /* CSS FOR FOOTER */ 
 
 

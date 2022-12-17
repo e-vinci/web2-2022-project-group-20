@@ -91,8 +91,6 @@ async function renderNavbar() {
     `;  
     const local = await JSON.parse(window.localStorage.getItem('member'));
     const isAdmin = local.is_admin;
-    // eslint-disable-next-line no-console
-    console.log(isAdmin);
     if (isAdmin) {
       navbarHtml += `
         
