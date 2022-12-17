@@ -57,14 +57,7 @@ function renderNavbar() {
             <span class="text nav-text">My wallets</span>
           </a>
         </li>
-        
-        
-        <li class="">
-          <a data-uri="/admin">
-            <i class='bx bx-shield  icon' ></i>
-            <span class="text nav-text">Admin</span>
-          </a>
-        </li>
+    
 `;
   if (window.localStorage.getItem('member') !== null) {
     anonymousUserNavbar += `
