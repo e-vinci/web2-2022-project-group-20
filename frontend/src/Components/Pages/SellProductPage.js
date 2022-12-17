@@ -1,25 +1,24 @@
 // First, you will need to import the `FileSaver.js` library to save the image file on the client-side
 // Then, you can use the fetch API to send a request to the Imgur API to upload the image.
-const SellProductPage = ()=>{    
-    renderSellProductPage();
+const SellProductPage = () => {
+  renderSellProductPage();
 };
 
-
- function categorieshtml(categories){
-    
-    let html = "";
-    categories.forEach((category)=>{
-        html += `<option value="${category.id_categorie}">${category.nom}</option>`;
-    });
-    return html;
+function categorieshtml(categories) {
+  let html = '';
+  categories.forEach((category) => {
+    html += `<option value="${category.id_categorie}">${category.nom}</option>`;
+  });
+  return html;
 }
 
+async function renderSellProductPage() {
+  const categories = await fetch('http://localhost:3000/categories').then((response) =>
+    response.json(),
+  );
+  const photoValue = null;
 
-async function renderSellProductPage(){
-    const categories = await fetch("http://localhost:3000/categories").then((response)=>response.json()); 
-    const photoValue = null;
-
-    const render = `
+  const render = `
     <form action="http://localhost:3000/articles" method="POST" >
     
         
@@ -58,50 +57,49 @@ async function renderSellProductPage(){
    
 
           `;
-          // <input type="hidden" id="id_vendeur" name="id_vendeur" value="${window.localStorage.getItem("user")}" />
+  // <input type="hidden" id="id_vendeur" name="id_vendeur" value="${window.localStorage.getItem("user")}" />
 
-  const main = document.querySelector("main");
+  const main = document.querySelector('main');
   main.innerHTML = render;
 
-  const form = document.querySelector("form");
+  const form = document.querySelector('form');
 
-form.addEventListener("submit", async (e)=>{
-  e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  const toBase64 = file => {
-    if (!(file instanceof File)) {
+    const toBase64 = (file) => {
+      if (!(file instanceof File)) {
         throw new TypeError('Expected a File object');
-    }
-  
-    return new Promise((resolve, reject) => {
+      }
+
+      return new Promise((resolve, reject) => {
         const reader = new FileReader();
         const blob = new Blob([file], { type: file.type });
-  
+
         reader.readAsDataURL(blob);
         reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-  };
+        reader.onerror = (error) => reject(error);
+      });
+    };
 
-
-    const file = document.querySelector("#fileInput")
+    const file = document.querySelector('#fileInput');
     let base64 = await toBase64(file.files[0]);
-    base64 = base64.replace(/^data:image\/(png|jpg);base64,/, "");
+    base64 = base64.replace(/^data:image\/(png|jpg);base64,/, '');
 
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Client-ID 1a9bf8ef9195d8c");
+    myHeaders.append('Authorization', 'Client-ID 1a9bf8ef9195d8c');
 
     const formdata = new FormData();
-    formdata.append("image",base64);
+    formdata.append('image', base64);
 
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: formdata,
-      redirect: 'follow'
+      redirect: 'follow',
     };
 
-    const request = fetch("https://api.imgur.com/3/image", requestOptions);
+    const request = fetch('https://api.imgur.com/3/image', requestOptions);
     const response = await request;
     // eslint-disable-next-line no-unused-vars
     const json = await response.json();
@@ -109,20 +107,15 @@ form.addEventListener("submit", async (e)=>{
     form.elements.photo.value = json.data.link;
 
     form.submit();
-})
-
+  });
 }
 
-
-
-  /* Client ID:
+/* Client ID:
 a7f3a8a833acad6
 Client secret:
 7d34a4d46d2c72ab773e381f98252325cbf32e31
 */
 
-
-  // Get the file input element
-  
+// Get the file input element
 
 export default SellProductPage;

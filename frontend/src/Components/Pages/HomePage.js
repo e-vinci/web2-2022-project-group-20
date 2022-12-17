@@ -40,7 +40,8 @@ const HomePageRender = async () => {
                 `;
     if (likes.includes(carte.id_annonce))
       html += `<div class="likeButton isLiked" id="${carte.id_annonce}">${favIcon}</div></div>`;
-    else html += `<div class="likeButton notLiked" id="${carte.id_annonce}">${notFavIcon}</div></div>`;
+    else
+      html += `<div class="likeButton notLiked" id="${carte.id_annonce}">${notFavIcon}</div></div>`;
     if (carte.id_acheteur) {
       html += `<span class="badge bg-danger" style="width:100px" >SOLD</span>`;
     }
@@ -61,7 +62,6 @@ const HomePageRender = async () => {
         `;
   });
 
-  
   main.innerHTML = html;
 
   const containerhomepage = document.querySelector('.containerhomepage');
