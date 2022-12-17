@@ -47,13 +47,8 @@ async function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
-        <div class="bottom-content">
-        <li >
-            <a href="/loginPage"  class="logBtn" id="login">
-                <i class='bx bx-log-in icon' ></i>
-                <span class="text nav-text">LOG IN </span>
-            </a>
-        </li>
+        
+        
   
     
 `;
@@ -88,6 +83,7 @@ async function renderNavbar() {
     </ul>
     </div>
     <div class="bottom-content">
+  
 
     <li  >
         <a class="logBtn" data-uri="/login" id="logout">
@@ -110,6 +106,17 @@ async function renderNavbar() {
         </li>
       `;
     }
+  } else{
+    navbarHtml += `
+    <div class="bottom-content">
+    <li >
+        <a href="/loginPage"  class="logBtn" id="login">
+            <i class='bx bx-log-in icon' ></i>
+            <span class="text nav-text">LOG IN </span>
+        </a>
+    </li>
+    </div>
+    `;
   }
 
   navbarHtml += `
@@ -125,7 +132,7 @@ async function renderNavbar() {
             <span class="switch"></span>
         </div>
     </li>
-    
+
 </div>
 </div>
 
