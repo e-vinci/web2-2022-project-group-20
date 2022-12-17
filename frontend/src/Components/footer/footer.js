@@ -4,7 +4,7 @@ const footerpage = () => {
 
 function renderfooter() {
     const footertemplate = `
-    
+   
     `;
 
     const footer = document.querySelector('footer');
