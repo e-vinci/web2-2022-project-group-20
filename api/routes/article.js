@@ -69,6 +69,14 @@ router.get('/search', async (req, res) => {
     return res.sendStatus(502);
   }
 });
+/**
+ * GET all articles pics
+ */
+router.get('/pics', async (req, res) => {
+    const articles = await articleModel.getAllPictures();
+    return res.json(articles);
+
+});
 
 /**
  * POST a new article

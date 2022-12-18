@@ -15,6 +15,13 @@ const articlesDB = {
                         ORDER BY id_annonce DESC`;
     const { rows } = await db.query(query);
     return rows;
+  },  
+  getAllPictures: async () => {
+    const query = `SELECT id_annonce,photo
+                        FROM vinced.annonces
+                        ORDER BY id_annonce DESC`;
+    const { rows } = await db.query(query);
+    return rows;
   },
 
   getAllInfosForAllArticles: async () => {
