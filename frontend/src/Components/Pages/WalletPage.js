@@ -21,7 +21,7 @@ const walletpage= `
 					<div class="card-body">
 						<div class=" mt-5 mb-4">
               <font size="9">
-                240 €
+			  	${balance} €
               </font>
 						</div><br>
 					</div>
@@ -184,7 +184,30 @@ async function WalletPage() {
 	
 	// const member = findMember();
 	// const local = await JSON.parse(window.localStorage.getItem("member"));
-	const mailMember = "rayan.abarkan@student.vinci.be";
+	
+
+		 // Récupère l'id membre dans l'URL
+	let idMember = new URLSearchParams(window.location.search).get("idMembre")
+		 
+		 // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
+		 if(!idMember) {
+			const local = await JSON.parse(window.localStorage.getItem("member"));
+			idMember = local.id_membre;
+		 }
+		 const request = {
+		   method: "GET"
+		 };
+		 
+		 // Récupère le membre en question
+		 let response = await fetch(`api/members?id=${idMember}`, request);
+		 response = await response.json();
+		 const member = response[0];
+		 const actualBalance = member.balance;
+		 /*
+		 if(!member && !idMember) {
+			redirection
+		  }
+		  */
 
 
 		const main = document.querySelector('main');
@@ -194,8 +217,51 @@ async function WalletPage() {
 		const removeMoney = document.querySelector("#remove-money-btn");
 
 
-		addMoney.addEventListener("click", addOnClick(mailMember)); // ("click", addOnClick, user);
-		removeMoney.addEventListener("click", removeOnClick(mailMember));
+		addMoney.addEventListener("click", addOnClick(idMember)); // ("click", addOnClick, user);
+		// removeMoney.addEventListener("click", removeOnClick(idMember,actualBalance));
+		  
+		
+		removeMoney.addEventListener('click',async (e) => {
+			try {
+			e.preventDefault();	
+			const idMemberToRemove = new URLSearchParams(window.location.search).get("idMembre")
+	
+			
+			const credits = document.getElementById("money-to-remove-input").value;
+		
+			if(actualBalance >= credits.value){
+				errorMessage("Vous ne pouvez pas retirer cette somme.");
+				return;
+			}
+
+			const options = {
+				method: "POST", // *GET, POST, PUT, DELETE, etc.
+				body: JSON.stringify(
+				{
+					credits: credits.value,
+					id_member: idMemberToRemove,
+				}), // body data type must match "Content-Type" header
+				headers: {
+					"Content-Type": "application/json",
+				},
+				};
+				
+				const responseRemove = await fetch("/api/users/removeCredits", options); // fetch return a promise => we wait for the response
+		
+
+			if(responseRemove !== 200){
+			// todo notification
+				
+			}
+			if(responseRemove === 200){
+			// todo : relancer la page
+			
+			}
+
+			} catch (err) {
+			// todo : to delete
+			}
+		});
 	
 	
 }
@@ -207,21 +273,21 @@ Find the connected member and retrieve it
 */
 // async function findMember(){	}
 
-
-async function addOnClick(member) {
-	const credits = document.getElementById("Crédits à ajouter").value;
+// money-to-add-input   add-money-btn
+async function addOnClick(Idmember) {
+	const credits = document.getElementById("money-to-add-input").value;
 	if (credits === ""){
-		errorMessage("Combien de crédits voulez-vous ajouter ?");
+		// errorMessage("Combien de crédits voulez-vous ajouter ?");
 		return;
 	}
 
 	try {
 		const options = {
-		method: "PUT", // *GET, POST, PUT, DELETE, etc.
+		method: "POST", // *GET, POST, PUT, DELETE, etc.
 		body: JSON.stringify(
 		{
 			credits: credits.value,
-			email: member.email,
+			id_member: Idmember,
 		}), // body data type must match "Content-Type" header
 		headers: {
 			"Content-Type": "application/json",
@@ -237,9 +303,6 @@ async function addOnClick(member) {
 			throw new Error(response.status +  response.statusText
 			);
 		}
-		// const memberUpdate = await response.json(); // json() returns a promise => we wait for the data
-		// console.log(memberUpdate);
-
 		await WalletPage();
 
 		notificationMessage("Ajout réussi !");
@@ -249,26 +312,24 @@ async function addOnClick(member) {
 	}
 }
 
+/*
 
-
-async function removeOnClick(member) {
-		const credits = document.getElementById("Crédits à retier").value;
-		if (credits === ""){
-			errorMessage("Combien de crédits voulez-vous retirer ?");
-			return;
-		}
-		if(member.balance >= credits.value){
+async function removeOnClick(member,actualBalance) {
+	
+		const credits = document.getElementById("money-to-remove-input").value;
+		
+		if(actualBalance >= credits.value){
 			errorMessage("Vous ne pouvez pas retirer cette somme.");
 			return;
 		}
 	
 		try {
 			const options = {
-			method: "PUT", // *GET, POST, PUT, DELETE, etc.
+			method: "POST", // *GET, POST, PUT, DELETE, etc.
 			body: JSON.stringify(
 			{
 				credits: credits.value,
-				email: member.email,
+				id_member: member.id_member,
 			}), // body data type must match "Content-Type" header
 			headers: {
 				"Content-Type": "application/json",
@@ -294,7 +355,8 @@ async function removeOnClick(member) {
 		} catch (error) {		
 			errorMessage("Un probleme est survenu lors du retrait");
 		}
-	}	
+	}
+	*/	
 
 function errorMessage(message) {
 	const alertDiv = document.getElementById("message");

@@ -77,15 +77,16 @@ router.post('/login', async (req, res) => {
  */
 router.post("/addCredits", async (req, res) => {
   // Send an error code '400 Bad request' if the body parameters are not valid
+  
   if (
     !req.body ||
-    (req.body.email && req.body.email.length === 0) ||
+    (req.body.id_member && req.body.id_member.length === 0) ||
     (req.body.credits && req.body.credits.length === 0)
   )
     return res.status(400).end();
 
     try {
-      const member = await memberModel.addCredits(req.body.credits, req.body.email);
+      const member = await memberModel.addCredits(req.body.credits, req.body.id_member);
       if (!member) return res.status(304).end();
       return res.json(member);
     } catch (error) {
@@ -102,13 +103,13 @@ router.post("/removeCredits", async (req, res) => {
   // Send an error code '400 Bad request' if the body parameters are not valid
   if (
     !req.body ||
-    (req.body.email && req.body.email.length === 0) ||
+    (req.body.id_member && req.body.id_member.length === 0) ||
     (req.body.credits && req.body.credits.length === 0)
   )
     return res.status(400).end();
 
     try {
-      const member = await memberModel.removeCredits(req.body);
+      const member = await memberModel.removeCredits(req.body.credits, req.body.id_member);
       if (!member) return res.status(304).end();
       return res.json(member);
     } catch (error) {

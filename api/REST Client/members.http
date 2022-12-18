@@ -14,30 +14,30 @@ GET http://localhost:3000/members/getbannedMembers
 
 
 
-### Add credit to a member (email, credits)
+### Add credit to a member (id_member, credits)
 POST http://localhost:3000/members/addCredits
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be",
+    "id_member":3,
     "credits":25
 }
 
 
-### Add credit to a member (email, credits)
+### Add credit to a member (id_member, credits)
 POST http://localhost:3000/members/addCredits
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be",
+    "id_member": 3,
     "credits":25
 }
-### Remove credit to a member (email, credits)
+### Remove credit to a member (id_member, credits)
 POST http://localhost:3000/members/removeCredits
 Content-Type: application/json
 
 {    
-    "email":"rayan.abarkan@student.vinci.be",
+    "id_member":3,
     "credits":25
 }
 
