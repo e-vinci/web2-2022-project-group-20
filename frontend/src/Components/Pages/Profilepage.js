@@ -148,6 +148,8 @@ import gameboyimg from '../../img/gameboy.png';
                   <img src="${gameboyimg}" id="id_img" class="d-block w-100" alt="...">
                 </div>
               </div>
+              </div>
+              </div>
         
     `;
           });
