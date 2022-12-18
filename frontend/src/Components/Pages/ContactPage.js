@@ -1,7 +1,8 @@
 
 
 const ContactPage = ()=>{
-    rendercontactusPage();  
+    rendercontactusPage(); 
+    
 };
 
 
@@ -41,7 +42,7 @@ function rendercontactusPage(){
           <input type="text" id="name"  placeholder="Enter your name">
         </div>
         <div class="input-box">
-          <input type="text" placeholder="Enter your email">
+          <input type="text" id="email"  placeholder="Enter your email">
         </div>
 
         <div class="form-group">
@@ -52,7 +53,7 @@ function rendercontactusPage(){
       </form>
       
       <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary" type="button">SEND MESSAGE</button>
+      <button  id="popup"  class="btn btn-primary" type="button">SEND MESSAGE</button>
       </div>
   
     </div>
@@ -65,6 +66,13 @@ function rendercontactusPage(){
 
   
 };
+
+// eslint-disable-next-line camelcase
+
+
+
+
+
 
 
 
