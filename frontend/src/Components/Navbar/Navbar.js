@@ -15,8 +15,7 @@ const Navbar = () => {
 
 async function renderNavbar() {
  
-    const isAdmin = isAdminFunction();
-  
+  const member = await memberInfos();
 
   let anonymousUserNavbar = `
   <nav class = "sidebar close">
@@ -53,7 +52,19 @@ async function renderNavbar() {
         </li>
     
 `;
-  if (window.localStorage.getItem('member') !== null) {
+  if (member !== null) {
+    
+    if ( member.is_banned === false) {
+      anonymousUserNavbar += `
+        
+        <li class="">
+          <a data-uri="/admin">
+            <i class='bx bx-shield  icon' ></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
+      `;
+    }
     anonymousUserNavbar += `
       <li class="">
             <a data-uri="sell">
@@ -93,8 +104,7 @@ async function renderNavbar() {
     </li>
 
     `;  
-
-    if (isAdmin) {
+    if ( member.is_admin) {
       anonymousUserNavbar += `
         
         <li class="">
@@ -183,11 +193,9 @@ async function renderNavbar() {
   });
 }
 
-async function isAdminFunction(){
+async function memberInfos(){
   // Récupère l'id membre dans l'URL
   let idMember = new URLSearchParams(window.location.search).get("idMembre")
-  // eslint-disable-next-line no-console
-  console.log(idMember);
   // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
   if(!idMember) {
     const local = await JSON.parse(window.localStorage.getItem("member"));
@@ -201,7 +209,7 @@ async function isAdminFunction(){
   let response = await fetch(`api/members?id=${idMember}`, request);
   response = await response.json();
   const member = response[0];
-  return member.is_admin;
+  return member;
 }
 
 /*

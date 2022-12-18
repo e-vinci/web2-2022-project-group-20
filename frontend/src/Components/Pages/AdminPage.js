@@ -1,4 +1,5 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import Navbar from '../Navbar/Navbar';
 // import Navigate from '../Router/Navigate'
 // import Navbar from '../Navbar/Navbar';
 
@@ -179,6 +180,8 @@ function addAdminMember(member, adminEmail, body) {
 			  
 		}
 		if(response.status === 200){
+			clearPage();
+			Navbar();
 			renderadmin();
 		  
 		}
@@ -230,7 +233,8 @@ revokeButton.addEventListener('click',async (e) => {
    }
    if(response.status === 200){
 	 // todo : relancer la page
-	 
+	 clearPage();
+	 Navbar();
 	 renderadmin();
    }
 
@@ -342,7 +346,7 @@ function addActiveMember(member, id, body) {
 		  }
 		  if(response.status === 200){
 			// todo : relancer la page
-			
+			clearPage();
 			renderadmin();
 		  }
 
@@ -386,7 +390,7 @@ grantButton.addEventListener('click',async (e) => {
 	 }
 	 if(response.status === 200){
 	   // todo : relancer la page
-	   
+	   clearPage();
 		renderadmin();
 	 }
 
@@ -502,7 +506,8 @@ function addBannedMember(member, id, body) {
 		 }
 		 if(response.status === 200){
 		   // todo : relancer la page
-		   
+		   clearPage();
+			Navbar();
 			renderadmin();
 		 }
 
