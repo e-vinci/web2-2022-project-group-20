@@ -19,8 +19,8 @@ POST http://localhost:3000/members/addCredits
 Content-Type: application/json
 
 {
-    "id_member":3,
-    "credits":25
+    "id_member":12,
+    "credits":200
 }
 
 
@@ -51,7 +51,7 @@ POST http://localhost:3000/members/promoteOne
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be"
+    "email":"ostelle.croquet@student.vinci.be"
 }
 
 ### Revoke an active members (mail)

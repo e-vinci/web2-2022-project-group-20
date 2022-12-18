@@ -14,6 +14,10 @@ const Navbar = () => {
 };
 
 async function renderNavbar() {
+ 
+    const isAdmin = isAdminFunction();
+  
+
   let anonymousUserNavbar = `
   <nav class = "sidebar close">
     <header>
@@ -89,8 +93,7 @@ async function renderNavbar() {
     </li>
 
     `;  
-    const local = await JSON.parse(window.localStorage.getItem('member'));
-    const isAdmin = local.is_admin;
+
     if (isAdmin) {
       anonymousUserNavbar += `
         
@@ -180,6 +183,27 @@ async function renderNavbar() {
   });
 }
 
+async function isAdminFunction(){
+  // Récupère l'id membre dans l'URL
+  let idMember = new URLSearchParams(window.location.search).get("idMembre")
+  // eslint-disable-next-line no-console
+  console.log(idMember);
+  // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
+  if(!idMember) {
+    const local = await JSON.parse(window.localStorage.getItem("member"));
+    idMember = local.id_membre;
+  }
+  const request = {
+    method: "GET"
+  };
+  
+  // Récupère le membre en question
+  let response = await fetch(`api/members?id=${idMember}`, request);
+  response = await response.json();
+  const member = response[0];
+  return member.is_admin;
+}
+
 /*
 Find the connected member and retrieve it
 */
@@ -212,5 +236,6 @@ Find the connected member and retrieve it
 //     }
 //   });
 // }
+
 
 export default Navbar;
