@@ -12,10 +12,8 @@ const ProductPage = async () => {
 
 async function renderhomepage() {
   if (window.localStorage.getItem('member')) {
-    console.log("IS CONN");
     connectedProductPage();
   } else {
-    console.log("NOT CONN");
     disconnectedProductPage();
   }
 }
