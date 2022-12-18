@@ -34,6 +34,8 @@ const walletpage= `
 
     <section class="h-100 gradient-custom">
 	<div class="containerwallet">
+	
+	<h1> My Wallet </h1> <br>
 		<!--  Money row  -->
 		<div class="row d-flex justify-content-center my-4">
 			<div class="col-md-7" border+"col-md-8" >

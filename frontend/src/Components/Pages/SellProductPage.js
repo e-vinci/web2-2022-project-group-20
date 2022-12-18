@@ -19,44 +19,48 @@ async function renderSellProductPage() {
   const photoValue = null;
 
   const render = `
-    <form action="http://localhost:3000/articles" method="POST" >
+  
+  <section class="h-100 gradient-custom">
+  
+    <h1> Sell </h1> <br>
+    <div class="containercontact">
     
+      <div class="row d-flex justify-content-center my-4">
+      <div class="col-md-11" >
+
+          <form action="http://localhost:3000/articles" method="POST" >
+          
+                
+            <label for="nom">Titre (min 4 chars):</label>
+            <input type="text" id="nom" name="nom" required minlength="4" size="30"><br>
+            <label for="category">Choisie une catégorie:</label>
+            <select name="id_categorie" id="id_categorie">
+            ${categorieshtml(categories)}
+            </select>
+            <br>
+            <p><label for="description">Description :</label></p>
+            <textarea id="description" name="description" required minlength="4" rows="5" cols="60"></textarea>
+            <br>
+            
+            <label for="name">Photo :</label>
+            <input type="file" id="fileInput" name="fileInput" accept="image/*">
+            <input type="hidden" id="photo" name="photo" value=""/>
+            <input type="hidden" id="id_vendeur" name="id_vendeur" value=${photoValue} />
+            <br>  <label for="prix">Prix :</label>
+            <input type="text" id="prix" name="prix" required size="5">
+            
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary btn-lg">En vente !</button>
+            <img id="image" src="" alt="">
+            
+          </form>
         
-        <label for="nom">Titre (min 4 chars):</label>
-        <input type="text" id="nom" name="nom" required minlength="4" size="30">
-
-        <p><label for="description">Description :</label></p>
-        <textarea id="description" name="description" required minlength="4" rows="5" cols="60"></textarea>
-
-        <label for="prix">Prix :</label>
-        <input type="text" id="prix" name="prix" required size="5">
-        
-        <br>
-
-        <label for="category">Choisie une catégorie:</label>
-        <select name="id_categorie" id="id_categorie">
-        ${categorieshtml(categories)}
-        </select>
-
-        <br>
-
-        <label for="name">Photo :</label>
-        <input type="file" id="fileInput" name="fileInput" accept="image/*">
-        <input type="hidden" id="photo" name="photo" value=""/>
-
-
-        <input type="hidden" id="id_vendeur" name="id_vendeur" value=${photoValue} />
-
-
-        <br>
-        <br>
-        <button type="submit" class="btn btn-primary btn-lg">En vente !</button>
-
-        <img id="image" src="" alt="">
-    </form>
-   
-
-          `;
+      </div>
+    </div>
+    </div>
+  </section> `;
   // <input type="hidden" id="id_vendeur" name="id_vendeur" value="${window.localStorage.getItem("user")}" />
 
   const main = document.querySelector('main');

@@ -14,6 +14,7 @@ async function renderadmin() {
 
     <section class="h-100 gradient-custom">
 	<div class="containerwallet">
+	<h1> Admin zone </h1> <br>
 		<div class="row d-flex justify-content-center my-4">
 			<div class="col-md-11" >
 			<div class="accordion" id="accordionPanelsStayOpenExample">
@@ -173,7 +174,7 @@ function addAdminMember(member, id, body) {
 			  
 		}
 		if(response.status === 200){
-		  // todo : relancer la page
+			AdminPage();
 		  
 		}
 
@@ -218,6 +219,7 @@ revokeButton.addEventListener('click',async (e) => {
    if(response.status === 200){
 	 // todo : relancer la page
 	 
+	 AdminPage();
    }
 
   } catch (err) {
@@ -331,6 +333,7 @@ function addActiveMember(member, id, body) {
 		  if(response.status === 200){
 			// todo : relancer la page
 			
+			AdminPage();
 		  }
 
 		 } catch (err) {
@@ -375,6 +378,7 @@ grantButton.addEventListener('click',async (e) => {
 	 if(response.status === 200){
 	   // todo : relancer la page
 	   
+		AdminPage();
 	 }
 
 	} catch (err) {
@@ -487,6 +491,7 @@ function addBannedMember(member, id, body) {
 		 if(response.status === 200){
 		   // todo : relancer la page
 		   
+			AdminPage();
 		 }
 
 		} catch (err) {
