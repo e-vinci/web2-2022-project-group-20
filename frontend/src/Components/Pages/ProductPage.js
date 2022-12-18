@@ -30,6 +30,7 @@ async function renderhomepage() {
   let html = ` 
   <section style="background-color: #eee;">
   <div class="containerproduct py-5">
+	<h1> Infos product </h1> <br>
     <div class="row justify-content-center">
       <div class="col-md- col-lg-6 col-xl-7">
         <div class="card" id="cardProductPage" style="border-radius: 15px;">

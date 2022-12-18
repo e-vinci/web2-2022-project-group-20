@@ -10,11 +10,14 @@ import logo from '../../img/logo.png';
 
 const Navbar = () => {
   renderNavbar();
-  darkmode();
+  // darkmode();
 };
 
 async function renderNavbar() {
-  let navbarHtml = `
+ 
+  const member = await memberInfos();
+
+  let anonymousUserNavbar = `
   <nav class = "sidebar close">
     <header>
       <div class ="image-text">
@@ -47,13 +50,22 @@ async function renderNavbar() {
             <span class="text nav-text">Contact</span>
           </a>
         </li>
-        
-        
-  
     
 `;
-  if (window.localStorage.getItem('member') !== null) {
-    navbarHtml += `
+  if (member !== null) {
+    
+    if ( member.is_banned === false) {
+      anonymousUserNavbar += `
+        
+        <li class="">
+          <a data-uri="/admin">
+            <i class='bx bx-shield  icon' ></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
+      `;
+    }
+    anonymousUserNavbar += `
       <li class="">
             <a data-uri="sell">
                 <i class='bx bx-purchase-tag-alt icon'></i>
@@ -83,7 +95,6 @@ async function renderNavbar() {
     </ul>
     </div>
     <div class="bottom-content">
-  
 
     <li  >
         <a class="logBtn" data-uri="/login" id="logout">
@@ -93,10 +104,8 @@ async function renderNavbar() {
     </li>
 
     `;  
-    const local = await JSON.parse(window.localStorage.getItem('member'));
-    const isAdmin = local.is_admin;
-    if (isAdmin) {
-      navbarHtml += `
+    if ( member.is_admin) {
+      anonymousUserNavbar += `
         
         <li class="">
           <a data-uri="/admin">
@@ -106,22 +115,22 @@ async function renderNavbar() {
         </li>
       `;
     }
-  } else{
-    navbarHtml += `
+  } else {
+    anonymousUserNavbar += ` </ul></div>
     <div class="bottom-content">
+
     <li >
         <a href="/loginPage"  class="logBtn" id="login">
             <i class='bx bx-log-in icon' ></i>
             <span class="text nav-text">LOG IN </span>
         </a>
     </li>
-    </div>
-    `;
+`;
   }
 
-  navbarHtml += `
+  anonymousUserNavbar += `
 
-     <li class="mode">
+    <!--<li class="mode">
         <div class="sun-moon">
             <i class='bx bx-moon icon moon'></i>
             <i class='bx bx-sun icon sun'></i>
@@ -131,8 +140,8 @@ async function renderNavbar() {
         <div class="toggle-switch">
             <span class="switch"></span>
         </div>
-    </li>
-
+    </li>-->
+    
 </div>
 </div>
 
@@ -140,7 +149,7 @@ async function renderNavbar() {
 `;
 
   const navbar = document.querySelector('#navbarWrapper');
-  navbar.innerHTML = navbarHtml;
+  navbar.innerHTML = anonymousUserNavbar;
 
   const navbarElements = navbar.getElementsByTagName('a');
   const navbarElementsArray = Array.from(navbarElements);
@@ -184,6 +193,25 @@ async function renderNavbar() {
   });
 }
 
+async function memberInfos(){
+  // Récupère l'id membre dans l'URL
+  let idMember = new URLSearchParams(window.location.search).get("idMembre")
+  // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
+  if(!idMember) {
+    const local = await JSON.parse(window.localStorage.getItem("member"));
+    idMember = local.id_membre;
+  }
+  const request = {
+    method: "GET"
+  };
+  
+  // Récupère le membre en question
+  let response = await fetch(`api/members?id=${idMember}`, request);
+  response = await response.json();
+  const member = response[0];
+  return member;
+}
+
 /*
 Find the connected member and retrieve it
 */
@@ -192,29 +220,30 @@ Find the connected member and retrieve it
 //   idMember = local.id_membre;
 // }
 
-/* function navbarclick(){
-  const body = document.querySelector("body");
-  const sidebar = body.querySelector(".sidebar");
-  const toggle = body.querySelector(".toggle");
+// /* function navbarclick(){
+//   const body = document.querySelector("body");
+//   const sidebar = body.querySelector(".sidebar");
+//   const toggle = body.querySelector(".toggle");
 
-  toggle.addEventListener("click", () =>{
-    sidebar.classList.toggle("close");
-  });
-} */
+//   toggle.addEventListener("click", () =>{
+//     sidebar.classList.toggle("close");
+//   });
+// } */
 
- function darkmode() {
-   const body = document.querySelector('body');
-   const modeSwitch = body.querySelector('.toggle-switch');
-   const modeText = body.querySelector('.mode-text');
+// function darkmode() {
+//   const body = document.querySelector('body');
+//   const modeSwitch = body.querySelector('.toggle-switch');
+//   const modeText = body.querySelector('.mode-text');
 
-   modeSwitch.addEventListener('click', () => {
-     body.classList.toggle('dark');
-     if (body.classList.contains('dark')) {
-      modeText.innerText = 'Light mode';
-    } else {
-       modeText.innerText = 'Dark mode';
-     }
-   });
- }
+//   modeSwitch.addEventListener('click', () => {
+//     body.classList.toggle('dark');
+//     if (body.classList.contains('dark')) {
+//       modeText.innerText = 'Light mode';
+//     } else {
+//       modeText.innerText = 'Dark mode';
+//     }
+//   });
+// }
+
 
 export default Navbar;

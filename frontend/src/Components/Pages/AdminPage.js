@@ -1,19 +1,16 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import Navbar from '../Navbar/Navbar';
 // import Navigate from '../Router/Navigate'
 // import Navbar from '../Navbar/Navbar';
 
 
-const AdminPage = () => {
-    clearPage();
-    renderPageTitle("AdminPage");
-    renderadmin();
-  };
-
-async function renderadmin() {
+const renderadmin = async () => {
     const adminpage= `
-
+	<br> <br>
     <section class="h-100 gradient-custom">
 	<div class="containerwallet">
+	<br>
+	<h1> Admin zone </h1>
 		<div class="row d-flex justify-content-center my-4">
 			<div class="col-md-11" >
 			<div class="accordion" id="accordionPanelsStayOpenExample">
@@ -69,17 +66,20 @@ async function renderadmin() {
 /*
 Add all member find of all stats and all role
  */
-async function addAllMembers() {
+async function addAllMembers() { // parfois on fais ca en double
+	
 	
 	const adminMembers = document.querySelector("#adminMembers");
 	await addAdminMembers(adminMembers);  
 
+	
 	const activeMembers = document.querySelector("#activeMembers");
 	await addActiveMembers(activeMembers); 
 
 	
 	const bannedMembers = document.querySelector("#bannedMembers");
 	await addBannedMembers(bannedMembers); 
+	
   
 }
 
@@ -99,8 +99,10 @@ async function addAdminMembers(div) {
 
 	const body = document.createElement("tbody");	 
 	
+	const adminMail = await memberInfo();
+
 	allMembers.forEach(item => {
-	addAdminMember(item.email, item.id, body); });
+	addAdminMember(item.email, adminMail, body); });
 	
 	table.appendChild(body);
 	div.appendChild(table);
@@ -108,7 +110,7 @@ async function addAdminMembers(div) {
 
 
 /* 
-Get in back the members with a normal status
+Get in back the members admin
 @return all the members find
 */
 async function getAllAdminMembers() { 
@@ -122,7 +124,6 @@ async function getAllAdminMembers() {
 
   const response = await fetch("api/members/getAdminMembers", options);
  
-  // const response = await fetch("api/members/getActiveMembers", options);
   const allMembers = await response.json();
   
   return allMembers;
@@ -134,7 +135,8 @@ Add the member with normal status in a tr
 @param member : the member
 @param id : id of the member
 */
-function addAdminMember(member, id, body) {
+function addAdminMember(member, adminEmail, body) {
+
   const memberTr = document.createElement("tr");
   const name = document.createElement("td");
   name.style = "width: 20%";
@@ -150,6 +152,12 @@ function addAdminMember(member, id, body) {
   banButton.className = "btn btn-outline-danger";
   banButton.innerHTML = "Ban";
   banButton.setAttribute("member", member);
+  if(adminEmail === member){
+	banButton.disabled = true;
+	}
+	else {
+		banButton.disabled = false;
+	}
 
   
   banButton.addEventListener('click', async (e) => {
@@ -167,13 +175,14 @@ function addAdminMember(member, id, body) {
 		};
 			
 		const response = await fetch(`api/members/banOne`, request);
-		renderadmin();
 		if(response.status !== 200){
 		  // todo notification
 			  
 		}
 		if(response.status === 200){
-		  // todo : relancer la page
+			clearPage();
+			Navbar();
+			renderadmin();
 		  
 		}
 
@@ -186,13 +195,21 @@ function addAdminMember(member, id, body) {
   
 
   
+	
 // revoke begining	
 const revoke = document.createElement("td");
 revoke.style = "width: 30%";
 const revokeButton = document.createElement("button");
 revokeButton.className = "btn btn-outline-danger";
 revokeButton.innerHTML = "revoke";
+
 revokeButton.setAttribute("member", member);
+if(adminEmail === member){
+	revokeButton.disabled = true;
+	}
+	else {
+		revokeButton.disabled = false;
+	}
 
 
 revokeButton.addEventListener('click',async (e) => {
@@ -210,14 +227,15 @@ revokeButton.addEventListener('click',async (e) => {
    };
 	   
    const response = await fetch(`api/members/demoteOne`, request);
-   renderadmin();
    if(response.status !== 200){
 	 // todo notification
 		 
    }
    if(response.status === 200){
 	 // todo : relancer la page
-	 
+	 clearPage();
+	 Navbar();
+	 renderadmin();
    }
 
   } catch (err) {
@@ -227,8 +245,6 @@ revokeButton.addEventListener('click',async (e) => {
 revoke.appendChild(revokeButton);
 
 // grant end
-
-
   memberTr.appendChild(name);
   memberTr.appendChild(revoke);
   memberTr.appendChild(ban);
@@ -278,6 +294,7 @@ async function getAllActiveMembers() {
     };
 
 	const response = await fetch("api/members/getActiveMembers", options);
+	
 	const allMembers = await response.json();
 	
 	return allMembers;
@@ -322,7 +339,6 @@ function addActiveMember(member, id, body) {
 		  };
 		  	
 		  const response = await fetch(`api/members/banOne`, request);
-		  renderadmin();
 	
 		  if(response.status !== 200){
 			// todo notification
@@ -330,7 +346,8 @@ function addActiveMember(member, id, body) {
 		  }
 		  if(response.status === 200){
 			// todo : relancer la page
-			
+			clearPage();
+			renderadmin();
 		  }
 
 		 } catch (err) {
@@ -366,7 +383,6 @@ grantButton.addEventListener('click',async (e) => {
 	 };
 		 
 	 const response = await fetch(`api/members/promoteOne`, request);
-	 renderadmin();
 
 	 if(response.status !== 200){
 	   // todo notification
@@ -374,7 +390,8 @@ grantButton.addEventListener('click',async (e) => {
 	 }
 	 if(response.status === 200){
 	   // todo : relancer la page
-	   
+	   clearPage();
+		renderadmin();
 	 }
 
 	} catch (err) {
@@ -409,12 +426,14 @@ grant.appendChild(grantButton);
 /*
 Add all members find with a ban status 
  */
-async function addBannedMembers(div) {
-	const allMembers = await getAllBannedMembers();
+async function addBannedMembers(div) { // parfois on arrive 2 fois ici
+	
+	const allMembers = await getAllBannedMembers();// todo appel deux fois
 	const table = document.createElement("table");
 	table.className = "table";
 
 	const body = document.createElement("tbody");	 
+	
 	
 
 	allMembers.forEach(item => {
@@ -433,6 +452,7 @@ async function getAllBannedMembers() {
 		method: "GET",
     };
 
+	
 	const response = await fetch("/api/members/getBannedMembers", options);
 	const allMembers = await response.json();
 	
@@ -478,7 +498,7 @@ function addBannedMember(member, id, body) {
 		 };
 			 
 		 const response = await fetch(`api/members/unbanOne`, request);
-		 renderadmin();
+		 
    
 		 if(response.status !== 200){
 		   // todo notification
@@ -486,7 +506,9 @@ function addBannedMember(member, id, body) {
 		 }
 		 if(response.status === 200){
 		   // todo : relancer la page
-		   
+		   clearPage();
+			Navbar();
+			renderadmin();
 		 }
 
 		} catch (err) {
@@ -507,7 +529,24 @@ function addBannedMember(member, id, body) {
 
 
 
-
+  async function memberInfo(){
+	// Récupère l'id membre dans l'URL
+	let idMember = new URLSearchParams(window.location.search).get("idMembre")
+	// Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
+	if(!idMember) {
+	  const local = await JSON.parse(window.localStorage.getItem("member"));
+	  idMember = local.id_membre;
+	}
+	const request = {
+	  method: "GET"
+	};
+	
+	// Récupère le membre en question
+	let response = await fetch(`api/members?id=${idMember}`, request);
+	response = await response.json();
+	const member = response[0];
+	return member.email;
+  }
 
 
 
@@ -664,7 +703,6 @@ async function banMember() {
       Navigate('/');
       Navbar();
     } catch (err) {
-      console.error('LoginPage::error ', err);
     }
   });
   }
@@ -700,4 +738,12 @@ async function unbanMember() {
 */
 
 
-export default AdminPage;
+
+const PageAdmin = () => {
+	clearPage();
+	renderPageTitle('adminpage');
+	renderadmin();
+	};
+	
+	
+	export default PageAdmin;

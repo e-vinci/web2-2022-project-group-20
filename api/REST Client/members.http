@@ -1,5 +1,5 @@
 ### GET member by id
-GET http://localhost:3000/members/1
+GET http://localhost:3000/members/12
 
 ### GET all admin members
 GET http://localhost:3000/members/getAdminMembers
@@ -14,30 +14,30 @@ GET http://localhost:3000/members/getbannedMembers
 
 
 
-### Add credit to a member (email, credits)
+### Add credit to a member (id_member, credits)
 POST http://localhost:3000/members/addCredits
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be",
-    "credits":25
+    "id_member":12,
+    "credits":200
 }
 
 
-### Add credit to a member (email, credits)
+### Add credit to a member (id_member, credits)
 POST http://localhost:3000/members/addCredits
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be",
+    "id_member": 3,
     "credits":25
 }
-### Remove credit to a member (email, credits)
+### Remove credit to a member (id_member, credits)
 POST http://localhost:3000/members/removeCredits
 Content-Type: application/json
 
 {    
-    "email":"rayan.abarkan@student.vinci.be",
+    "id_member":3,
     "credits":25
 }
 
@@ -51,7 +51,7 @@ POST http://localhost:3000/members/promoteOne
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be"
+    "email":"oaz@vinci.be"
 }
 
 ### Revoke an active members (mail)
@@ -60,7 +60,7 @@ POST http://localhost:3000/members/demoteOne
 Content-Type: application/json
 
 {
-    "email":"rayan.abarkan@student.vinci.be"
+    "email":"oaz@vinci.be"
 }
 
 
@@ -78,5 +78,5 @@ POST http://localhost:3000/members/banOne
 Content-Type: application/json
 
 {    
-    "email":"olivier.bogearts@student.vinci.be"
+    "email":"oaz@vinci.be"
 }

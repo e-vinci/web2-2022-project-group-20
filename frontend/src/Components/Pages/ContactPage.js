@@ -10,6 +10,7 @@ const ContactPage = ()=>{
 function rendercontactusPage(){
     const render = `
 
+	  <h1> Contact </h1> <br><br><br>
     <form
     <div class="containercontact">
     <div class="contentcontact">

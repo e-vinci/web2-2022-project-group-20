@@ -27,6 +27,7 @@ import gameboyimg from '../../img/gameboy.png';
     let profilepage= `
     <section style="background-color: #eee;">
     <div class="containerpanier">
+    <h1> My Profil </h1> <br>
       <div class="row">
         <div class="col-lg-4">
           <div class="card mb-4">

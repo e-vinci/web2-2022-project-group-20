@@ -6,6 +6,7 @@ const AdressPage = ()=>{
 function renderAdressPage() {
     const render = `
     <div class="containercontact">
+	<h1> Adress </h1> <br>
 
     <div class="title">
         <h1>Ajout d'une Adresse</h1>
