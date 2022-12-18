@@ -1,8 +1,10 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import img from '../../img/No-Image-Found.png';
 
-const adresse = 'rue ernest laude 32';
-const googlemaplink = `<div class="mapouter"><div class="gmap_canvas"><iframe width="895" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${adresse}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><br><style>.mapouter{position:relative;text-align:right;height:482px;width:895px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:482px;width:895px;}</style></div></div>`;
+
+
+
+
 
 const ProductPage = async () => {
   clearPage();
@@ -12,9 +14,11 @@ const ProductPage = async () => {
 
 async function renderhomepage() {
   if (window.localStorage.getItem('member')) {
+    // eslint-disable-next-line no-console
     console.log("IS CONN");
     connectedProductPage();
   } else {
+    // eslint-disable-next-line no-console
     console.log("NOT CONN");
     disconnectedProductPage();
   }
@@ -38,6 +42,14 @@ async function connectedProductPage() {
   let isLikedResponse = await fetch(`api/favorites?id_membre=${idMember}&id_article=${idProduct}`);
   isLikedResponse = await isLikedResponse.json();
   const product = response[0];
+  
+  const adresse = await fetch(`http://localhost:3000/adresses?id=${product.id_adresse}`);
+  const adresseResponse = await adresse.json();
+
+  const adresseProduct = `${adresseResponse[0].rue  } ${adresseResponse[0].numero} ${  adresseResponse[0].code_postal  } ${  adresseResponse[0].ville} `;
+
+  const googlemaplink = `<div class="mapouter"><div class="gmap_canvas"><iframe width="895" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${adresseProduct}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><br><style>.mapouter{position:relative;text-align:right;height:482px;width:895px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:482px;width:895px;}</style></div></div>`;
+  
   let html = ` 
 <section style="background-color: #eee;">
 <div class="containerproduct py-5">
@@ -168,6 +180,14 @@ async function disconnectedProductPage() {
   let response = await fetch(`api/articles?id=${idProduct}`, request);
   response = await response.json();
   const product = response[0];
+
+  const adresse = await fetch(`http://localhost:3000/adresses?id=${product.id_adresse}`);
+  const adresseResponse = await adresse.json();
+
+  const adresseProduct = `${adresseResponse[0].rue  } ${adresseResponse[0].numero} ${  adresseResponse[0].code_postal  } ${  adresseResponse[0].ville} `;
+
+  const googlemaplink = `<div class="mapouter"><div class="gmap_canvas"><iframe width="895" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${adresseProduct}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><br><style>.mapouter{position:relative;text-align:right;height:482px;width:895px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:482px;width:895px;}</style></div></div>`;
+  
   let html = ` 
 <section style="background-color: #eee;">
 <div class="containerproduct py-5">

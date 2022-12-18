@@ -17,7 +17,7 @@ CREATE TABLE vinced.membres (
 
 CREATE TABLE vinced.adresses (
     id_adresse SERIAL PRIMARY KEY,
-    id_membre INTEGER NOT NULL REFERENCES vinced.membres,x
+    id_membre INTEGER NOT NULL REFERENCES vinced.membres,
     rue VARCHAR(100) NOT NULL,
     numero VARCHAR(5) NOT NULL,
     boite VARCHAR(5),
@@ -80,6 +80,7 @@ CREATE OR REPLACE VIEW vinced.cartes_articles AS
            a.date_pub,
            a.photo,
            a.status,
+           a.id_adresse,
            c.nom AS "categorie",
            ma.id_membre AS "id_acheteur",
            ma.nom AS "nom_acheteur",
@@ -101,7 +102,6 @@ SELECT m.id_membre,
        m.is_banned,
        m.image_profil,
        m.balance,
-       m.phone,
        ad.rue AS "street",
        ad.numero AS "number",
        ad.boite AS "box",

@@ -59,19 +59,19 @@ const articlesDB = {
                         prenom_acheteur,
                         id_vendeur,
                         nom_vendeur,
-                        prenom_vendeur
+                        prenom_vendeur,
+                        id_adresse
                 FROM vinced.cartes_articles
                 WHERE id_annonce = $1`,
       values: [id],
     };
-    try {
+
       const { rows } = await db.query(query);
       return rows;
-    } catch (e) {
-      throw new Error('Error while getting this article from the database.');
-    }
+
   },
   getArticleById: async (id) => {
+    // eslint-disable-next-line no-console
     console.log(`gef art ${id}`);
     const query = {
       text: `SELECT id_annonce,
@@ -209,6 +209,7 @@ const articlesDB = {
         const memberResponse = await memberModel.getMemberById(idMembre);
         const member = memberResponse[0];
         const article = await articlesDB.getArticleById(idArticle);
+        // eslint-disable-next-line no-console
         console.log(member.balance);
         if(member.balance - article.prix <0) return;
 
