@@ -53,18 +53,6 @@ async function renderNavbar() {
     
 `;
   if (member !== null) {
-    
-    if ( member.is_banned === false) {
-      anonymousUserNavbar += `
-        
-        <li class="">
-          <a data-uri="/admin">
-            <i class='bx bx-shield  icon' ></i>
-            <span class="text nav-text">Admin</span>
-          </a>
-        </li>
-      `;
-    }
     anonymousUserNavbar += `
       <li class="">
             <a data-uri="sell">
