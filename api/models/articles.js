@@ -72,7 +72,6 @@ const articlesDB = {
     }
   },
   getArticleById: async (id) => {
-    console.log(`gef art ${id}`);
     const query = {
       text: `SELECT id_annonce,
                               nom,
@@ -209,7 +208,6 @@ const articlesDB = {
         const memberResponse = await memberModel.getMemberById(idMembre);
         const member = memberResponse[0];
         const article = await articlesDB.getArticleById(idArticle);
-        console.log(member.balance);
         if(member.balance - article.prix <0) return;
 
         await memberModel.removeCredits(article.prix, article.id_acheteur);
