@@ -1,7 +1,7 @@
 
 import { clearPage, renderPageTitle } from '../../utils/render';
-import gameboyimg from '../../img/gameboy.png';
 
+import img from '../../img/No-Image-Found.png';
 
 
   const renderpanier = async () => {  
@@ -131,6 +131,24 @@ import gameboyimg from '../../img/gameboy.png';
           let infos = await fetch(`api/articles/user?id=${idMember}`, request);
           infos = await infos.json();
           const items = infos;
+
+
+          const getImg = await fetch(`http://localhost:3000/articles/pics`);
+          // eslint-disable-next-line no-shadow
+          const imgArray = await getImg.json();
+        
+          function getImgUrl(id) {
+            const imgFound = imgArray.find((e) => e.id_annonce === id);
+            // eslint-disable-next-line no-console
+            console.log(imgFound);
+            if (imgFound.photo === '0' || imgFound.photo === undefined) {
+              return img;
+            } 
+              return imgFound.photo;
+            
+          }
+
+
           items.forEach( article => {
           profilepage += `
           <div class="row">
@@ -146,7 +164,7 @@ import gameboyimg from '../../img/gameboy.png';
                   
                   <div class="progress rounded mb-2" style="height: 5px;">
                   </div>
-                  <img src="${gameboyimg}" id="id_img" class="d-block w-100" alt="...">
+                  <img src="${getImgUrl(article.id_annonce)}" id="id_img" class="d-block w-100" alt="...">
                 </div>
               </div>
               </div>

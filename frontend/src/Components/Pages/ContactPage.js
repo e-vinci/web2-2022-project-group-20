@@ -54,9 +54,9 @@ function rendercontactusPage(){
       </form>
       
       <div class="d-grid gap-2 col-6 mx-auto">
-      <button  id="popup"  class="btn btn-primary" type="button">SEND MESSAGE</button>
+      <button  id="send"  class="btn btn-primary" type"sumbit">SEND MESSAGE</button>
       </div>
-  
+    
     </div>
     </div>
   </div>
@@ -72,14 +72,31 @@ function rendercontactusPage(){
 
 
 
+/*
+function message(){
+  const Name = document.getElementById('name');
+  const email = document.getElementById('email');
+  const msg = document.getElementById('exampleFormControlTextarea1');
+  const success = document.getElementById('success');
+  const danger = document.getElementById('danger');
+  if(Name.value === '' || email.value === '' || msg.value === ''){
+    danger.style.display = 'block';
+}
+else {
+  setTimeout(() => {
+      Name.value = '';
+      email.value = '';
+      msg.value = '';
+  }, 2000);
+  success.style.display = 'block';
+}
+setTimeout(() => {
+  danger.style.display = 'none';
+  success.style.display = 'none';
+}, 4000);
 
-
-
-
-
-
-
-
+}
+*/
 
 
 
