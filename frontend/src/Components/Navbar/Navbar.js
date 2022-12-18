@@ -91,7 +91,6 @@ async function renderNavbar() {
     `;  
     const local = await JSON.parse(window.localStorage.getItem('member'));
     const isAdmin = local.is_admin;
-    console.log(isAdmin);
     if (isAdmin) {
       anonymousUserNavbar += `
         
