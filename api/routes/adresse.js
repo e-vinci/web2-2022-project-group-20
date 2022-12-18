@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
         return res.json(categories);
     }
     return res.sendStatus(502);
-
 }
 );
 
@@ -40,9 +39,13 @@ router.post("/", async (req, res) => {
         
     }
 
+    try {
         const newAdresse = await adresseModel.createAdresse(adresse);
         return res.json(newAdresse);
-
+    }
+    catch (e) {
+    return res.sendStatus(502);
+    }
 }
 );
 
