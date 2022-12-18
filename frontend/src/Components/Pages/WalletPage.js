@@ -1,8 +1,34 @@
-
+import { clearPage, renderPageTitle } from '../../utils/render';
 // import {Redirect} from "../Router/Router";
 // import Navbar from "../Navbar/Navbar";
 
 // import { loadUser } from "../../utils/loadUser"; 
+
+
+const renderWallet = async () => {  
+
+		 // Récupère l'id membre dans l'URL
+		 let idMember = new URLSearchParams(window.location.search).get("idMembre")
+		 
+		 // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
+		 if(!idMember) {
+			const local = await JSON.parse(window.localStorage.getItem("member"));
+			idMember = local.id_membre;
+		 }
+		 const request = {
+		   method: "GET"
+		 };
+		 
+		 // Récupère le membre en question
+		 let response = await fetch(`api/members?id=${idMember}`, request);
+		 response = await response.json();
+		 const member = response[0];
+		 const actualBalance = member.balance;
+		 /*
+		 if(!member && !idMember) {
+			redirection
+		  }
+		  */
 
 const walletpage= `
 
@@ -21,7 +47,7 @@ const walletpage= `
 					<div class="card-body">
 						<div class=" mt-5 mb-4">
               <font size="9">
-			  	${balance} €
+			  	${actualBalance} €
               </font>
 						</div><br>
 					</div>
@@ -37,14 +63,16 @@ const walletpage= `
 					</div>
 					<div class="card-body">
 						<div class="input-group mb-3">
-							<input class="form-control"  id="money-to-add-input" type="text" placeholder="Montant à ajouter" aria-describedby="basic-addon2">
+							
+							<input class="form-control"  type="number" id="money-to-add-input" placeholder="Montant à ajouter" aria-describedby="basic-addon2"/>
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" id="add-money-btn" type="button">Ajouter</button>
 							</div>
 						</div>
 
 						<div class="input-group mb-3">
-							<input class="form-control"  id="money-to-remove-input" type="text" placeholder="Montant à retirer" aria-describedby="basic-addon2">
+							<input class="form-control"  type="number" id="money-to-remove-input" placeholder="Montant à retirer" aria-describedby="basic-addon2"/>
+							
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" id="remove-money-btn" type="button">Retirer</button>
 							</div>
@@ -177,38 +205,10 @@ const walletpage= `
 </section>
     `;
 
-/*
-The render function
-*/	
-async function WalletPage() {
 	
 	// const member = findMember();
 	// const local = await JSON.parse(window.localStorage.getItem("member"));
 	
-
-		 // Récupère l'id membre dans l'URL
-	let idMember = new URLSearchParams(window.location.search).get("idMembre")
-		 
-		 // Vérifie si y a bien un membre dans l'URL, sinon prend celui en session
-		 if(!idMember) {
-			const local = await JSON.parse(window.localStorage.getItem("member"));
-			idMember = local.id_membre;
-		 }
-		 const request = {
-		   method: "GET"
-		 };
-		 
-		 // Récupère le membre en question
-		 let response = await fetch(`api/members?id=${idMember}`, request);
-		 response = await response.json();
-		 const member = response[0];
-		 const actualBalance = member.balance;
-		 /*
-		 if(!member && !idMember) {
-			redirection
-		  }
-		  */
-
 
 		const main = document.querySelector('main');
 		main.innerHTML = walletpage;
@@ -217,50 +217,80 @@ async function WalletPage() {
 		const removeMoney = document.querySelector("#remove-money-btn");
 
 
-		addMoney.addEventListener("click", addOnClick(idMember)); // ("click", addOnClick, user);
-		// removeMoney.addEventListener("click", removeOnClick(idMember,actualBalance));
-		  
-		
-		removeMoney.addEventListener('click',async (e) => {
-			try {
+		addMoney.addEventListener('click',async (e) => {
 			e.preventDefault();	
-			const idMemberToRemove = new URLSearchParams(window.location.search).get("idMembre")
-	
+			const credits = document.querySelector('#money-to-add-input');
 			
-			const credits = document.getElementById("money-to-remove-input").value;
-		
-			if(actualBalance >= credits.value){
-				errorMessage("Vous ne pouvez pas retirer cette somme.");
+			if(!credits.value || credits.value <= 0 ){
+				errorMessage("Vous ne pouvez pas ajouter cette somme.");
 				return;
 			}
-
 			const options = {
 				method: "POST", // *GET, POST, PUT, DELETE, etc.
 				body: JSON.stringify(
 				{
 					credits: credits.value,
-					id_member: idMemberToRemove,
+					id_member: idMember,
+				}), // body data type must match "Content-Type" header
+				headers: {
+					"Content-Type": "application/json",
+				},
+				};
+				const responseAdd = await fetch("/api/members/addCredits", options); // fetch return a promise => we wait for the response
+				
+				if (!responseAdd.ok) {
+					if (response.status === 304) errorMessage("Crédits non-ajoutés");
+					if (response.status === 420) errorMessage("Paramètres invalides");
+					else errorMessage("Un probleme est survenu lors de l'ajout");
+					throw new Error(response.status +  response.statusText
+					);
+				}
+		
+				notificationMessage("Ajout réussi !");
+				renderWallet();
+			
+		});
+		  
+		
+		removeMoney.addEventListener('click',async (e) => {
+			e.preventDefault();	
+			
+			const credits = document.querySelector('#money-to-remove-input');
+
+			
+			if(!credits.value || actualBalance < credits.value || credits.value <= 0 ){
+				errorMessage("Vous ne pouvez pas retirer cette somme.");
+				
+				return;
+			}
+			
+			const options = {
+				method: "POST", // *GET, POST, PUT, DELETE, etc.
+				body: JSON.stringify(
+				{
+					credits: credits.value,
+					id_member: idMember,
 				}), // body data type must match "Content-Type" header
 				headers: {
 					"Content-Type": "application/json",
 				},
 				};
 				
-				const responseRemove = await fetch("/api/users/removeCredits", options); // fetch return a promise => we wait for the response
+				const responseRemove = await fetch("/api/members/removeCredits", options); // fetch return a promise => we wait for the response
 		
 
-			if(responseRemove !== 200){
-			// todo notification
-				
-			}
-			if(responseRemove === 200){
-			// todo : relancer la page
-			
-			}
+				if (!responseRemove.ok) {
+					if (response.status === 304) errorMessage("Crédits non-retirés");
+					if (response.status === 420) errorMessage("Paramètres invalides");
+					else  errorMessage("Un probleme est survenu lors du retrait");
+					throw new Error(response.status +  response.statusText
+					);
+				}
+				// await WalletPage(); //renderAdmin();
+		
+				notificationMessage("Retrait réussi !");
+				renderWallet();
 
-			} catch (err) {
-			// todo : to delete
-			}
 		});
 	
 	
@@ -270,7 +300,7 @@ async function WalletPage() {
 
 /*
 Find the connected member and retrieve it
-*/
+
 // async function findMember(){	}
 
 // money-to-add-input   add-money-btn
@@ -303,11 +333,12 @@ async function addOnClick(Idmember) {
 			throw new Error(response.status +  response.statusText
 			);
 		}
-		await WalletPage();
 
 		notificationMessage("Ajout réussi !");
 
 	} catch (error) {		
+		
+		errorMessage("Un probleme est survenu lors du retrait");
 		errorMessage("Un probleme est survenu lors de l'ajout");
 	}
 }
@@ -372,7 +403,15 @@ function notificationMessage(message){
 	alertDiv.className ="alert alert-success";
 	alertDiv.innerHTML= message;
   }
+  
 
 
-export default WalletPage;
+const PageAdmin = () => {
+clearPage();
+renderPageTitle('adminpage');
+renderWallet();
+};
+
+
+export default PageAdmin;
 
